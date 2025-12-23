@@ -14,7 +14,8 @@ import {
   CheckCircle2,
   Bell,
   BarChart3,
-  HelpCircle
+  HelpCircle,
+  ArrowRight
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
