@@ -1,0 +1,135 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "sans-serif",
+      "count": 62
+    },
+    {
+      "family": "Roboto",
+      "count": 43
+    },
+    {
+      "family": "ui-sans-serif",
+      "count": 20
+    },
+    {
+      "family": "system-ui",
+      "count": 20
+    },
+    {
+      "family": "Apple Color Emoji",
+      "count": 20
+    },
+    {
+      "family": "Segoe UI Emoji",
+      "count": 20
+    },
+    {
+      "family": "Segoe UI Symbol",
+      "count": 20
+    },
+    {
+      "family": "Noto Color Emoji",
+      "count": 20
+    },
+    {
+      "family": "Outfit",
+      "count": 6
+    },
+    {
+      "family": "DM Serif Display",
+      "count": 1
+    }
+  ],
+  "colors": {
+    "primary": "#E4EBF7",
+    "accent": "#142C41",
+    "background": "#FFFFFF",
+    "textPrimary": "#142C41",
+    "link": "#142C41"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "ui-sans-serif",
+      "heading": "ui-sans-serif"
+    },
+    "fontStacks": {
+      "body": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "heading": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "paragraph": [
+        "Roboto",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "16px",
+      "h2": "42px",
+      "body": "18px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 12,
+    "borderRadius": "0px"
+  },
+  "components": {
+    "input": {
+      "background": "transparent",
+      "textColor": "#000000",
+      "borderColor": null,
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": "https://myhomeenergy.pseg.com/favicon.ico",
+    "ogImage": null
+  },
+  "__framework_hints": [],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Strong indicators: header logo linking to homepage, header location, visible, highest logo on page, src contains logo, reasonable size. Score: 107 (clear winner by 107 points)",
+    "confidence": 0.9
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "confidence": 0
+  },
+  "confidence": {
+    "buttons": 0,
+    "colors": 0,
+    "overall": 0
+  }
+}

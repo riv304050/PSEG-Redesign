@@ -1,0 +1,316 @@
+Product Requirements Document (PRD)
+
+Product Name
+
+PSE&G Customer Website Redesign – Intelligent Front Door
+
+Author / Owner
+
+(Product / CX / Digital Team)
+
+Date
+
+(Insert date)
+
+Status
+
+Draft
+
+1. Background & Context
+
+The current PSE&G customer website (nj.pseg.com) has grown organically over time to support many use cases: billing, outages, safety education, energy efficiency, WorryFree services, business services, and community information. While comprehensive, the experience is navigation-heavy, content-dense, and requires customers to know where to go rather than simply what they want to do.
+
+Customer research and behavioral data consistently show that most visits are task-driven and time-sensitive:
+
+Pay a bill
+
+Report or check an outage
+
+Start/stop/move service
+
+Get help paying a bill
+
+Find safety or emergency information
+
+This redesign introduces an Intelligent Front Door — a task-first, conversational, and personalized entry point that quickly routes customers to the right outcome while still allowing room for promotional, regulatory, and educational content.
+
+2. Goals & Objectives
+
+Primary Goals
+
+Reduce time-to-task completion for top customer transactions
+
+Decrease navigation friction and menu depth
+
+Increase successful self-service completion rates
+
+Improve customer satisfaction (CSAT) and digital containment
+
+Create a scalable foundation for personalization and AI-assisted support
+
+Secondary Goals
+
+Increase adoption of digital tools (alerts, paperless billing, app)
+
+Surface relevant programs (payment assistance, energy efficiency, WorryFree)
+
+Support regulatory and safety communication requirements
+
+3. Success Metrics (KPIs)
+
+Core Metrics
+
+Task completion rate (Pay Bill, Report Outage, Start/Stop Service)
+
+Average time to complete top 5 tasks
+
+Search/chat resolution rate without escalation
+
+Reduction in call center volume for digital-eligible tasks
+
+Experience Metrics
+
+CSAT / CES for digital journeys
+
+Bounce rate on landing page
+
+Engagement with Intelligent Search
+
+4. Target Users
+
+Primary Users
+
+Residential customers (logged in & logged out)
+
+Customers in urgent situations (outages, gas leaks)
+
+Secondary Users
+
+Small business customers
+
+Contractors
+
+Community members seeking project or safety information
+
+User Contexts
+
+Normal day-to-day account management
+
+High-stress scenarios (storms, outages, billing hardship)
+
+Mobile-first usage during emergencies
+
+5. Core Concept: Intelligent Front Door
+
+Definition
+
+The Intelligent Front Door is a redesigned landing experience that prioritizes:
+
+Immediate access to core transactions
+
+Conversational, intent-based search
+
+Context-aware personalization
+
+The landing page is not a content index — it is a decision accelerator.
+
+6. Landing Page Requirements
+
+6.1 Layout Principles
+
+Minimal cognitive load
+
+Clear visual hierarchy
+
+Mobile-first design
+
+Fast load performance
+
+6.2 Above-the-Fold Content (Required)
+
+A. Intelligent Search / Chat Entry (Primary CTA)
+
+Prominent conversational input ("How can we help today?")
+
+Accepts natural language (e.g., "power is out", "need help paying bill")
+
+Supports both typed and suggested prompts
+
+B. Core Transaction Shortcuts
+
+Displayed as large, accessible action tiles:
+
+Pay My Bill
+
+Report / Check Outage
+
+Start / Stop / Move Service
+
+Get Help Paying My Bill
+
+Emergencies & Safety
+
+C. Alerts & Status Messaging
+
+Real-time outage or storm alerts (geo-aware if permitted)
+
+Account-specific alerts for logged-in users (bill due, service issue)
+
+6.3 Promotional / Informational Zone (Secondary)
+
+Utility-controlled messaging (regulatory, seasonal, programs)
+
+Dynamic but constrained (no more than 25–30% of page height)
+
+Rotational with governance rules
+
+7. Intelligent Search / Conversational Assistant
+
+7.1 Functional Requirements
+
+Natural language understanding (NLU)
+
+Intent detection (billing, outage, safety, service, fraud, etc.)
+
+Ability to route users to:
+
+Direct actions (deep links)
+
+Guided flows
+
+Relevant articles
+
+7.2 Experience Principles
+
+Task-first, not article-first
+
+Progressive disclosure (ask follow-ups only when needed)
+
+Clear confirmation of understanding ("Sounds like you want to…")
+
+7.3 Example User Inputs
+
+"My power went out"
+
+"I can’t pay my bill"
+
+"Move service next week"
+
+"Is this text from PSE&G a scam?"
+
+7.4 Escalation & Fallback
+
+Offer live support or phone options when confidence is low
+
+Always surface emergency paths immediately when detected
+
+8. Navigation & Information Architecture
+
+8.1 Global Navigation (Simplified)
+
+Proposed top-level nav:
+
+Account
+
+Outages
+
+Payments
+
+Safety
+
+Energy & Savings
+
+Business
+
+Help & Contact
+
+8.2 Navigation Rules
+
+No task deeper than 2 levels
+
+Redundant content consolidated
+
+Logged-in users see task-based shortcuts, not content lists
+
+9. Personalization & Context Awareness
+
+Logged-Out Users
+
+Geo-based outage messaging (if allowed)
+
+Seasonal or storm-related prioritization
+
+Logged-In Users
+
+Account-specific alerts
+
+Recently used actions
+
+Personalized recommendations (e.g., payment assistance, alerts signup)
+
+10. Accessibility & Compliance Requirements
+
+WCAG 2.2 AA compliance
+
+Keyboard and screen-reader friendly
+
+Plain language for critical tasks
+
+Multi-language support (English / Spanish minimum)
+
+11. Performance & Technical Requirements
+
+Page load under 2 seconds on mobile
+
+Scalable AI/search infrastructure
+
+High availability during storm events
+
+Analytics instrumentation for intent, success, and failure
+
+12. Risks & Mitigations
+
+Risk
+
+Mitigation
+
+AI gives incorrect guidance
+
+Confidence scoring + clear escalation
+
+Over-personalization
+
+User controls and transparency
+
+Storm traffic overload
+
+CDN, caching, simplified outage mode
+
+13. Future Enhancements (Not Day 1)
+
+Proactive alerts via chat ("We see an outage near you")
+
+Voice-based interaction
+
+Cross-channel continuity (web → app → SMS)
+
+Predictive assistance (bill shock warnings, outage prep)
+
+14. Open Questions
+
+Governance model for promotional content?
+
+Level of AI autonomy vs scripted flows?
+
+Regulatory approvals needed for conversational guidance?
+
+15. Appendix
+
+Current site inventory (reference)
+
+Key customer journeys
+
+Analytics baseline
+
+This PRD intentionally shifts the site from a navigation-first model to an intent-first model, with the Intelligent Front Door as the primary customer experience anchor.
+

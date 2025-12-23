@@ -1,0 +1,111 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Arial",
+      "count": 181
+    },
+    {
+      "family": "Verdana",
+      "count": 181
+    },
+    {
+      "family": "sans-serif",
+      "count": 181
+    },
+    {
+      "family": "roboto-condensed-300",
+      "count": 107
+    },
+    {
+      "family": "roboto-condensed-700",
+      "count": 34
+    },
+    {
+      "family": "roboto-condensed-regular",
+      "count": 17
+    },
+    {
+      "family": "roboto-condensed-medium",
+      "count": 15
+    },
+    {
+      "family": "roboto-regular",
+      "count": 4
+    }
+  ],
+  "colors": {
+    "primary": "#008297",
+    "accent": "#142C41",
+    "background": "#FFFFFF",
+    "textPrimary": "#142C41",
+    "link": "#142C41"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "roboto-condensed-300",
+      "heading": "roboto-condensed-300"
+    },
+    "fontStacks": {
+      "body": [
+        "roboto-condensed-300",
+        "Arial",
+        "Verdana",
+        "sans-serif"
+      ],
+      "heading": [
+        "roboto-condensed-300",
+        "Arial",
+        "Verdana",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "roboto-condensed-medium",
+        "Arial",
+        "Verdana",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "36px",
+      "h2": "21px",
+      "body": "14px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "4px"
+  },
+  "components": {},
+  "images": {
+    "logo": "https://nj.pseg.com/-/media/pseg/global/pseandg.ashx?h=62&w=225&la=en&hash=6423EEEE3A61205BC18796BAECE98097",
+    "favicon": "https://nj.pseg.com/Content/GlobalContent/images/favicon.ico",
+    "ogImage": null
+  },
+  "__framework_hints": [
+    "bootstrap"
+  ],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 3,
+    "reasoning": "Strong indicators: variant bonus (+8), header logo linking to homepage, header location, visible, class contains logo, alt contains brand name \"Home Page\", reasonable size. Score: 115 (clear winner by 27 points)",
+    "confidence": 0.9
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "confidence": 0
+  },
+  "confidence": {
+    "buttons": 0,
+    "colors": 0,
+    "overall": 0
+  }
+}
