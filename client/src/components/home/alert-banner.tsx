@@ -15,7 +15,7 @@ export function AlertBanner() {
         exit={{ height: 0, opacity: 0 }}
         className="bg-amber-50 border-b border-amber-200"
       >
-        <div className="container py-3 px-4 flex items-start sm:items-center justify-between gap-4">
+        <div className="container mx-auto py-3 px-4 flex items-start sm:items-center justify-between gap-4">
           <div className="flex items-start sm:items-center gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5 sm:mt-0" />
             <div className="text-sm text-amber-900">

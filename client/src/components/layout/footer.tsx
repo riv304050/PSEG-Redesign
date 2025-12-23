@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground py-12 mt-20">
-      <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <h3 className="text-lg font-semibold mb-4">Customer Support</h3>
           <ul className="space-y-2 text-sm text-primary-foreground/80">
@@ -43,7 +43,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="container mt-12 pt-8 border-t border-primary-foreground/20 text-center text-sm text-primary-foreground/60">
+      <div className="container mx-auto mt-12 pt-8 border-t border-primary-foreground/20 text-center text-sm text-primary-foreground/60">
         <p>&copy; {new Date().getFullYear()} Public Service Enterprise Group Incorporated. All Rights Reserved.</p>
       </div>
     </footer>

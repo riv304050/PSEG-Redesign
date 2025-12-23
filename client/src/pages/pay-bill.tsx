@@ -60,7 +60,7 @@ export default function PayBill() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 container py-12 max-w-2xl">
+      <main className="flex-1 container mx-auto py-12 max-w-2xl">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-foreground mb-2">Pay Your Bill</h1>
           <p className="text-muted-foreground">Securely pay your PSE&G bill online without logging in.</p>

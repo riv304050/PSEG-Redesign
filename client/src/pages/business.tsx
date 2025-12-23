@@ -6,7 +6,7 @@ export default function Business() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 container py-12">
+      <main className="flex-1 container mx-auto py-12">
         <div className="flex flex-col lg:flex-row gap-12 items-center mb-16">
           <div className="flex-1">
             <span className="text-sm font-bold text-primary uppercase tracking-wider mb-2 block">For Business</span>

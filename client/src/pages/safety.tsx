@@ -7,7 +7,7 @@ export default function Safety() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 container py-12">
+      <main className="flex-1 container mx-auto py-12">
         <h1 className="text-4xl font-bold text-foreground mb-6">Safety & Preparedness</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mb-12">
           Your safety is our top priority. Learn how to protect your family and home from electrical and gas hazards.

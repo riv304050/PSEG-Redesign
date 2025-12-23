@@ -49,7 +49,7 @@ export default function ReportOutage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 container py-12 max-w-3xl">
+      <main className="flex-1 container mx-auto py-12 max-w-3xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-3">
             <Zap className="h-8 w-8 text-amber-500" />

@@ -32,7 +32,7 @@ export function IntelligentSearch() {
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent" />
 
-      <div className="relative z-10 container grid lg:grid-cols-2 gap-12 px-4 py-20 items-center">
+      <div className="relative z-10 container mx-auto grid lg:grid-cols-2 gap-12 px-4 py-20 items-center">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

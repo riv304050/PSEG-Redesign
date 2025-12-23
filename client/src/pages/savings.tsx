@@ -8,7 +8,7 @@ export default function Savings() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
-      <main className="flex-1 container py-12">
+      <main className="flex-1 container mx-auto py-12">
         <h1 className="text-4xl font-bold text-foreground mb-6">Energy & Savings</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mb-12">
           Save money and reduce your carbon footprint with our energy efficiency programs and rebates.

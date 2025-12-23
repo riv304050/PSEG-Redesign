@@ -19,7 +19,7 @@ export default function Home() {
         
         {/* Promotional / Informational Zone */}
         <section className="py-16 px-4">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
               <div>
                 <span className="text-sm font-bold text-primary uppercase tracking-wider mb-2 block">Your Comfort</span>
@@ -86,7 +86,7 @@ export default function Home() {
 
         {/* Regulatory/Safety Section */}
         <section className="bg-white py-16 px-4 border-t">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
               <div className="max-w-2xl">
                 <h2 className="text-2xl font-bold text-foreground mb-3">Smell Gas? Act Fast.</h2>

@@ -72,7 +72,7 @@ export function ActionTiles() {
 
   return (
     <section className="py-12 -mt-16 relative z-20 px-4">
-      <div className="container">
+      <div className="container mx-auto">
         <motion.div 
           variants={container}
           initial="hidden"
