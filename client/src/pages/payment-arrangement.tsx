@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { 
   ArrowLeft, 
+  ArrowRight,
   CalendarClock, 
   DollarSign, 
   CheckCircle2, 
