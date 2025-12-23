@@ -13,11 +13,14 @@ import Business from "@/pages/business";
 import StartStopService from "@/pages/start-stop-service";
 import BillAssistance from "@/pages/bill-assistance";
 import SupportCenter from "@/pages/support-center";
+import AuthPage from "@/pages/auth";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/login" component={AuthPage} />
+      <Route path="/register" component={AuthPage} />
       <Route path="/pay-bill" component={PayBill} />
       <Route path="/report-outage" component={ReportOutage} />
       <Route path="/safety" component={Safety} />

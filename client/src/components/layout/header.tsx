@@ -231,10 +231,12 @@ export function Header() {
             <span className="sr-only">Search</span>
           </Button>
           
-          <Button variant="outline" className="hidden sm:flex gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-            <User className="h-4 w-4" />
-            Sign In
-          </Button>
+          <Link href="/login">
+            <Button variant="outline" className="hidden sm:flex gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+              <User className="h-4 w-4" />
+              Sign In
+            </Button>
+          </Link>
 
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -247,10 +249,12 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] overflow-y-auto">
               <div className="flex flex-col gap-6 mt-8">
                 <div className="flex items-center justify-center p-4 bg-muted/50 rounded-lg">
-                   <Button className="w-full gap-2">
-                    <User className="h-4 w-4" />
-                    Sign In / Register
-                  </Button>
+                   <Link href="/login" className="w-full">
+                     <Button className="w-full gap-2">
+                      <User className="h-4 w-4" />
+                      Sign In / Register
+                    </Button>
+                   </Link>
                 </div>
                 
                 <nav className="flex flex-col gap-2">
