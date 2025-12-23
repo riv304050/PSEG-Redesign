@@ -2,18 +2,33 @@ import { useState } from "react";
 import { Search, ArrowRight, Mic, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 import comfortImage from "@assets/generated_images/cozy_warm_living_room_interior.png";
 
 export function IntelligentSearch() {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [, setLocation] = useLocation();
 
   const suggestions = [
-    "My power went out",
-    "I can't pay my bill",
-    "Move service next week",
-    "Is this text from PSE&G a scam?"
+    { text: "My power went out", href: "/report-outage" },
+    { text: "I can't pay my bill", href: "/bill-assistance" },
+    { text: "Move service next week", href: "/start-stop-service" },
+    { text: "Safety information", href: "/safety" }
   ];
+
+  const handleSuggestionClick = (href: string) => {
+    setLocation(href);
+  };
+
+  const handleSearch = () => {
+     // Simple routing logic for the mockup
+     if (query.toLowerCase().includes("bill") || query.toLowerCase().includes("pay")) setLocation("/pay-bill");
+     else if (query.toLowerCase().includes("outage") || query.toLowerCase().includes("power")) setLocation("/report-outage");
+     else if (query.toLowerCase().includes("move") || query.toLowerCase().includes("service")) setLocation("/start-stop-service");
+     else if (query.toLowerCase().includes("help") || query.toLowerCase().includes("support")) setLocation("/support-center");
+     else setLocation("/support-center"); // Fallback
+  };
 
   return (
     <div className="relative w-full bg-primary overflow-hidden min-h-[550px] flex items-center justify-center">
@@ -79,9 +94,10 @@ export function IntelligentSearch() {
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
               {query && (
-                <Button size="icon" variant="ghost" className="text-primary hover:bg-primary/10">
+                <Button size="icon" variant="ghost" className="text-primary hover:bg-primary/10" onClick={handleSearch}>
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               )}
@@ -107,9 +123,9 @@ export function IntelligentSearch() {
                       <button
                         key={index}
                         className="w-full text-left px-3 py-3 text-foreground hover:bg-muted rounded-md transition-colors flex items-center group"
-                        onClick={() => setQuery(suggestion)}
+                        onMouseDown={() => handleSuggestionClick(suggestion.href)}
                       >
-                        <span className="flex-1">{suggestion}</span>
+                        <span className="flex-1">{suggestion.text}</span>
                         <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
                       </button>
                     ))}

@@ -10,6 +10,9 @@ import ReportOutage from "@/pages/report-outage";
 import Safety from "@/pages/safety";
 import Savings from "@/pages/savings";
 import Business from "@/pages/business";
+import StartStopService from "@/pages/start-stop-service";
+import BillAssistance from "@/pages/bill-assistance";
+import SupportCenter from "@/pages/support-center";
 
 function Router() {
   return (
@@ -20,11 +23,15 @@ function Router() {
       <Route path="/safety" component={Safety} />
       <Route path="/savings" component={Savings} />
       <Route path="/business" component={Business} />
+      <Route path="/start-stop-service" component={StartStopService} />
+      <Route path="/bill-assistance" component={BillAssistance} />
+      <Route path="/support-center" component={SupportCenter} />
+      
       {/* Fallback routes for demo links */}
       <Route path="/account" component={Home} /> 
       <Route path="/outages" component={ReportOutage} />
       <Route path="/payments" component={PayBill} />
-      <Route path="/help" component={Home} />
+      <Route path="/help" component={SupportCenter} />
       <Route component={NotFound} />
     </Switch>
   );

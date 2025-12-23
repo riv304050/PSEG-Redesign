@@ -27,7 +27,7 @@ export function ActionTiles() {
       icon: Home,
       label: "Start/Stop Service",
       description: "Moving center",
-      href: "#",
+      href: "/start-stop-service",
       borderColor: "group-hover:border-green-200",
       iconColor: "text-green-600",
       gradient: "from-green-50 to-white"
@@ -36,7 +36,7 @@ export function ActionTiles() {
       icon: FileQuestion,
       label: "Bill Assistance",
       description: "Get help paying",
-      href: "#",
+      href: "/bill-assistance",
       borderColor: "group-hover:border-purple-200",
       iconColor: "text-purple-600",
       gradient: "from-purple-50 to-white"
@@ -54,7 +54,7 @@ export function ActionTiles() {
       icon: LifeBuoy,
       label: "Support Center",
       description: "24/7 Service",
-      href: "#",
+      href: "/support-center",
       borderColor: "group-hover:border-sky-200",
       iconColor: "text-sky-600",
       gradient: "from-sky-50 to-white"

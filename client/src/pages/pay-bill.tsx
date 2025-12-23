@@ -3,17 +3,23 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, CreditCard, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
+import { Search, CreditCard, CheckCircle, ArrowRight, ArrowLeft, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
 const lookupSchema = z.object({
   accountNumber: z.string().min(10, "Account number must be at least 10 digits").max(20),
   zipCode: z.string().min(5, "ZIP code must be 5 digits").max(5),
+});
+
+const loginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
 });
 
 const paymentSchema = z.object({
@@ -26,10 +32,16 @@ const paymentSchema = z.object({
 export default function PayBill() {
   const [step, setStep] = useState(1);
   const [accountData, setAccountData] = useState<any>(null);
+  const [loginMode, setLoginMode] = useState("guest");
 
   const lookupForm = useForm<z.infer<typeof lookupSchema>>({
     resolver: zodResolver(lookupSchema),
     defaultValues: { accountNumber: "", zipCode: "" },
+  });
+
+  const loginForm = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { username: "", password: "" },
   });
 
   const paymentForm = useForm<z.infer<typeof paymentSchema>>({
@@ -38,6 +50,14 @@ export default function PayBill() {
   });
 
   const onLookupSubmit = (values: z.infer<typeof lookupSchema>) => {
+    simulateAccountFetch();
+  };
+
+  const onLoginSubmit = (values: z.infer<typeof loginSchema>) => {
+    simulateAccountFetch();
+  };
+
+  const simulateAccountFetch = () => {
     // Mock lookup
     setTimeout(() => {
       setAccountData({
@@ -63,7 +83,7 @@ export default function PayBill() {
       <main className="flex-1 container mx-auto py-12 max-w-2xl">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-foreground mb-2">Pay Your Bill</h1>
-          <p className="text-muted-foreground">Securely pay your PSE&G bill online without logging in.</p>
+          <p className="text-muted-foreground">Securely pay your PSE&G bill online.</p>
         </div>
 
         {/* Progress Steps */}
@@ -74,12 +94,12 @@ export default function PayBill() {
                 {s === 3 ? <CheckCircle className="w-6 h-6" /> : s}
               </div>
               <span className="text-xs mt-2 font-medium text-muted-foreground">
-                {s === 1 ? "Find Account" : s === 2 ? "Payment" : "Confirmation"}
+                {s === 1 ? "Identify" : s === 2 ? "Payment" : "Confirmation"}
               </span>
             </div>
           ))}
           <div className="absolute left-0 w-full top-5 -z-10 px-12">
-             {/* Progress line connector (visual only for mockup simplicity) */}
+             {/* Progress line connector */}
           </div>
         </div>
 
@@ -94,42 +114,93 @@ export default function PayBill() {
               >
                 <CardHeader className="bg-primary/5 border-b border-primary/10">
                   <CardTitle>Find Your Account</CardTitle>
-                  <CardDescription>Enter your account number and ZIP code to locate your bill.</CardDescription>
+                  <CardDescription>Log in for saved methods or continue as a guest.</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-6">
-                  <Form {...lookupForm}>
-                    <form onSubmit={lookupForm.handleSubmit(onLookupSubmit)} className="space-y-4">
-                      <FormField
-                        control={lookupForm.control}
-                        name="accountNumber"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Account Number</FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g. 1234567890" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={lookupForm.control}
-                        name="zipCode"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>ZIP Code</FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g. 07102" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" className="w-full mt-4" disabled={lookupForm.formState.isSubmitting}>
-                        {lookupForm.formState.isSubmitting ? "Searching..." : "Find My Bill"}
-                      </Button>
-                    </form>
-                  </Form>
+                  
+                  <Tabs defaultValue="guest" onValueChange={setLoginMode} className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 mb-6">
+                      <TabsTrigger value="guest">Guest Pay</TabsTrigger>
+                      <TabsTrigger value="login">Log In</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="guest">
+                      <Form {...lookupForm}>
+                        <form onSubmit={lookupForm.handleSubmit(onLookupSubmit)} className="space-y-4">
+                          <FormField
+                            control={lookupForm.control}
+                            name="accountNumber"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Account Number</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g. 1234567890" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={lookupForm.control}
+                            name="zipCode"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>ZIP Code</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g. 07102" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <Button type="submit" className="w-full mt-4" disabled={lookupForm.formState.isSubmitting}>
+                            {lookupForm.formState.isSubmitting ? "Searching..." : "Find My Bill"}
+                          </Button>
+                        </form>
+                      </Form>
+                    </TabsContent>
+
+                    <TabsContent value="login">
+                      <Form {...loginForm}>
+                         <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
+                          <FormField
+                            control={loginForm.control}
+                            name="username"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Username / Email</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="name@example.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={loginForm.control}
+                            name="password"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                  <Input type="password" placeholder="••••••••" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                           <Button type="submit" className="w-full mt-4 gap-2" disabled={loginForm.formState.isSubmitting}>
+                            <LogIn className="w-4 h-4" />
+                            {loginForm.formState.isSubmitting ? "Logging In..." : "Log In & Pay"}
+                          </Button>
+                          <div className="text-center">
+                            <a href="#" className="text-sm text-primary hover:underline">Forgot password?</a>
+                          </div>
+                         </form>
+                      </Form>
+                    </TabsContent>
+                  </Tabs>
+
                 </CardContent>
               </motion.div>
             )}
