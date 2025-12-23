@@ -16,6 +16,7 @@ import SupportCenter from "@/pages/support-center";
 import AuthPage from "@/pages/auth";
 import Onboarding from "@/pages/onboarding";
 import Dashboard from "@/pages/dashboard";
+import PaymentArrangement from "@/pages/payment-arrangement";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/register" component={AuthPage} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/payment-arrangement" component={PaymentArrangement} />
       <Route path="/account" component={Dashboard} /> {/* Map Account to Dashboard */}
       <Route path="/pay-bill" component={PayBill} />
       <Route path="/report-outage" component={ReportOutage} />

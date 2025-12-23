@@ -49,7 +49,7 @@ const megaMenuData = {
     },
     items: [
       { title: "Make a Payment", href: "/pay-bill", icon: CreditCard },
-      { title: "Payment Assistance", href: "/payments/assistance", icon: HelpCircle },
+      { title: "Payment Assistance", href: "/payment-arrangement", icon: HelpCircle },
       { title: "Billing Options", href: "/payments/options", icon: FileText },
       { title: "Understand Your Bill", href: "/payments/explain", icon: Lightbulb },
     ]
