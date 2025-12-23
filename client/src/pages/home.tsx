@@ -5,7 +5,7 @@ import { ActionTiles } from "@/components/home/action-tiles";
 import { AlertBanner } from "@/components/home/alert-banner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf, ShieldCheck, Wallet, AlertTriangle } from "lucide-react";
+import { ArrowRight, Leaf, ShieldCheck, Wallet, AlertTriangle, Armchair } from "lucide-react";
 
 export default function Home() {
   return (
@@ -20,44 +20,66 @@ export default function Home() {
         {/* Promotional / Informational Zone */}
         <section className="py-16 px-4">
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
               <div>
-                <h2 className="text-3xl font-bold text-foreground mb-4">Energy Solutions for You</h2>
+                <span className="text-sm font-bold text-primary uppercase tracking-wider mb-2 block">Your Comfort</span>
+                <h2 className="text-3xl font-bold text-foreground mb-4">Worry-Free Comfort for Your Home</h2>
                 <p className="text-muted-foreground text-lg mb-6">
-                  Discover ways to save money, improve efficiency, and protect your home with our specialized programs.
+                   Your home is your sanctuary. We're dedicated to keeping it comfortable year-round with reliable energy and protection plans for your heating and cooling systems.
                 </p>
-                <Button className="gap-2">
-                  View All Programs <ArrowRight className="w-4 h-4" />
+                <ul className="space-y-3 mb-8">
+                   <li className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700"><Armchair className="w-4 h-4"/></div>
+                      <span className="font-medium text-foreground/80">Reliable heating & cooling</span>
+                   </li>
+                   <li className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700"><ShieldCheck className="w-4 h-4"/></div>
+                      <span className="font-medium text-foreground/80">24/7 Appliance protection</span>
+                   </li>
+                </ul>
+                <Button className="gap-2 bg-foreground text-white hover:bg-primary">
+                  Explore Protection Plans <ArrowRight className="w-4 h-4" />
                 </Button>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-green-500">
-                  <CardContent className="p-6">
-                    <Leaf className="w-8 h-8 text-green-600 mb-4" />
-                    <h3 className="font-bold text-lg mb-2">Energy Efficiency</h3>
-                    <p className="text-sm text-muted-foreground">Rebates and tips to lower your consumption.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-blue-500">
-                  <CardContent className="p-6">
-                    <ShieldCheck className="w-8 h-8 text-blue-600 mb-4" />
-                    <h3 className="font-bold text-lg mb-2">WorryFree Protection</h3>
-                    <p className="text-sm text-muted-foreground">Cover your appliances from unexpected breakdowns.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-purple-500">
-                  <CardContent className="p-6">
-                    <Wallet className="w-8 h-8 text-purple-600 mb-4" />
-                    <h3 className="font-bold text-lg mb-2">Payment Assistance</h3>
-                    <p className="text-sm text-muted-foreground">Programs to help you manage your energy costs.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-primary/5 hover:shadow-md transition-shadow cursor-pointer border-dashed border-2 border-primary/20 flex items-center justify-center">
-                  <CardContent className="p-6 text-center">
-                    <p className="font-medium text-primary">See 12 more programs</p>
-                  </CardContent>
-                </Card>
+              <div className="relative">
+                 <div className="aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&q=80&w=1000" alt="Comfortable Family Home" className="w-full h-full object-cover" />
+                 </div>
+                 {/* Floating card */}
+                 <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-xl max-w-[200px] hidden md:block border-l-4 border-amber-400">
+                    <p className="text-sm font-bold text-foreground">"The peace of mind is worth every penny."</p>
+                    <div className="flex text-amber-400 mt-2">★★★★★</div>
+                 </div>
               </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-t-4 border-t-green-500">
+                <CardContent className="p-6">
+                  <Leaf className="w-8 h-8 text-green-600 mb-4" />
+                  <h3 className="font-bold text-lg mb-2">Energy Efficiency</h3>
+                  <p className="text-sm text-muted-foreground">Rebates and tips to lower your consumption.</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-t-4 border-t-blue-500">
+                <CardContent className="p-6">
+                  <ShieldCheck className="w-8 h-8 text-blue-600 mb-4" />
+                  <h3 className="font-bold text-lg mb-2">WorryFree Protection</h3>
+                  <p className="text-sm text-muted-foreground">Cover your appliances from unexpected breakdowns.</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-white hover:shadow-md transition-shadow cursor-pointer border-t-4 border-t-purple-500">
+                <CardContent className="p-6">
+                  <Wallet className="w-8 h-8 text-purple-600 mb-4" />
+                  <h3 className="font-bold text-lg mb-2">Payment Assistance</h3>
+                  <p className="text-sm text-muted-foreground">Programs to help you manage your energy costs.</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-primary/5 hover:shadow-md transition-shadow cursor-pointer border-dashed border-2 border-primary/20 flex items-center justify-center">
+                <CardContent className="p-6 text-center">
+                  <p className="font-medium text-primary">See 12 more programs</p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>

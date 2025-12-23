@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { CreditCard, Zap, Home, FileQuestion, LifeBuoy, AlertTriangle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "wouter";
 
 export function ActionTiles() {
   const actions = [
@@ -8,7 +9,7 @@ export function ActionTiles() {
       icon: CreditCard,
       label: "Pay My Bill",
       description: "View balance & make payments",
-      href: "#",
+      href: "/pay-bill",
       color: "text-blue-600",
       bg: "bg-blue-50"
     },
@@ -16,7 +17,7 @@ export function ActionTiles() {
       icon: Zap,
       label: "Report Outage",
       description: "Check status or report issue",
-      href: "#",
+      href: "/report-outage",
       color: "text-amber-600",
       bg: "bg-amber-50"
     },
@@ -40,7 +41,7 @@ export function ActionTiles() {
       icon: AlertTriangle,
       label: "Emergencies",
       description: "Gas leaks & downed wires",
-      href: "#",
+      href: "/report-outage",
       color: "text-red-600",
       bg: "bg-red-50"
     },
@@ -79,22 +80,19 @@ export function ActionTiles() {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
         >
           {actions.map((action, index) => (
-            <motion.a 
-              key={index} 
-              href={action.href}
-              variants={item}
-              className="block group h-full"
-            >
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden">
-                <CardContent className="p-6 flex flex-col items-center text-center h-full justify-center">
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 ${action.bg} ${action.color} group-hover:scale-110 transition-transform duration-300`}>
-                    <action.icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{action.label}</h3>
-                  <p className="text-xs text-muted-foreground">{action.description}</p>
-                </CardContent>
-              </Card>
-            </motion.a>
+            <Link key={index} href={action.href}>
+              <a className="block group h-full">
+                <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden">
+                  <CardContent className="p-6 flex flex-col items-center text-center h-full justify-center">
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 ${action.bg} ${action.color} group-hover:scale-110 transition-transform duration-300`}>
+                      <action.icon className="w-7 h-7" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{action.label}</h3>
+                    <p className="text-xs text-muted-foreground">{action.description}</p>
+                  </CardContent>
+                </Card>
+              </a>
+            </Link>
           ))}
         </motion.div>
       </div>
