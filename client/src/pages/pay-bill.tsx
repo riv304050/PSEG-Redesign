@@ -29,6 +29,8 @@ const paymentSchema = z.object({
   cvc: z.string().min(3, "CVC required"),
 });
 
+import { Link } from "wouter";
+
 export default function PayBill() {
   const [step, setStep] = useState(1);
   const [accountData, setAccountData] = useState<any>(null);
@@ -303,6 +305,11 @@ export default function PayBill() {
                         <Button type="submit" className="flex-[2]" disabled={paymentForm.formState.isSubmitting}>
                           {paymentForm.formState.isSubmitting ? "Processing..." : `Pay $${paymentForm.getValues('amount')}`}
                         </Button>
+                      </div>
+                      <div className="text-center mt-4">
+                         <Link href="/payment-arrangement">
+                           <a className="text-sm text-primary hover:underline">Trouble paying? Set up an arrangement</a>
+                         </Link>
                       </div>
                     </form>
                   </Form>

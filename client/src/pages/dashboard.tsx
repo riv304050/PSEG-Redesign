@@ -101,6 +101,11 @@ export default function Dashboard() {
                          <Button variant="outline" className="flex-1 text-xs h-8">View PDF</Button>
                          <Button variant="outline" className="flex-1 text-xs h-8">History</Button>
                        </div>
+                       <div className="text-center pt-2">
+                         <Link href="/payment-arrangement">
+                           <a className="text-xs text-primary hover:underline font-medium">Need help paying? View options</a>
+                         </Link>
+                       </div>
                     </div>
                   </CardContent>
                 </Card>
