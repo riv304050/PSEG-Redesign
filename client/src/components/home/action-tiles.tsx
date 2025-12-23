@@ -8,50 +8,56 @@ export function ActionTiles() {
     {
       icon: CreditCard,
       label: "Pay My Bill",
-      description: "View balance & make payments",
+      description: "Secure payment",
       href: "/pay-bill",
-      color: "text-blue-600",
-      bg: "bg-blue-50"
+      borderColor: "group-hover:border-blue-200",
+      iconColor: "text-blue-600",
+      gradient: "from-blue-50 to-white"
     },
     {
       icon: Zap,
       label: "Report Outage",
-      description: "Check status or report issue",
+      description: "Status & reporting",
       href: "/report-outage",
-      color: "text-amber-600",
-      bg: "bg-amber-50"
+      borderColor: "group-hover:border-amber-200",
+      iconColor: "text-amber-600",
+      gradient: "from-amber-50 to-white"
     },
     {
       icon: Home,
       label: "Start/Stop Service",
-      description: "Moving? Update your service",
+      description: "Moving center",
       href: "#",
-      color: "text-green-600",
-      bg: "bg-green-50"
+      borderColor: "group-hover:border-green-200",
+      iconColor: "text-green-600",
+      gradient: "from-green-50 to-white"
     },
     {
       icon: FileQuestion,
-      label: "Help Paying Bill",
-      description: "Assistance programs & plans",
+      label: "Bill Assistance",
+      description: "Get help paying",
       href: "#",
-      color: "text-purple-600",
-      bg: "bg-purple-50"
+      borderColor: "group-hover:border-purple-200",
+      iconColor: "text-purple-600",
+      gradient: "from-purple-50 to-white"
     },
     {
       icon: AlertTriangle,
       label: "Emergencies",
-      description: "Gas leaks & downed wires",
+      description: "Gas & wire safety",
       href: "/report-outage",
-      color: "text-red-600",
-      bg: "bg-red-50"
+      borderColor: "group-hover:border-red-200",
+      iconColor: "text-red-600",
+      gradient: "from-red-50 to-white"
     },
     {
       icon: LifeBuoy,
       label: "Support Center",
-      description: "FAQs & customer service",
+      description: "24/7 Service",
       href: "#",
-      color: "text-primary",
-      bg: "bg-primary/5"
+      borderColor: "group-hover:border-sky-200",
+      iconColor: "text-sky-600",
+      gradient: "from-sky-50 to-white"
     }
   ];
 
@@ -82,13 +88,18 @@ export function ActionTiles() {
           {actions.map((action, index) => (
             <Link key={index} href={action.href}>
               <a className="block group h-full">
-                <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden">
-                  <CardContent className="p-6 flex flex-col items-center text-center h-full justify-center">
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 ${action.bg} ${action.color} group-hover:scale-110 transition-transform duration-300`}>
-                      <action.icon className="w-7 h-7" />
+                <Card className={`h-full border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden ${action.borderColor} group-hover:border`}>
+                  <CardContent className="p-0 h-full">
+                    <div className={`h-1.5 w-full bg-gradient-to-r ${action.gradient.replace('to-white', '')} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                    <div className="p-6 flex flex-col items-center text-center h-full justify-center">
+                      <div className={`mb-4 p-3 rounded-2xl bg-slate-50 group-hover:bg-white group-hover:shadow-sm transition-all duration-300 ${action.iconColor}`}>
+                        <action.icon className="w-8 h-8" strokeWidth={1.5} />
+                      </div>
+                      <h3 className="font-semibold text-foreground text-sm md:text-base mb-1 group-hover:text-primary transition-colors leading-tight">
+                        {action.label}
+                      </h3>
+                      <p className="text-xs text-muted-foreground/80 font-medium">{action.description}</p>
                     </div>
-                    <h3 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{action.label}</h3>
-                    <p className="text-xs text-muted-foreground">{action.description}</p>
                   </CardContent>
                 </Card>
               </a>
