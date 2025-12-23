@@ -61,12 +61,12 @@ export default function AuthPage() {
   const onRegister = (values: z.infer<typeof registerSchema>) => {
     setEmail(values.email);
     // Mock successful registration, move to dashboard or MFA
-    setTimeout(() => setLocation("/"), 1000);
+    setTimeout(() => setLocation("/onboarding"), 1000);
   };
 
   const onMfaSubmit = (values: z.infer<typeof mfaSchema>) => {
-    // Mock verify
-    setTimeout(() => setLocation("/"), 800);
+    // Mock verify - go to onboarding flow instead of direct home
+    setTimeout(() => setLocation("/onboarding"), 800);
   };
 
   const sendMagicLink = () => {

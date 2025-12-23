@@ -14,6 +14,8 @@ import StartStopService from "@/pages/start-stop-service";
 import BillAssistance from "@/pages/bill-assistance";
 import SupportCenter from "@/pages/support-center";
 import AuthPage from "@/pages/auth";
+import Onboarding from "@/pages/onboarding";
+import Dashboard from "@/pages/dashboard";
 
 function Router() {
   return (
@@ -21,6 +23,9 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/login" component={AuthPage} />
       <Route path="/register" component={AuthPage} />
+      <Route path="/onboarding" component={Onboarding} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/account" component={Dashboard} /> {/* Map Account to Dashboard */}
       <Route path="/pay-bill" component={PayBill} />
       <Route path="/report-outage" component={ReportOutage} />
       <Route path="/safety" component={Safety} />
