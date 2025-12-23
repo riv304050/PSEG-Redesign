@@ -19,9 +19,9 @@ export function ActionTiles() {
       label: "Report Outage",
       description: "Status & reporting",
       href: "/report-outage",
-      borderColor: "group-hover:border-amber-200",
-      iconColor: "text-amber-600",
-      gradient: "from-amber-50 to-white"
+      borderColor: "group-hover:border-brand-orange",
+      iconColor: "text-brand-orange",
+      gradient: "from-orange-50 to-white"
     },
     {
       icon: Home,
@@ -83,25 +83,22 @@ export function ActionTiles() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 border border-border/50 bg-white shadow-xl"
         >
           {actions.map((action, index) => (
             <Link key={index} href={action.href}>
-              <a className="block group h-full">
-                <Card className={`h-full border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden ${action.borderColor} group-hover:border`}>
-                  <CardContent className="p-0 h-full">
-                    <div className={`h-1.5 w-full bg-gradient-to-r ${action.gradient.replace('to-white', '')} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                    <div className="p-6 flex flex-col items-center text-center h-full justify-center">
-                      <div className={`mb-4 p-3 rounded-2xl bg-slate-50 group-hover:bg-white group-hover:shadow-sm transition-all duration-300 ${action.iconColor}`}>
-                        <action.icon className="w-8 h-8" strokeWidth={1.5} />
-                      </div>
-                      <h3 className="font-semibold text-foreground text-sm md:text-base mb-1 group-hover:text-primary transition-colors leading-tight">
-                        {action.label}
-                      </h3>
-                      <p className="text-xs text-muted-foreground/80 font-medium">{action.description}</p>
+              <a className="block group h-full border-r border-b border-border/50 last:border-r-0 md:nth-3:border-r-0 lg:nth-3:border-r lg:last:border-r-0 hover:z-10 relative">
+                <div className={`h-full bg-white transition-all duration-300 hover:shadow-lg p-6 flex flex-col items-center text-center justify-center group-hover:bg-slate-50`}>
+                    <div className={`mb-4 p-3 rounded-none bg-transparent group-hover:scale-110 transition-transform duration-300 ${action.iconColor}`}>
+                      <action.icon className="w-8 h-8" strokeWidth={1.5} />
                     </div>
-                  </CardContent>
-                </Card>
+                    <h3 className="font-semibold text-foreground text-sm md:text-base mb-1 transition-colors leading-tight">
+                      {action.label}
+                    </h3>
+                    <p className="text-xs text-muted-foreground/80 font-medium">{action.description}</p>
+                    
+                    <div className="w-8 h-1 bg-brand-orange mt-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
               </a>
             </Link>
           ))}
