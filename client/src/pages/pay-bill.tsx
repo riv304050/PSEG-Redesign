@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, CreditCard, CheckCircle, ArrowRight, ArrowLeft, LogIn } from "lucide-react";
+import { Search, CreditCard, CheckCircle, ArrowRight, ArrowLeft, LogIn, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
@@ -35,6 +37,9 @@ export default function PayBill() {
   const [step, setStep] = useState(1);
   const [accountData, setAccountData] = useState<any>(null);
   const [loginMode, setLoginMode] = useState("guest");
+  
+  const [donationType, setDonationType] = useState<"none" | "roundup" | "custom">("none");
+  const [customDonation, setCustomDonation] = useState<string>("");
 
   const lookupForm = useForm<z.infer<typeof lookupSchema>>({
     resolver: zodResolver(lookupSchema),
@@ -78,6 +83,13 @@ export default function PayBill() {
       setStep(3);
     }, 1000);
   };
+
+  const watchedAmount = paymentForm.watch('amount');
+  const baseAmount = parseFloat(watchedAmount) || 0;
+  const roundUpAmount = Math.ceil(baseAmount) - baseAmount > 0 ? Math.ceil(baseAmount) - baseAmount : 1;
+  const customAmount = parseFloat(customDonation) || 0;
+  const donationValue = donationType === "roundup" ? roundUpAmount : (donationType === "custom" ? customAmount : 0);
+  const totalPayment = baseAmount + donationValue;
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
@@ -256,6 +268,63 @@ export default function PayBill() {
                           </FormItem>
                         )}
                       />
+
+                      {/* NJ Shares Donation Section */}
+                      <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-lg mt-6 mb-6">
+                        <div className="flex items-start gap-3">
+                          <div className="mt-1 bg-orange-100 p-1.5 rounded-full text-orange-600 shrink-0">
+                            <Heart className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-orange-900 text-sm mb-1">Help a neighbor in need with NJ SHARES</h4>
+                            <p className="text-xs text-orange-800/80 mb-4 leading-relaxed">
+                              Consider an optional, tax-deductible donation to help New Jersey families facing financial hardship keep their utilities on.
+                            </p>
+                            
+                            <div className="space-y-4">
+                              <div className="flex flex-col gap-2">
+                                <div className="flex items-center space-x-2">
+                                  <Checkbox 
+                                    id="roundup" 
+                                    checked={donationType === "roundup"}
+                                    onCheckedChange={(checked) => setDonationType(checked ? "roundup" : "none")}
+                                  />
+                                  <Label htmlFor="roundup" className="text-sm cursor-pointer font-normal">
+                                    Round up my payment to the nearest dollar (+${roundUpAmount.toFixed(2)})
+                                  </Label>
+                                </div>
+                              </div>
+                              
+                              <div className="flex flex-col gap-2">
+                                <div className="flex items-center space-x-2">
+                                  <Checkbox 
+                                     id="custom-donation"
+                                     checked={donationType === "custom"}
+                                     onCheckedChange={(checked) => setDonationType(checked ? "custom" : "none")}
+                                  />
+                                  <Label htmlFor="custom-donation" className="text-sm cursor-pointer font-normal">
+                                    Make a custom donation
+                                  </Label>
+                                </div>
+                                
+                                {donationType === "custom" && (
+                                  <div className="pl-6 pt-1">
+                                    <div className="relative w-32">
+                                      <span className="absolute left-3 top-2.5 text-muted-foreground text-sm">$</span>
+                                      <Input 
+                                        className="pl-7 h-9 text-sm bg-white" 
+                                        placeholder="0.00" 
+                                        value={customDonation}
+                                        onChange={(e) => setCustomDonation(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       
                       <div className="grid gap-4 sm:grid-cols-2">
                         <FormField
@@ -303,7 +372,7 @@ export default function PayBill() {
                       <div className="flex gap-3 pt-4">
                         <Button type="button" variant="outline" className="flex-1" onClick={() => setStep(1)}>Back</Button>
                         <Button type="submit" className="flex-[2]" disabled={paymentForm.formState.isSubmitting}>
-                          {paymentForm.formState.isSubmitting ? "Processing..." : `Pay $${paymentForm.getValues('amount')}`}
+                          {paymentForm.formState.isSubmitting ? "Processing..." : `Pay $${totalPayment.toFixed(2)}`}
                         </Button>
                       </div>
                       <div className="text-center mt-4">
@@ -329,7 +398,7 @@ export default function PayBill() {
                 </div>
                 <h2 className="text-2xl font-bold text-foreground mb-2">Payment Successful!</h2>
                 <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
-                  Your payment of <span className="font-semibold text-foreground">${paymentForm.getValues('amount')}</span> has been processed. A confirmation email has been sent to the address on file.
+                  Your payment of <span className="font-semibold text-foreground">${totalPayment.toFixed(2)}</span> has been processed. A confirmation email has been sent to the address on file.
                 </p>
                 <div className="flex justify-center gap-4">
                   <Button variant="outline" onClick={() => window.location.href = '/'}>Return Home</Button>
