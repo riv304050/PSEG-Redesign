@@ -48,11 +48,14 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
       <Header />
       
-      <main className="flex-1 py-8 px-4">
-        <div className="container mx-auto max-w-7xl">
+      <main className="flex-1 py-8 px-4 relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div className="container mx-auto max-w-7xl relative z-10">
           
           {/* Welcome Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -71,35 +74,37 @@ export default function Dashboard() {
           </div>
 
           <Tabs defaultValue="overview" className="space-y-8" onValueChange={setActiveTab}>
-            <TabsList className="bg-white p-1 border h-auto w-full md:w-auto overflow-x-auto flex-nowrap justify-start">
-              <TabsTrigger value="overview" className="px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-white">Overview</TabsTrigger>
-              <TabsTrigger value="usage" className="px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-white">Usage & Smart Meter</TabsTrigger>
-              <TabsTrigger value="billing" className="px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-white">Billing & Payments</TabsTrigger>
-              <TabsTrigger value="programs" className="px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-white">My Programs</TabsTrigger>
-            </TabsList>
+              <TabsList className="bg-white/50 backdrop-blur-sm p-1 border border-white/40 shadow-sm h-auto w-full md:w-auto overflow-x-auto flex-nowrap justify-start rounded-xl mb-6">
+                <TabsTrigger value="overview" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Overview</TabsTrigger>
+                <TabsTrigger value="usage" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Usage & Smart Meter</TabsTrigger>
+                <TabsTrigger value="billing" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Billing & Payments</TabsTrigger>
+                <TabsTrigger value="programs" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">My Programs</TabsTrigger>
+              </TabsList>
 
             {/* OVERVIEW TAB */}
-            <TabsContent value="overview" className="space-y-6">
+            <TabsContent value="overview" className="space-y-4">
               
-              {/* Primary Grid */}
-              <div className="grid md:grid-cols-3 gap-6">
+              {/* Bento Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 
-                {/* Bill Card */}
-                <Card className="border-t-4 border-t-primary shadow-sm hover:shadow-md transition-shadow">
+                {/* Bill Card (Large) */}
+                <Card className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Current Bill</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-4xl font-bold text-foreground">$142.50</span>
+                  <CardContent className="flex flex-col h-[calc(100%-3rem)] justify-between">
+                    <div>
+                      <div className="flex items-baseline gap-1 mb-1">
+                        <span className="text-5xl font-bold text-foreground">$142.50</span>
+                      </div>
+                      <p className="text-sm font-medium text-red-600 mb-6">Due in 3 days (Dec 26)</p>
                     </div>
-                    <p className="text-sm font-medium text-red-600 mb-6">Due in 3 days (Dec 26)</p>
                     
-                    <div className="flex flex-col gap-3">
-                       <Button className="w-full h-11 text-base shadow-lg shadow-primary/20">Pay Bill Now</Button>
+                    <div className="flex flex-col gap-3 mt-auto">
+                       <Button className="w-full h-12 text-base shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">Pay Bill Now</Button>
                        <div className="flex gap-2">
-                         <Button variant="outline" className="flex-1 text-xs h-8">View PDF</Button>
-                         <Button variant="outline" className="flex-1 text-xs h-8">History</Button>
+                         <Button variant="outline" className="flex-1 text-xs h-10 bg-white/50 hover:bg-white/80 transition-colors">View PDF</Button>
+                         <Button variant="outline" className="flex-1 text-xs h-10 bg-white/50 hover:bg-white/80 transition-colors">History</Button>
                        </div>
                        <div className="text-center pt-2">
                          <Link href="/payment-arrangement">
@@ -111,22 +116,22 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Usage Snapshot */}
-                <Card className="border-t-4 border-t-green-500 shadow-sm hover:shadow-md transition-shadow">
+                <Card className="col-span-1 md:col-span-1 lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Efficiency Status</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-green-100 rounded-full">
-                        <Leaf className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-bold">Good Job!</p>
-                        <p className="text-sm text-muted-foreground">You used 5% less than last month.</p>
+                    <div className="flex justify-between items-center">
+                      <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Efficiency Status</CardTitle>
+                      <div className="p-2 bg-green-100 rounded-none">
+                        <Leaf className="w-4 h-4 text-green-600" />
                       </div>
                     </div>
+                  </CardHeader>
+                  <CardContent className="flex flex-col h-[calc(100%-3.5rem)]">
+                    <div>
+                      <p className="text-xl font-bold text-foreground mb-1">Good Job!</p>
+                      <p className="text-sm text-muted-foreground mb-4">You used 5% less energy than last month.</p>
+                    </div>
                     
-                    <div className="h-[100px] w-full mt-2">
+                    <div className="h-[120px] w-full mt-auto">
                        <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={usageData.slice(-4)}>
                           <defs>
@@ -139,133 +144,142 @@ export default function Dashboard() {
                         </AreaChart>
                       </ResponsiveContainer>
                     </div>
-                    <Button variant="link" className="px-0 text-green-700 font-semibold" onClick={() => setActiveTab("usage")}>
+                    <Button variant="link" className="px-0 mt-4 text-green-700 font-semibold self-start" onClick={() => setActiveTab("usage")}>
                       View Detailed Analysis <ArrowRight className="w-4 h-4 ml-1" />
                     </Button>
                   </CardContent>
                 </Card>
 
                 {/* Outage Status */}
-                <Card className="border-t-4 border-t-blue-500 shadow-sm hover:shadow-md transition-shadow">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Service Status</CardTitle>
+                <Card className="col-span-1 md:col-span-1 lg:col-span-1 bg-blue-600 text-white shadow-md hover:shadow-lg hover:bg-blue-700 transition-all duration-300 relative overflow-hidden group cursor-pointer">
+                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-none group-hover:scale-150 transition-transform duration-500"></div>
+                  <CardHeader className="pb-2 relative z-10">
+                    <CardTitle className="text-sm font-medium text-blue-100 uppercase tracking-wider">Service Status</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-3 mb-6 bg-blue-50 p-3 rounded-lg border border-blue-100">
-                      <CheckCircle2 className="w-5 h-5 text-blue-600" />
-                      <span className="font-semibold text-blue-900">Power is On</span>
+                  <CardContent className="relative z-10 h-[calc(100%-3rem)] flex flex-col justify-between">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle2 className="w-8 h-8 text-white" />
+                      <span className="text-2xl font-bold">Power is On</span>
                     </div>
-                    <div className="space-y-4">
-                       <div className="flex justify-between items-center text-sm border-b pb-2">
-                         <span className="text-muted-foreground">Local Outages</span>
-                         <span className="font-medium">0 Reported</span>
-                       </div>
-                       <div className="flex justify-between items-center text-sm border-b pb-2">
-                         <span className="text-muted-foreground">Next Meter Read</span>
-                         <span className="font-medium">Jan 15, 2026</span>
-                       </div>
+                    <p className="text-sm text-blue-100 mt-2">0 local outages reported.</p>
+                    <div className="mt-4 flex items-center justify-between text-sm border-t border-white/20 pt-4">
+                      <span className="text-blue-100">Report Issue</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <Button variant="outline" className="w-full mt-5 gap-2 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800">
-                      <AlertTriangle className="w-4 h-4" /> Report an Issue
-                    </Button>
                   </CardContent>
+                </Card>
+
+                {/* Next Meter Read */}
+                <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-center items-center text-center">
+                   <CardContent className="p-6">
+                     <Calendar className="w-8 h-8 text-primary mx-auto mb-3 opacity-80" />
+                     <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Next Meter Read</p>
+                     <p className="text-xl font-bold text-foreground">Jan 15</p>
+                   </CardContent>
                 </Card>
               </div>
 
-              {/* Smart Recommendations */}
-              <div>
-                <h3 className="text-lg font-bold mb-4">Recommended for You</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="flex items-start gap-4 p-4 bg-white rounded-xl border shadow-sm hover:border-primary/30 transition-colors cursor-pointer">
-                    <div className="p-3 bg-brand-orange/10 rounded-lg text-brand-orange">
-                      <TrendingUp className="w-6 h-6" />
-                    </div>
-                    <div>
-                       <h4 className="font-bold text-foreground">Equal Payment Plan</h4>
-                       <p className="text-sm text-muted-foreground mt-1">Avoid seasonal spikes. Pay exactly <span className="font-semibold text-foreground">$115/mo</span> based on your history.</p>
-                       <Button variant="link" className="px-0 h-auto mt-2 font-semibold">Enroll Now</Button>
-                    </div>
+              {/* Recommendations Bento */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <div className="p-4 rounded-xl bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <TrendingUp className="w-6 h-6" />
                   </div>
-                  <div className="flex items-start gap-4 p-4 bg-white rounded-xl border shadow-sm hover:border-primary/30 transition-colors cursor-pointer">
-                    <div className="p-3 bg-purple-100 rounded-lg text-purple-600">
-                      <Smartphone className="w-6 h-6" />
-                    </div>
-                    <div>
-                       <h4 className="font-bold text-foreground">Get Outage Alerts</h4>
-                       <p className="text-sm text-muted-foreground mt-1">You aren't subscribed to text alerts. Get instant updates if power goes out.</p>
-                       <Button variant="link" className="px-0 h-auto mt-2 font-semibold">Turn on SMS Alerts</Button>
-                    </div>
+                  <div className="flex-1">
+                     <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-brand-orange transition-colors">Equal Payment Plan</h4>
+                     <p className="text-sm text-muted-foreground leading-relaxed">Avoid seasonal spikes. Pay exactly <span className="font-semibold text-foreground px-1 py-0.5 bg-white/50 rounded">$115/mo</span> based on history.</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-brand-orange/10 transition-colors">
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-brand-orange transition-colors" />
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <div className="p-4 rounded-xl bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                    <Smartphone className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                     <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-purple-600 transition-colors">Get Outage Alerts</h4>
+                     <p className="text-sm text-muted-foreground leading-relaxed">Stay informed. Get instant SMS updates directly to your phone if power goes out.</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-purple-600 transition-colors" />
                   </div>
                 </div>
               </div>
             </TabsContent>
 
             {/* USAGE TAB */}
-            <TabsContent value="usage" className="space-y-6">
-              <Card>
+            <TabsContent value="usage" className="space-y-4">
+              <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                      <CardTitle>Smart Meter Analysis</CardTitle>
+                      <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
                       <CardDescription>Your energy consumption over time</CardDescription>
                     </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white">Yearly</Button>
-                      <Button variant="ghost" size="sm">Monthly</Button>
-                      <Button variant="ghost" size="sm">Daily</Button>
+                    <div className="flex gap-2 bg-white/50 p-1 rounded-lg">
+                      <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-md">Yearly</Button>
+                      <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Monthly</Button>
+                      <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Daily</Button>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="h-[400px]">
+                <CardContent className="h-[400px] pt-4">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={usageData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="month" />
-                      <YAxis />
+                    <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                      <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} />
                       <Tooltip 
-                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                        cursor={{ fill: 'rgba(0,0,0,0.05)' }}
+                        contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
+                        cursor={{ fill: 'rgba(0,0,0,0.02)' }}
                       />
-                      <Legend />
-                      <Bar dataKey="kwh" name="Current Year" fill="#142C41" radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="prevYear" name="Last Year" fill="#e2e8f0" radius={[4, 4, 0, 0]} />
+                      <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                      <Bar dataKey="kwh" name="Current Year" fill="#142C41" radius={[6, 6, 0, 0]} barSize={32} />
+                      <Bar dataKey="prevYear" name="Last Year" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={32} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>Daily Insights</CardTitle>
+                    <CardTitle className="text-lg">Daily Insights</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-xl border border-green-100 shadow-sm">
                         <div className="flex items-center gap-3">
-                           <Calendar className="w-5 h-5 text-green-700" />
+                           <div className="p-2 bg-green-100 rounded-lg">
+                             <Calendar className="w-5 h-5 text-green-700" />
+                           </div>
                            <span className="font-medium text-green-900">Lowest Usage Day</span>
                         </div>
-                        <span className="font-bold text-green-900">Sundays</span>
+                        <span className="font-bold text-green-900 text-lg">Sundays</span>
                       </div>
-                      <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-100">
+                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-xl border border-amber-100 shadow-sm">
                         <div className="flex items-center gap-3">
-                           <Zap className="w-5 h-5 text-amber-700" />
+                           <div className="p-2 bg-amber-100 rounded-lg">
+                             <Zap className="w-5 h-5 text-amber-700" />
+                           </div>
                            <span className="font-medium text-amber-900">Peak Hours</span>
                         </div>
-                        <span className="font-bold text-amber-900">5:00 PM - 8:00 PM</span>
+                        <span className="font-bold text-amber-900 text-lg">5:00 PM - 8:00 PM</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
-                   <CardHeader>
-                     <CardTitle>Download Data</CardTitle>
+                <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-none shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                   <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-colors"></div>
+                   <CardHeader className="relative z-10">
+                     <CardTitle className="text-lg">Download Data</CardTitle>
                    </CardHeader>
-                   <CardContent>
-                     <p className="text-sm text-muted-foreground mb-4">Export your Green Button data for third-party analysis or personal records.</p>
-                     <Button variant="outline" className="w-full gap-2">
+                   <CardContent className="relative z-10 flex flex-col h-[calc(100%-4rem)] justify-between">
+                     <p className="text-sm text-slate-300 mb-6">Export your Green Button data for third-party analysis or personal records.</p>
+                     <Button className="w-full gap-2 bg-white/10 hover:bg-white/20 text-white border-none backdrop-blur-sm">
                        <Download className="w-4 h-4" /> Download XML / CSV
                      </Button>
                    </CardContent>
@@ -283,56 +297,63 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* PROGRAMS TAB */}
-            <TabsContent value="programs" className="space-y-6">
-              <div className="grid md:grid-cols-3 gap-6">
+            <TabsContent value="programs" className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                  {/* Enrolled Program */}
-                 <Card className="border-l-4 border-l-green-500">
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-green-500"></div>
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-2">
-                            <Leaf className="w-5 h-5 text-green-600" />
+                            <div className="p-2 bg-green-100 rounded-lg text-green-600">
+                              <Leaf className="w-5 h-5" />
+                            </div>
                             Paperless Billing
                          </CardTitle>
-                         <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-none">Enrolled</Badge>
+                         <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-none shadow-none">Enrolled</Badge>
                        </div>
-                       <CardDescription>Saving trees and reducing clutter.</CardDescription>
+                       <CardDescription className="pt-2">Saving trees and reducing clutter.</CardDescription>
                     </CardHeader>
-                    <CardFooter>
-                       <Button variant="link" className="px-0 text-muted-foreground">Manage Settings</Button>
+                    <CardFooter className="pt-2">
+                       <Button variant="ghost" className="w-full text-muted-foreground bg-white/50 hover:bg-white/80">Manage Settings</Button>
                     </CardFooter>
                  </Card>
 
                  {/* Available Program */}
-                 <Card>
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-2">
-                            <CreditCard className="w-5 h-5 text-primary" />
+                            <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                              <CreditCard className="w-5 h-5" />
+                            </div>
                             AutoPay
                          </CardTitle>
-                         <Badge variant="outline">Not Enrolled</Badge>
+                         <Badge variant="outline" className="bg-white/50">Not Enrolled</Badge>
                        </div>
-                       <CardDescription>Never miss a due date again.</CardDescription>
+                       <CardDescription className="pt-2">Never miss a due date again.</CardDescription>
                     </CardHeader>
-                    <CardFooter>
-                       <Button variant="default" size="sm">Enroll Now</Button>
+                    <CardFooter className="pt-2">
+                       <Button variant="default" className="w-full shadow-md shadow-primary/20">Enroll Now</Button>
                     </CardFooter>
                  </Card>
 
                  {/* Available Program */}
-                 <Card>
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-2">
-                            <TrendingUp className="w-5 h-5 text-primary" />
+                            <div className="p-2 bg-brand-orange/10 rounded-lg text-brand-orange">
+                              <TrendingUp className="w-5 h-5" />
+                            </div>
                             Equal Payment Plan
                          </CardTitle>
-                         <Badge variant="outline">Not Enrolled</Badge>
+                         <Badge variant="outline" className="bg-white/50">Not Enrolled</Badge>
                        </div>
-                       <CardDescription>Predictable monthly bills.</CardDescription>
+                       <CardDescription className="pt-2">Predictable monthly bills.</CardDescription>
                     </CardHeader>
-                    <CardFooter>
-                       <Button variant="default" size="sm">Enroll Now</Button>
+                    <CardFooter className="pt-2">
+                       <Button variant="default" className="w-full shadow-md shadow-primary/20">Enroll Now</Button>
                     </CardFooter>
                  </Card>
               </div>

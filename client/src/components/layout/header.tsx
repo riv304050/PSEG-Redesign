@@ -70,7 +70,7 @@ export function Header() {
   const [location] = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
       <div className="container mx-auto flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2 mr-8">
           <img src="/attached_assets/image_1766512486766.png" alt="PSE&G Logo" className="h-12 w-auto" />
