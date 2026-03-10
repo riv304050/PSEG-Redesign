@@ -1,7 +1,21 @@
+import { Zap } from "lucide-react";
+import { Link } from "wouter";
+
 export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground py-12 mt-20">
-      <div className="container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <Link href="/" className="flex items-center space-x-2 mb-4 group">
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
+              <Zap className="w-6 h-6 text-primary" />
+            </div>
+            <span className="font-bold text-xl tracking-tight text-white">EcoEnergy</span>
+          </Link>
+          <p className="text-white/70 max-w-xs text-sm leading-relaxed mb-6">
+            Empowering communities with reliable, sustainable energy solutions for a brighter tomorrow.
+          </p>
+        </div>
         <div>
           <h3 className="text-lg font-semibold mb-4">Customer Support</h3>
           <ul className="space-y-2 text-sm text-primary-foreground/80">

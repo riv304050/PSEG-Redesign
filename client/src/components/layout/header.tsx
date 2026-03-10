@@ -72,8 +72,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
       <div className="container mx-auto flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2 mr-8">
-          <img src="/attached_assets/image_1766512486766.png" alt="PSE&G Logo" className="h-12 w-auto" />
+        <Link href="/" className="flex items-center space-x-2 mr-8 group">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
+            <Zap className="w-6 h-6 text-white" />
+          </div>
+          <span className="font-bold text-xl tracking-tight text-foreground">EcoEnergy</span>
         </Link>
 
         {/* Desktop Mega Menu */}
