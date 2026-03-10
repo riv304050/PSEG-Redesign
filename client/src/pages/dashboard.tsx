@@ -193,6 +193,28 @@ export default function Dashboard() {
                 </Card>
               </div>
 
+              {/* Energy Savings CTA */}
+              <div className="mt-6 mb-4">
+                <Card className="bg-gradient-to-r from-green-600 to-emerald-800 text-white border-none shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+                  <CardContent className="p-8 md:p-10 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex-1">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full text-xs font-semibold mb-4 backdrop-blur-sm">
+                        <Leaf className="w-3 h-3" /> New Programs Available
+                      </div>
+                      <h2 className="text-2xl md:text-3xl font-bold mb-3">Stop paying for wasted energy.</h2>
+                      <p className="text-green-50 text-lg max-w-2xl">
+                        Get up to $7,500 in rebates and a free home energy assessment. See which programs you qualify for and start saving today.
+                      </p>
+                    </div>
+                    <Button className="bg-white text-green-700 hover:bg-green-50 shadow-lg px-8 py-6 text-lg rounded-xl whitespace-nowrap shrink-0 transition-transform hover:scale-105" onClick={() => setActiveTab("programs")}>
+                      Explore Programs <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+
               {/* Recommendations Bento */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                 <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
@@ -350,63 +372,131 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* PROGRAMS TAB */}
-            <TabsContent value="programs" className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                 {/* Enrolled Program */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1.5 h-full bg-green-500"></div>
+            <TabsContent value="programs" className="space-y-6">
+              
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">Available Rebates & Programs</h3>
+                <p className="text-muted-foreground">Take advantage of these offers to lower your bill and make your home more comfortable.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {/* Program 1 */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
-                         <CardTitle className="flex items-center gap-2">
-                            <div className="p-2 bg-green-100 rounded-lg text-green-600">
-                              <Leaf className="w-5 h-5" />
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-green-100 rounded-xl text-green-600">
+                              <Home className="w-6 h-6" />
+                            </div>
+                            Whole Home Energy Solutions
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Get a comprehensive home energy assessment, up to $7,500 in rebates, and interest-free financing for upgrades.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="default" className="w-full bg-green-600 hover:bg-green-700 shadow-md">Apply Now</Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 2 */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-blue-100 rounded-xl text-blue-600">
+                              <Snowflake className="w-6 h-6" />
+                            </div>
+                            HVAC Instant Rebates
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Save up to $900 instantly on ENERGY STAR® certified heat pumps, mini-splits, and central AC systems.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50">Find a Contractor</Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 3 */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-brand-orange/10 rounded-xl text-brand-orange">
+                              <Tv className="w-6 h-6" />
+                            </div>
+                            Appliance Rebates
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Get cash back when you purchase qualifying energy-efficient appliances, like dehumidifiers and smart thermostats.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-brand-orange/30 text-brand-orange hover:bg-brand-orange/10">Shop Appliances</Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 4 */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-purple-100 rounded-xl text-purple-600">
+                              <Power className="w-6 h-6" />
+                            </div>
+                            Appliance Recycling
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Schedule a free pickup for your old, working refrigerator or freezer and receive a cash rebate.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full">Schedule Pickup</Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 5 */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-emerald-100 rounded-xl text-emerald-600">
+                              <CheckCircle2 className="w-6 h-6" />
+                            </div>
+                            Comfort Partners
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Free energy-saving improvements and education for income-eligible customers to help reduce utility bills.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full">Check Eligibility</Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Existing Account Program */}
+                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300"></div>
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-slate-100 rounded-xl text-slate-600">
+                              <Leaf className="w-6 h-6" />
                             </div>
                             Paperless Billing
                          </CardTitle>
-                         <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-none shadow-none">Enrolled</Badge>
+                         <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-200 border-none shadow-none">Enrolled</Badge>
                        </div>
-                       <CardDescription className="pt-2">Saving trees and reducing clutter.</CardDescription>
+                       <CardDescription className="pt-3 text-sm">Saving trees and reducing clutter.</CardDescription>
                     </CardHeader>
-                    <CardFooter className="pt-2">
+                    <CardFooter className="mt-auto pt-4">
                        <Button variant="ghost" className="w-full text-muted-foreground bg-white/50 hover:bg-white/80">Manage Settings</Button>
-                    </CardFooter>
-                 </Card>
-
-                 {/* Available Program */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                       <div className="flex justify-between items-start">
-                         <CardTitle className="flex items-center gap-2">
-                            <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                              <CreditCard className="w-5 h-5" />
-                            </div>
-                            AutoPay
-                         </CardTitle>
-                         <Badge variant="outline" className="bg-white/50">Not Enrolled</Badge>
-                       </div>
-                       <CardDescription className="pt-2">Never miss a due date again.</CardDescription>
-                    </CardHeader>
-                    <CardFooter className="pt-2">
-                       <Button variant="default" className="w-full shadow-md shadow-primary/20">Enroll Now</Button>
-                    </CardFooter>
-                 </Card>
-
-                 {/* Available Program */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                       <div className="flex justify-between items-start">
-                         <CardTitle className="flex items-center gap-2">
-                            <div className="p-2 bg-brand-orange/10 rounded-lg text-brand-orange">
-                              <TrendingUp className="w-5 h-5" />
-                            </div>
-                            Equal Payment Plan
-                         </CardTitle>
-                         <Badge variant="outline" className="bg-white/50">Not Enrolled</Badge>
-                       </div>
-                       <CardDescription className="pt-2">Predictable monthly bills.</CardDescription>
-                    </CardHeader>
-                    <CardFooter className="pt-2">
-                       <Button variant="default" className="w-full shadow-md shadow-primary/20">Enroll Now</Button>
                     </CardFooter>
                  </Card>
               </div>
