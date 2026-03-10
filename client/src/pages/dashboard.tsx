@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useAuth } from "@/hooks/use-auth";
 import { 
   Zap, 
   Home, 
@@ -60,6 +61,15 @@ const disaggregationData = [
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { user, isLoading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  if (!isLoading && !user) {
+    setLocation("/login");
+    return null;
+  }
+
+  const displayName = user?.firstName || "Guest";
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
@@ -74,8 +84,8 @@ export default function Dashboard() {
           {/* Welcome Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Good Morning, Alex</h1>
-              <p className="text-muted-foreground">Account #123456789 • 123 Maple Avenue, Springfield, NJ</p>
+              <h1 className="text-3xl font-bold text-foreground">Good Morning, {displayName}</h1>
+              <p className="text-muted-foreground">Account #{user?.accountNumber || "123456789"} • {user?.address || "123 Maple Avenue"}, {user?.city || "Springfield"}, {user?.state || "NJ"}</p>
             </div>
             <div className="flex gap-3">
                <Button variant="outline" className="gap-2">

@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/hooks/use-auth";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import PayBill from "@/pages/pay-bill";
@@ -27,7 +28,7 @@ function Router() {
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/payment-arrangement" component={PaymentArrangement} />
-      <Route path="/account" component={Dashboard} /> {/* Map Account to Dashboard */}
+      <Route path="/account" component={Dashboard} />
       <Route path="/pay-bill" component={PayBill} />
       <Route path="/report-outage" component={ReportOutage} />
       <Route path="/safety" component={Safety} />
@@ -36,9 +37,6 @@ function Router() {
       <Route path="/start-stop-service" component={StartStopService} />
       <Route path="/bill-assistance" component={BillAssistance} />
       <Route path="/support-center" component={SupportCenter} />
-      
-      {/* Fallback routes for demo links */}
-      <Route path="/account" component={Home} /> 
       <Route path="/outages" component={ReportOutage} />
       <Route path="/payments" component={PayBill} />
       <Route path="/help" component={SupportCenter} />
@@ -50,10 +48,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

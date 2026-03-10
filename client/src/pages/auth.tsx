@@ -13,8 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { CheckCircle, Mail, ShieldCheck, ArrowRight, ArrowLeft } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { useAuth } from "@/hooks/use-auth";
 
-// Validation Schemas
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(1, "Password is required"),
@@ -36,6 +36,13 @@ export default function AuthPage() {
   const [location, setLocation] = useLocation();
   const [view, setView] = useState<"login" | "register" | "mfa" | "magic-sent">("login");
   const [email, setEmail] = useState("");
+  const [authError, setAuthError] = useState("");
+  const { login, register, user } = useAuth();
+
+  if (user) {
+    setLocation("/dashboard");
+    return null;
+  }
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -52,26 +59,33 @@ export default function AuthPage() {
     defaultValues: { code: "" },
   });
 
-  const onLogin = (values: z.infer<typeof loginSchema>) => {
-    setEmail(values.email);
-    // Mock successful credential check, move to MFA
-    setTimeout(() => setView("mfa"), 800);
+  const onLogin = async (values: z.infer<typeof loginSchema>) => {
+    setAuthError("");
+    try {
+      await login(values);
+      setLocation("/dashboard");
+    } catch (err: any) {
+      setAuthError(err.message?.includes("401") ? "Invalid email or password" : "Something went wrong. Please try again.");
+    }
   };
 
-  const onRegister = (values: z.infer<typeof registerSchema>) => {
-    setEmail(values.email);
-    // Mock successful registration, move to dashboard or MFA
-    setTimeout(() => setLocation("/onboarding"), 1000);
+  const onRegister = async (values: z.infer<typeof registerSchema>) => {
+    setAuthError("");
+    try {
+      await register(values);
+      setLocation("/dashboard");
+    } catch (err: any) {
+      setAuthError(err.message?.includes("400") ? "An account with this email already exists" : "Something went wrong. Please try again.");
+    }
   };
 
   const onMfaSubmit = (values: z.infer<typeof mfaSchema>) => {
-    // Mock verify - go to onboarding flow instead of direct home
-    setTimeout(() => setLocation("/onboarding"), 800);
+    setTimeout(() => setLocation("/dashboard"), 800);
   };
 
   const sendMagicLink = () => {
     const e = loginForm.getValues("email");
-    if (!e) return; // Should show error
+    if (!e) return;
     setEmail(e);
     setView("magic-sent");
   };
@@ -189,6 +203,9 @@ export default function AuthPage() {
                           </FormItem>
                         )}
                       />
+                      {authError && view === "login" && (
+                        <p className="text-sm text-red-600 text-center bg-red-50 p-3 rounded-lg" data-testid="text-auth-error">{authError}</p>
+                      )}
                       <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
                         {loginForm.formState.isSubmitting ? "Signing In..." : "Sign In"}
                       </Button>
@@ -288,6 +305,9 @@ export default function AuthPage() {
                           </FormItem>
                         )}
                       />
+                      {authError && view === "register" && (
+                        <p className="text-sm text-red-600 text-center bg-red-50 p-3 rounded-lg" data-testid="text-register-error">{authError}</p>
+                      )}
                       <Button type="submit" className="w-full mt-4" disabled={registerForm.formState.isSubmitting}>
                         {registerForm.formState.isSubmitting ? "Creating Account..." : "Create Account"}
                       </Button>

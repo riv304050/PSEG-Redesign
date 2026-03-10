@@ -1,38 +1,77 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { eq } from "drizzle-orm";
+import { db } from "./db";
+import {
+  users,
+  payments,
+  outageReports,
+  programEnrollments,
+  type User,
+  type InsertUser,
+  type Payment,
+  type InsertPayment,
+  type OutageReport,
+  type InsertOutageReport,
+  type ProgramEnrollment,
+  type InsertProgramEnrollment,
+} from "@shared/schema";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
+  getUser(id: number): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+
+  getPaymentsByUser(userId: number): Promise<Payment[]>;
+  createPayment(payment: InsertPayment): Promise<Payment>;
+
+  getOutageReportsByUser(userId: number): Promise<OutageReport[]>;
+  createOutageReport(report: InsertOutageReport): Promise<OutageReport>;
+
+  getEnrollmentsByUser(userId: number): Promise<ProgramEnrollment[]>;
+  createEnrollment(enrollment: InsertProgramEnrollment): Promise<ProgramEnrollment>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db.insert(users).values(insertUser).returning();
     return user;
+  }
+
+  async getPaymentsByUser(userId: number): Promise<Payment[]> {
+    return db.select().from(payments).where(eq(payments.userId, userId));
+  }
+
+  async createPayment(payment: InsertPayment): Promise<Payment> {
+    const [result] = await db.insert(payments).values(payment).returning();
+    return result;
+  }
+
+  async getOutageReportsByUser(userId: number): Promise<OutageReport[]> {
+    return db.select().from(outageReports).where(eq(outageReports.userId, userId));
+  }
+
+  async createOutageReport(report: InsertOutageReport): Promise<OutageReport> {
+    const [result] = await db.insert(outageReports).values(report).returning();
+    return result;
+  }
+
+  async getEnrollmentsByUser(userId: number): Promise<ProgramEnrollment[]> {
+    return db.select().from(programEnrollments).where(eq(programEnrollments.userId, userId));
+  }
+
+  async createEnrollment(enrollment: InsertProgramEnrollment): Promise<ProgramEnrollment> {
+    const [result] = await db.insert(programEnrollments).values(enrollment).returning();
+    return result;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

@@ -1,8 +1,9 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight } from "lucide-react";
+import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/hooks/use-auth";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -67,7 +68,8 @@ const megaMenuData = {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
@@ -234,12 +236,26 @@ export function Header() {
             <span className="sr-only">Search</span>
           </Button>
           
-          <Link href="/login">
-            <Button variant="outline" className="hidden sm:flex gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-              <User className="h-4 w-4" />
-              Sign In
-            </Button>
-          </Link>
+          {user ? (
+            <div className="hidden sm:flex items-center gap-2">
+              <Link href="/dashboard">
+                <Button variant="ghost" className="gap-2 text-primary font-medium">
+                  <User className="h-4 w-4" />
+                  {user.firstName}
+                </Button>
+              </Link>
+              <Button variant="outline" size="icon" className="border-primary/20 text-primary hover:bg-primary hover:text-white" onClick={async () => { await logout(); setLocation("/"); }}>
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <Link href="/login">
+              <Button variant="outline" className="hidden sm:flex gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                <User className="h-4 w-4" />
+                Sign In
+              </Button>
+            </Link>
+          )}
 
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
