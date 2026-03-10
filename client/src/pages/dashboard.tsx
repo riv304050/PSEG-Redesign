@@ -28,7 +28,8 @@ import {
   ShieldCheck,
   DollarSign,
   CalendarClock,
-  Repeat
+  Repeat,
+  Flame
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -73,6 +74,16 @@ const transactionHistory = [
   { date: 'Aug 18, 2025', description: 'Online Payment - Thank You', amount: -178.90, type: 'payment' },
   { date: 'Aug 01, 2025', description: 'Monthly Bill - August', amount: 178.90, type: 'bill' },
   { date: 'Jul 15, 2025', description: 'Online Payment - Thank You', amount: -165.30, type: 'payment' },
+];
+
+const gasUsageData = [
+  { month: 'Jan', therms: 95, prevYear: 102 },
+  { month: 'Feb', therms: 88, prevYear: 94 },
+  { month: 'Mar', therms: 62, prevYear: 70 },
+  { month: 'Apr', therms: 35, prevYear: 38 },
+  { month: 'May', therms: 18, prevYear: 20 },
+  { month: 'Jun', therms: 12, prevYear: 14 },
+  { month: 'Jul', therms: 10, prevYear: 11 },
 ];
 
 const disaggregationData = [
@@ -278,15 +289,24 @@ export default function Dashboard() {
 
             {/* USAGE TAB */}
             <TabsContent value="usage" className="space-y-4">
+
+              {/* Electric Section */}
+              <div className="flex items-center gap-2 mb-2">
+                <div className="p-1.5 bg-primary/10 rounded-none">
+                  <Zap className="w-4 h-4 text-primary" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground">Electric Usage</h3>
+                <Badge className="bg-green-100 text-green-700 border-none text-xs ml-2">Smart Meter</Badge>
+              </div>
+
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 
-                {/* Smart Meter Analysis */}
                 <Card className="lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
-                        <CardDescription>Your energy consumption over time</CardDescription>
+                        <CardDescription>Real-time electric consumption (kWh)</CardDescription>
                       </div>
                       <div className="flex gap-2 bg-white/50 p-1 rounded-lg">
                         <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-md">Yearly</Button>
@@ -295,37 +315,36 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="h-[400px] pt-4">
+                  <CardContent className="h-[350px] pt-4">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                         <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" kWh" />
                         <Tooltip 
                           contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
                           cursor={{ fill: 'rgba(0,0,0,0.02)' }}
                         />
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                        <Bar dataKey="kwh" name="Current Year" fill="#142C41" radius={[6, 6, 0, 0]} barSize={32} />
-                        <Bar dataKey="prevYear" name="Last Year" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={32} />
+                        <Bar dataKey="kwh" name="This Year (kWh)" fill="#142C41" radius={[6, 6, 0, 0]} barSize={28} />
+                        <Bar dataKey="prevYear" name="Last Year (kWh)" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={28} />
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
 
-                {/* Energy Disaggregation Module */}
                 <Card className="lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="text-xl">Where Your Energy Goes</CardTitle>
-                    <CardDescription>Estimated usage breakdown for this month</CardDescription>
+                    <CardDescription>Estimated electric breakdown this month</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between pt-2">
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                       {disaggregationData.map((item, index) => (
                         <div key={index} className="space-y-2">
                           <div className="flex justify-between items-center text-sm">
                             <div className="flex items-center gap-2 font-medium text-foreground">
-                              <item.icon className={`w-4 h-4 text-muted-foreground`} />
+                              <item.icon className="w-4 h-4 text-muted-foreground" />
                               {item.category}
                             </div>
                             <span className="font-bold">{item.percentage}%</span>
@@ -342,37 +361,104 @@ export default function Dashboard() {
                       ))}
                     </div>
                     
-                    <Button variant="outline" className="w-full mt-8 bg-white/50 hover:bg-white/80 transition-colors">
+                    <Button variant="outline" className="w-full mt-6 bg-white/50 hover:bg-white/80 transition-colors text-sm">
                       View Ways to Save
                     </Button>
                   </CardContent>
                 </Card>
               </div>
 
+              {/* Gas Section */}
+              <div className="flex items-center gap-2 mt-8 mb-2">
+                <div className="p-1.5 bg-brand-orange/10 rounded-none">
+                  <Flame className="w-4 h-4 text-brand-orange" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground">Gas Usage</h3>
+                <Badge variant="outline" className="text-xs ml-2 border-slate-300">Monthly Read</Badge>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <Card className="lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <CardTitle className="text-xl">Monthly Gas Consumption</CardTitle>
+                        <CardDescription>Based on monthly meter readings (therms)</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="h-[300px] pt-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={gasUsageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" thm" />
+                        <Tooltip 
+                          contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
+                          cursor={{ fill: 'rgba(0,0,0,0.02)' }}
+                        />
+                        <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                        <Bar dataKey="therms" name="This Year (Therms)" fill="#F0512C" radius={[6, 6, 0, 0]} barSize={28} />
+                        <Bar dataKey="prevYear" name="Last Year (Therms)" fill="#fecaca" radius={[6, 6, 0, 0]} barSize={28} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+
+                <Card className="lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="text-lg">Gas Insights</CardTitle>
+                    <CardDescription>Your natural gas summary</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="p-4 bg-brand-orange/5 rounded-none border border-brand-orange/10">
+                        <p className="text-xs text-muted-foreground mb-1">This Month</p>
+                        <p className="text-2xl font-bold text-foreground">10 therms</p>
+                        <p className="text-xs text-green-600 font-medium mt-1">9% less than last year</p>
+                      </div>
+                      <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                        <p className="text-xs text-muted-foreground mb-1">12-Month Average</p>
+                        <p className="text-2xl font-bold text-foreground">46 therms</p>
+                      </div>
+                      <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                        <p className="text-xs text-muted-foreground mb-1">Next Meter Read</p>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-muted-foreground" />
+                          <p className="text-sm font-semibold text-foreground">Jan 20, 2026</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Bottom Row */}
               <div className="grid md:grid-cols-2 gap-4 mt-4">
                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-lg">Daily Insights</CardTitle>
+                    <CardDescription>Electric smart meter data</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-xl border border-green-100 shadow-sm">
+                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-none border border-green-100">
                         <div className="flex items-center gap-3">
-                           <div className="p-2 bg-green-100 rounded-lg">
+                           <div className="p-2 bg-green-100 rounded-none">
                              <Calendar className="w-5 h-5 text-green-700" />
                            </div>
-                           <span className="font-medium text-green-900">Lowest Usage Day</span>
+                           <span className="font-medium text-green-900 text-sm">Lowest Usage Day</span>
                         </div>
-                        <span className="font-bold text-green-900 text-lg">Sundays</span>
+                        <span className="font-bold text-green-900">Sundays</span>
                       </div>
-                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-xl border border-amber-100 shadow-sm">
+                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-none border border-amber-100">
                         <div className="flex items-center gap-3">
-                           <div className="p-2 bg-amber-100 rounded-lg">
+                           <div className="p-2 bg-amber-100 rounded-none">
                              <Zap className="w-5 h-5 text-amber-700" />
                            </div>
-                           <span className="font-medium text-amber-900">Peak Hours</span>
+                           <span className="font-medium text-amber-900 text-sm">Peak Hours</span>
                         </div>
-                        <span className="font-bold text-amber-900 text-lg">5:00 PM - 8:00 PM</span>
+                        <span className="font-bold text-amber-900">5–8 PM</span>
                       </div>
                     </div>
                   </CardContent>
@@ -384,10 +470,15 @@ export default function Dashboard() {
                      <CardTitle className="text-lg">Download Data</CardTitle>
                    </CardHeader>
                    <CardContent className="relative z-10 flex flex-col h-[calc(100%-4rem)] justify-between">
-                     <p className="text-sm text-slate-300 mb-6">Export your Green Button data for third-party analysis or personal records.</p>
-                     <Button className="w-full gap-2 bg-white/10 hover:bg-white/20 text-white border-none backdrop-blur-sm">
-                       <Download className="w-4 h-4" /> Download XML / CSV
-                     </Button>
+                     <p className="text-sm text-slate-300 mb-6">Export your Green Button electric data or gas usage records for analysis.</p>
+                     <div className="flex gap-2">
+                       <Button className="flex-1 gap-2 bg-white/10 hover:bg-white/20 text-white border-none backdrop-blur-sm text-xs">
+                         <Zap className="w-3 h-3" /> Electric Data
+                       </Button>
+                       <Button className="flex-1 gap-2 bg-white/10 hover:bg-white/20 text-white border-none backdrop-blur-sm text-xs">
+                         <Flame className="w-3 h-3" /> Gas Data
+                       </Button>
+                     </div>
                    </CardContent>
                 </Card>
               </div>
