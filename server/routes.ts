@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth } from "./auth";
-import { insertPaymentSchema, insertOutageReportSchema, insertProgramEnrollmentSchema } from "@shared/schema";
+import { insertPaymentSchema, insertOutageReportSchema, insertProgramEnrollmentSchema, insertContactSubmissionSchema } from "@shared/schema";
 
 function requireAuth(req: any, res: any, next: any) {
   if (!req.isAuthenticated()) {
@@ -58,6 +58,16 @@ export async function registerRoutes(
       const data = insertProgramEnrollmentSchema.parse({ ...req.body, userId: req.user!.id });
       const enrollment = await storage.createEnrollment(data);
       res.status(201).json(enrollment);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  app.post("/api/contact-submissions", async (req, res, next) => {
+    try {
+      const data = insertContactSubmissionSchema.parse(req.body);
+      const submission = await storage.createContactSubmission(data);
+      res.status(201).json(submission);
     } catch (err) {
       next(err);
     }

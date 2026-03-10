@@ -27,7 +27,8 @@ A redesigned PSE&G utility website concept serving as an "Intelligent Front Door
   - Usage tab shows both Electric (smart meter, kWh) and Gas (monthly read, therms) usage
   - Billing tab has Equal Payment Plan, AutoPay, Deferred Payment, transaction history
 - **Payment Arrangement** (`/payment-arrangement`): Installments or date extension
-- Plus: pay-bill, report-outage, start-stop-service, bill-assistance, safety, savings, business, support-center, onboarding
+- **Support Center** (`/support-center`): Tabbed hub with Submit Request (contact form persisted to DB), Department Contacts (5 categories: Outages, Billing, WorryFree, Business, Company Info), and FAQ (11 categories, 89 real Q&A pairs from PSE&G)
+- Plus: pay-bill, report-outage, start-stop-service, bill-assistance, safety, savings, business, onboarding
 
 ## Auth Notes
 - Login is BYPASSED for demo — `onLogin` redirects to `/dashboard` with no API call

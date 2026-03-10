@@ -5,6 +5,7 @@ import {
   payments,
   outageReports,
   programEnrollments,
+  contactSubmissions,
   type User,
   type InsertUser,
   type Payment,
@@ -13,6 +14,8 @@ import {
   type InsertOutageReport,
   type ProgramEnrollment,
   type InsertProgramEnrollment,
+  type ContactSubmission,
+  type InsertContactSubmission,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -28,6 +31,8 @@ export interface IStorage {
 
   getEnrollmentsByUser(userId: number): Promise<ProgramEnrollment[]>;
   createEnrollment(enrollment: InsertProgramEnrollment): Promise<ProgramEnrollment>;
+
+  createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -70,6 +75,11 @@ export class DatabaseStorage implements IStorage {
 
   async createEnrollment(enrollment: InsertProgramEnrollment): Promise<ProgramEnrollment> {
     const [result] = await db.insert(programEnrollments).values(enrollment).returning();
+    return result;
+  }
+
+  async createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission> {
+    const [result] = await db.insert(contactSubmissions).values(submission).returning();
     return result;
   }
 }

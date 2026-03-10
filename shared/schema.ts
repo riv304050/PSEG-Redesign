@@ -47,6 +47,32 @@ export const programEnrollments = pgTable("program_enrollments", {
   enrolledAt: timestamp("enrolled_at").defaultNow(),
 });
 
+export const contactSubmissions = pgTable("contact_submissions", {
+  id: serial("id").primaryKey(),
+  language: text("language").notNull().default("english"),
+  accountType: text("account_type").notNull(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  accountNumber: text("account_number"),
+  helpTopic: text("help_topic").notNull(),
+  subject: text("subject").notNull(),
+  comments: text("comments").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({ id: true, createdAt: true }).extend({
+  accountType: z.string().min(1, "Account type is required"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(7, "Please enter a valid phone number"),
+  helpTopic: z.string().min(1, "Please select a topic"),
+  subject: z.string().min(1, "Subject is required"),
+  comments: z.string().min(1, "Comments are required"),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({ id: true });
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -65,3 +91,5 @@ export type OutageReport = typeof outageReports.$inferSelect;
 export type InsertOutageReport = z.infer<typeof insertOutageReportSchema>;
 export type ProgramEnrollment = typeof programEnrollments.$inferSelect;
 export type InsertProgramEnrollment = z.infer<typeof insertProgramEnrollmentSchema>;
+export type ContactSubmission = typeof contactSubmissions.$inferSelect;
+export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
