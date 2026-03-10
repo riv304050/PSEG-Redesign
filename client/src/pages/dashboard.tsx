@@ -21,7 +21,14 @@ import {
   Droplets,
   Lightbulb,
   Tv,
-  Power
+  Power,
+  Receipt,
+  Clock,
+  RefreshCw,
+  ShieldCheck,
+  DollarSign,
+  CalendarClock,
+  Repeat
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -30,6 +37,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -51,6 +60,21 @@ const dailyData = [
   { time: '11pm', kwh: 0.9 }
 ];
 
+const transactionHistory = [
+  { date: 'Dec 15, 2025', description: 'Online Payment - Thank You', amount: -142.50, type: 'payment' },
+  { date: 'Dec 01, 2025', description: 'Monthly Bill - December', amount: 142.50, type: 'bill' },
+  { date: 'Nov 18, 2025', description: 'Online Payment - Thank You', amount: -128.75, type: 'payment' },
+  { date: 'Nov 01, 2025', description: 'Monthly Bill - November', amount: 128.75, type: 'bill' },
+  { date: 'Oct 20, 2025', description: 'Online Payment - Thank You', amount: -155.20, type: 'payment' },
+  { date: 'Oct 01, 2025', description: 'Monthly Bill - October', amount: 155.20, type: 'bill' },
+  { date: 'Sep 15, 2025', description: 'Online Payment - Thank You', amount: -98.40, type: 'payment' },
+  { date: 'Sep 01, 2025', description: 'Monthly Bill - September', amount: 98.40, type: 'bill' },
+  { date: 'Aug 22, 2025', description: 'Late Fee', amount: 5.00, type: 'fee' },
+  { date: 'Aug 18, 2025', description: 'Online Payment - Thank You', amount: -178.90, type: 'payment' },
+  { date: 'Aug 01, 2025', description: 'Monthly Bill - August', amount: 178.90, type: 'bill' },
+  { date: 'Jul 15, 2025', description: 'Online Payment - Thank You', amount: -165.30, type: 'payment' },
+];
+
 const disaggregationData = [
   { category: 'Cooling / AC', percentage: 35, icon: Snowflake, color: 'bg-blue-500' },
   { category: 'Water Heating', percentage: 25, icon: Droplets, color: 'bg-brand-orange' },
@@ -61,6 +85,10 @@ const disaggregationData = [
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [autoPayEnabled, setAutoPayEnabled] = useState(false);
+  const [showEqualPayConfirm, setShowEqualPayConfirm] = useState(false);
+  const [equalPayEnrolled, setEqualPayEnrolled] = useState(false);
+  const [autoPayEnrolled, setAutoPayEnrolled] = useState(false);
   const { user } = useAuth();
   const displayName = user?.firstName || "Alex";
 
@@ -366,12 +394,156 @@ export default function Dashboard() {
             </TabsContent>
             
             {/* BILLING TAB */}
-            <TabsContent value="billing">
-               <Card>
-                 <CardContent className="p-12 text-center text-muted-foreground">
-                   Billing History and Payment Options Component Placeholders
-                 </CardContent>
-               </Card>
+            <TabsContent value="billing" className="space-y-6">
+
+              {/* Quick Actions Row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                {/* Equal Payment Plan */}
+                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2.5 bg-primary/10 rounded-none text-primary shrink-0">
+                        <RefreshCw className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-sm mb-1">Equal Payment Plan</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Pay the same amount every month based on your usage history.</p>
+                        {equalPayEnrolled ? (
+                          <div className="space-y-2">
+                            <Badge className="bg-green-100 text-green-700 border-none">Enrolled</Badge>
+                            <p className="text-xs text-muted-foreground">Your monthly amount: <span className="font-bold text-foreground">$115.00/mo</span></p>
+                          </div>
+                        ) : showEqualPayConfirm ? (
+                          <div className="space-y-3">
+                            <div className="bg-primary/5 p-3 rounded-none border border-primary/10">
+                              <p className="text-xs text-muted-foreground mb-1">Estimated monthly amount</p>
+                              <p className="text-xl font-bold text-primary">$115.00/mo</p>
+                              <p className="text-xs text-muted-foreground mt-1">Based on your 12-month average</p>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button size="sm" className="flex-1 text-xs" onClick={() => { setEqualPayEnrolled(true); setShowEqualPayConfirm(false); }} data-testid="button-confirm-equal-pay">Confirm</Button>
+                              <Button size="sm" variant="ghost" className="text-xs" onClick={() => setShowEqualPayConfirm(false)}>Cancel</Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-white/50" onClick={() => setShowEqualPayConfirm(true)} data-testid="button-enroll-equal-pay">
+                            Enroll Now
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Deferred Payment */}
+                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2.5 bg-brand-orange/10 rounded-none text-brand-orange shrink-0">
+                        <CalendarClock className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-sm mb-1">Deferred Payment</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Split your balance over several months with a custom arrangement.</p>
+                        <Link href="/payment-arrangement">
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-white/50" data-testid="button-deferred-payment">
+                            Set Up Arrangement
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* AutoPay */}
+                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2.5 bg-green-100 rounded-none text-green-600 shrink-0">
+                        <ShieldCheck className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-sm mb-1">AutoPay</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Never miss a payment. We'll charge your account automatically each month.</p>
+                        {autoPayEnrolled ? (
+                          <div className="space-y-2">
+                            <Badge className="bg-green-100 text-green-700 border-none">Active</Badge>
+                            <p className="text-xs text-muted-foreground">Charged to Visa •••• 4821</p>
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-medium text-muted-foreground">Enable AutoPay</span>
+                              <Switch checked={autoPayEnabled} onCheckedChange={setAutoPayEnabled} data-testid="switch-autopay" />
+                            </div>
+                            {autoPayEnabled && (
+                              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-2">
+                                <div className="bg-green-50/80 p-3 rounded-none border border-green-100 text-xs text-green-800">
+                                  Your bill will be automatically paid from your default payment method on the due date each month.
+                                </div>
+                                <Button size="sm" className="w-full text-xs bg-green-600 hover:bg-green-700" onClick={() => { setAutoPayEnrolled(true); setAutoPayEnabled(false); }} data-testid="button-confirm-autopay">
+                                  Activate AutoPay
+                                </Button>
+                              </motion.div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Transaction History */}
+              <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                <CardHeader>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <CardTitle className="text-xl">Transaction History</CardTitle>
+                      <CardDescription>Your recent billing activity</CardDescription>
+                    </div>
+                    <Button variant="outline" size="sm" className="bg-white/50 gap-2 self-start" data-testid="button-download-history">
+                      <Download className="w-4 h-4" /> Export
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-0 divide-y divide-slate-100">
+                    {transactionHistory.map((tx, i) => (
+                      <div key={i} className="flex items-center justify-between py-3.5 px-2 hover:bg-slate-50/50 transition-colors" data-testid={`row-transaction-${i}`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-none ${
+                            tx.type === 'payment' ? 'bg-green-100 text-green-600' :
+                            tx.type === 'fee' ? 'bg-red-100 text-red-600' :
+                            'bg-slate-100 text-slate-600'
+                          }`}>
+                            {tx.type === 'payment' ? <DollarSign className="w-4 h-4" /> :
+                             tx.type === 'fee' ? <AlertTriangle className="w-4 h-4" /> :
+                             <Receipt className="w-4 h-4" />}
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">{tx.description}</p>
+                            <p className="text-xs text-muted-foreground">{tx.date}</p>
+                          </div>
+                        </div>
+                        <span className={`text-sm font-semibold tabular-nums ${
+                          tx.amount < 0 ? 'text-green-600' : tx.type === 'fee' ? 'text-red-600' : 'text-foreground'
+                        }`}>
+                          {tx.amount < 0 ? '-' : ''}${Math.abs(tx.amount).toFixed(2)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-slate-100 text-center">
+                    <Button variant="ghost" className="text-sm text-primary" data-testid="button-view-all-transactions">
+                      View All Transactions <ArrowRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
             </TabsContent>
 
             {/* PROGRAMS TAB */}
