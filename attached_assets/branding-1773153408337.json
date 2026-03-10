@@ -1,0 +1,130 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Outfit",
+      "role": "body"
+    },
+    {
+      "family": "DM Serif Display",
+      "role": "heading"
+    }
+  ],
+  "colors": {
+    "primary": "#485263",
+    "accent": "#142C41",
+    "background": "#FAFAFA",
+    "textPrimary": "#142C41",
+    "link": "#142C41"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Outfit",
+      "heading": "DM Serif Display"
+    },
+    "fontStacks": {
+      "heading": [
+        "DM Serif Display"
+      ],
+      "body": [
+        "Outfit"
+      ],
+      "paragraph": [
+        "Outfit"
+      ]
+    },
+    "fontSizes": {
+      "h1": "96px",
+      "h2": "96px",
+      "body": "24px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "2px"
+  },
+  "components": {
+    "buttonPrimary": {
+      "background": "#142C41",
+      "textColor": "#0000EE",
+      "borderColor": "#142C41",
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    },
+    "buttonSecondary": {
+      "background": "transparent",
+      "textColor": "#FFFFFF",
+      "borderColor": "#FFFFFF",
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://worryfree.pseg.com/assets/images/header/PSEG-WF-logo-DarkSteel-CMYK-2.svg",
+    "favicon": "https://worryfree.pseg.com/favicon.ico",
+    "ogImage": null,
+    "logoHref": "File saved at: attached_assets/logoHref.html",
+    "logoAlt": "Go to PSEG WorryFree home page"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand inferred from the page title and URL.",
+    "confidence": 0.95,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Explore our Plans",
+      "reasoning": "Button #0 'Explore our Plans' is likely the primary CTA due to its action-oriented text and vibrant brand color background (#142C41), which aligns with the site's accent color."
+    },
+    "secondary": {
+      "index": 7,
+      "text": "LEARN MORE",
+      "reasoning": "Button #7 'LEARN MORE' is selected as secondary due to its transparent background, which contrasts with the primary button's vibrant color, making it a suitable secondary action."
+    },
+    "confidence": 0.9
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "medium",
+    "targetAudience": "homeowners looking for utility services"
+  },
+  "designSystem": {
+    "framework": "material",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.9,
+    "colors": 0.95,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand inferred from the page title and URL.",
+        "confidence": 0.95
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}
