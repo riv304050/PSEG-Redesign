@@ -61,15 +61,8 @@ const disaggregationData = [
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
-  const { user, isLoading } = useAuth();
-  const [, setLocation] = useLocation();
-
-  if (!isLoading && !user) {
-    setLocation("/login");
-    return null;
-  }
-
-  const displayName = user?.firstName || "Guest";
+  const { user } = useAuth();
+  const displayName = user?.firstName || "Alex";
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
