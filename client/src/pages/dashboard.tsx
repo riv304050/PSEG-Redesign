@@ -54,11 +54,25 @@ const usageData = [
   { month: 'Jul', kwh: 780, prevYear: 750 },
 ];
 
+const weeklyData = [
+  { day: 'Mon', kwh: 12.4, prevWeek: 13.1 },
+  { day: 'Tue', kwh: 11.8, prevWeek: 12.5 },
+  { day: 'Wed', kwh: 13.2, prevWeek: 12.9 },
+  { day: 'Thu', kwh: 14.1, prevWeek: 13.7 },
+  { day: 'Fri', kwh: 15.3, prevWeek: 14.8 },
+  { day: 'Sat', kwh: 10.6, prevWeek: 11.2 },
+  { day: 'Sun', kwh: 8.9, prevWeek: 9.5 },
+];
+
 const dailyData = [
-  { time: '12am', kwh: 0.5 }, { time: '4am', kwh: 0.4 }, 
-  { time: '8am', kwh: 1.2 }, { time: '12pm', kwh: 1.5 },
-  { time: '4pm', kwh: 2.1 }, { time: '8pm', kwh: 1.8 },
-  { time: '11pm', kwh: 0.9 }
+  { time: '12am', kwh: 0.5 }, { time: '1am', kwh: 0.4 }, { time: '2am', kwh: 0.3 },
+  { time: '3am', kwh: 0.3 }, { time: '4am', kwh: 0.4 }, { time: '5am', kwh: 0.5 },
+  { time: '6am', kwh: 0.8 }, { time: '7am', kwh: 1.0 }, { time: '8am', kwh: 1.2 },
+  { time: '9am', kwh: 1.1 }, { time: '10am', kwh: 1.0 }, { time: '11am', kwh: 1.2 },
+  { time: '12pm', kwh: 1.5 }, { time: '1pm', kwh: 1.4 }, { time: '2pm', kwh: 1.3 },
+  { time: '3pm', kwh: 1.6 }, { time: '4pm', kwh: 2.1 }, { time: '5pm', kwh: 2.8 },
+  { time: '6pm', kwh: 3.1 }, { time: '7pm', kwh: 2.9 }, { time: '8pm', kwh: 2.4 },
+  { time: '9pm', kwh: 1.8 }, { time: '10pm', kwh: 1.2 }, { time: '11pm', kwh: 0.9 },
 ];
 
 const transactionHistory = [
@@ -100,6 +114,7 @@ export default function Dashboard() {
   const [showEqualPayConfirm, setShowEqualPayConfirm] = useState(false);
   const [equalPayEnrolled, setEqualPayEnrolled] = useState(false);
   const [autoPayEnrolled, setAutoPayEnrolled] = useState(false);
+  const [usageTimeRange, setUsageTimeRange] = useState<"yearly" | "weekly" | "daily">("yearly");
   const { user } = useAuth();
   const displayName = user?.firstName || "Alex";
 
@@ -306,29 +321,56 @@ export default function Dashboard() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
-                        <CardDescription>Real-time electric consumption (kWh)</CardDescription>
+                        <CardDescription>
+                          {usageTimeRange === "yearly" && "Monthly electric consumption (kWh)"}
+                          {usageTimeRange === "weekly" && "Daily consumption this week (kWh)"}
+                          {usageTimeRange === "daily" && "Hourly consumption today (kWh)"}
+                        </CardDescription>
                       </div>
                       <div className="flex gap-2 bg-secondary/50 p-1 rounded-none">
-                        <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-none">Yearly</Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-secondary rounded-none">Monthly</Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-secondary rounded-none">Daily</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("yearly")} className={`rounded-none ${usageTimeRange === "yearly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-yearly">Yearly</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("weekly")} className={`rounded-none ${usageTimeRange === "weekly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-weekly">Weekly</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("daily")} className={`rounded-none ${usageTimeRange === "daily" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-daily">Daily</Button>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="h-[350px] pt-4">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
-                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" kWh" />
-                        <Tooltip 
-                          contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
-                          cursor={{ fill: 'rgba(0,0,0,0.02)' }}
-                        />
-                        <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                        <Bar dataKey="kwh" name="This Year (kWh)" fill="#142C41" radius={[6, 6, 0, 0]} barSize={28} />
-                        <Bar dataKey="prevYear" name="Last Year (kWh)" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={28} />
-                      </BarChart>
+                      {usageTimeRange === "yearly" ? (
+                        <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                          <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" kWh" />
+                          <Tooltip contentStyle={{ borderRadius: '0px', border: '1px solid rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.95)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
+                          <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                          <Bar dataKey="kwh" name="This Year (kWh)" fill="#142C41" radius={[6, 6, 0, 0]} barSize={28} />
+                          <Bar dataKey="prevYear" name="Last Year (kWh)" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={28} />
+                        </BarChart>
+                      ) : usageTimeRange === "weekly" ? (
+                        <BarChart data={weeklyData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                          <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" kWh" />
+                          <Tooltip contentStyle={{ borderRadius: '0px', border: '1px solid rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.95)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
+                          <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                          <Bar dataKey="kwh" name="This Week (kWh)" fill="#142C41" radius={[6, 6, 0, 0]} barSize={32} />
+                          <Bar dataKey="prevWeek" name="Last Week (kWh)" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={32} />
+                        </BarChart>
+                      ) : (
+                        <AreaChart data={dailyData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                          <defs>
+                            <linearGradient id="colorDailyUsage" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#142C41" stopOpacity={0.3} />
+                              <stop offset="95%" stopColor="#142C41" stopOpacity={0} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                          <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} dy={10} interval={2} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" kWh" />
+                          <Tooltip contentStyle={{ borderRadius: '0px', border: '1px solid rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.95)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }} />
+                          <Area type="monotone" dataKey="kwh" name="Usage (kWh)" stroke="#142C41" strokeWidth={2} fillOpacity={1} fill="url(#colorDailyUsage)" />
+                        </AreaChart>
+                      )}
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
@@ -442,7 +484,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-none border border-green-100">
+                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-none border border-green-100" data-testid="card-lowest-usage">
                         <div className="flex items-center gap-3">
                            <div className="p-2 bg-green-100 rounded-none">
                              <Calendar className="w-5 h-5 text-green-700" />
@@ -451,7 +493,7 @@ export default function Dashboard() {
                         </div>
                         <span className="font-bold text-green-900">Sundays</span>
                       </div>
-                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-none border border-amber-100">
+                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-none border border-amber-100" data-testid="card-peak-hours">
                         <div className="flex items-center gap-3">
                            <div className="p-2 bg-amber-100 rounded-none">
                              <Zap className="w-5 h-5 text-amber-700" />
@@ -459,6 +501,40 @@ export default function Dashboard() {
                            <span className="font-medium text-amber-900 text-sm">Peak Hours</span>
                         </div>
                         <span className="font-bold text-amber-900">5–8 PM</span>
+                      </div>
+
+                      <div className="p-4 bg-red-50/80 rounded-none border border-red-200 space-y-3" data-testid="card-peak-period">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="p-1.5 bg-red-100 rounded-none">
+                            <AlertTriangle className="w-4 h-4 text-red-600" />
+                          </div>
+                          <span className="font-semibold text-red-900 text-sm">Peak Period Alert</span>
+                        </div>
+                        <p className="text-xs text-red-800 leading-relaxed">
+                          Your highest usage occurs between <strong>5:00 PM – 8:00 PM</strong>, when you're averaging <strong>2.9 kWh/hr</strong> — nearly <strong>6x</strong> your off-peak baseline. This peak period accounts for roughly <strong>28%</strong> of your total daily consumption.
+                        </p>
+                        <div className="bg-white/60 p-3 rounded-none border border-red-100">
+                          <p className="text-xs font-semibold text-red-900 mb-2">Ways to reduce peak usage:</p>
+                          <ul className="text-xs text-red-800 space-y-1.5">
+                            <li className="flex items-start gap-2">
+                              <span className="text-red-400 mt-0.5">•</span>
+                              <span>Pre-cool your home before 5 PM by lowering your thermostat earlier in the afternoon</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-red-400 mt-0.5">•</span>
+                              <span>Run dishwashers, laundry, and dryers before 4 PM or after 9 PM</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-red-400 mt-0.5">•</span>
+                              <span>Use smart plugs or timers to shift heavy loads to off-peak hours</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-red-400 mt-0.5">•</span>
+                              <span>Switch to LED lighting — it uses up to 75% less energy than incandescent bulbs</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <p className="text-xs text-red-700 italic">Shifting just 1 kWh/day from peak to off-peak could save you approximately <strong>$8–12/month</strong>.</p>
                       </div>
                     </div>
                   </CardContent>
