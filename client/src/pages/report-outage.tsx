@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, MapPin, AlertTriangle, Phone, CheckCircle } from "lucide-react";
+import { Zap, MapPin, AlertTriangle, Phone, CheckCircle, Clock, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -85,14 +85,53 @@ export default function ReportOutage() {
                 <CheckCircle className="w-10 h-10" />
               </div>
               <h2 className="text-2xl font-bold text-green-800 mb-2">Report Received</h2>
-              <p className="text-green-700 mb-6">
+              <p className="text-green-700 mb-8">
                 Thank you. We have logged your report for <strong>{form.getValues("address")}</strong>.
               </p>
-              <div className="bg-white p-4 rounded-lg border border-green-200 max-w-md mx-auto text-left mb-6">
-                <p className="text-sm font-medium text-muted-foreground mb-1">Estimated Restoration:</p>
-                <p className="text-lg font-bold text-foreground">Analyzing...</p>
-                <p className="text-xs text-muted-foreground mt-2">You will receive text updates at {form.getValues("phone")}.</p>
+              
+              <div className="bg-white p-6 rounded-xl border border-green-200 max-w-lg mx-auto text-left mb-8 shadow-sm">
+                <h3 className="font-semibold text-lg border-b pb-3 mb-4">Current Outage Status</h3>
+                
+                <div className="space-y-5">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg shrink-0">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Estimated Restoration</p>
+                      <p className="text-xl font-bold text-foreground">Today at 4:30 PM</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+                      <Truck className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Crew Status</p>
+                      <p className="text-lg font-semibold text-foreground">En Route</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">Dispatched at {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-slate-50 text-slate-600 rounded-lg shrink-0">
+                      <AlertTriangle className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Suspected Cause</p>
+                      <p className="text-lg font-semibold text-foreground">Tree Contact</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-6 pt-4 border-t border-slate-100">
+                  <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+                    <Phone className="w-4 h-4" /> Text updates will be sent to {form.getValues("phone") || "your phone"}
+                  </p>
+                </div>
               </div>
+
               <Button onClick={() => window.location.href = '/'}>Return Home</Button>
             </CardContent>
           </Card>
