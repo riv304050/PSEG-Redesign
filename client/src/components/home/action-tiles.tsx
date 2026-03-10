@@ -64,12 +64,12 @@ export function ActionTiles() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 border border-border/50 bg-white shadow-xl"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 border border-border/50 bg-card shadow-xl"
         >
           {actions.map((action, index) => (
             <Link key={index} href={action.href}>
               <a className="block group h-full border-r border-b border-border/50 last:border-r-0 md:nth-3:border-r-0 lg:nth-3:border-r lg:last:border-r-0 hover:z-10 relative">
-                <div className="h-full bg-white transition-all duration-300 hover:shadow-lg p-6 flex flex-col items-center text-center justify-center group-hover:bg-slate-50">
+                <div className="h-full bg-card transition-all duration-300 hover:shadow-lg p-6 flex flex-col items-center text-center justify-center group-hover:bg-secondary/50">
                     <div className="mb-4 p-3 text-foreground/70 group-hover:text-primary group-hover:scale-110 transition-all duration-300">
                       <action.icon className="w-7 h-7" strokeWidth={1.5} />
                     </div>

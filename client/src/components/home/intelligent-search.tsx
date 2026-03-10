@@ -82,7 +82,7 @@ export function IntelligentSearch() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className={`relative bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl transition-all duration-300 ${isFocused ? 'ring-4 ring-amber-400/30' : ''}`}
+            className={`relative bg-card/95 backdrop-blur-sm rounded-none shadow-2xl transition-all duration-300 ${isFocused ? 'ring-4 ring-amber-400/30' : ''}`}
           >
             <div className="flex items-center px-4 h-16">
               <Search className="w-6 h-6 text-primary/50 mr-3" />
@@ -115,7 +115,7 @@ export function IntelligentSearch() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="border-t border-border/50 bg-white rounded-b-lg overflow-hidden"
+                  className="border-t border-border/50 bg-card rounded-none overflow-hidden"
                 >
                   <div className="p-2">
                     <p className="text-xs font-semibold text-muted-foreground px-3 py-2 uppercase tracking-wider">Suggested Actions</p>

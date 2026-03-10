@@ -6,7 +6,7 @@ import { FileHeart, HandHelping, Users, ArrowRight } from "lucide-react";
 
 export default function BillAssistance() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12">
         <div className="max-w-3xl mx-auto text-center mb-12">
@@ -70,7 +70,7 @@ export default function BillAssistance() {
           </Card>
         </div>
 
-        <div className="bg-white rounded-xl p-8 border shadow-sm">
+        <div className="bg-card rounded-none p-8 border shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <h2 className="text-2xl font-bold mb-2">Not sure what you qualify for?</h2>

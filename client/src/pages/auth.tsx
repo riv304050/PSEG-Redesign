@@ -85,7 +85,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 flex flex-col md:flex-row">
         {/* Left Side - Visual */}
@@ -155,7 +155,7 @@ export default function AuthPage() {
                       <Separator />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-slate-50 px-2 text-muted-foreground">Or verify with</span>
+                      <span className="bg-background px-2 text-muted-foreground">Or verify with</span>
                     </div>
                   </div>
 

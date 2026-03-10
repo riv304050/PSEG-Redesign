@@ -92,7 +92,7 @@ export default function PayBill() {
   const totalPayment = baseAmount + donationValue;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12 max-w-2xl">
         <div className="mb-8 text-center">
@@ -238,7 +238,7 @@ export default function PayBill() {
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6">
-                  <div className="bg-slate-50 p-4 rounded-lg border mb-6 text-sm">
+                  <div className="bg-secondary/50 p-4 rounded-none border mb-6 text-sm">
                     <div className="flex justify-between mb-2">
                       <span className="text-muted-foreground">Account Name:</span>
                       <span className="font-medium">{accountData.name}</span>
@@ -312,7 +312,7 @@ export default function PayBill() {
                                     <div className="relative w-32">
                                       <span className="absolute left-3 top-2.5 text-muted-foreground text-sm">$</span>
                                       <Input 
-                                        className="pl-7 h-9 text-sm bg-white" 
+                                        className="pl-7 h-9 text-sm bg-card" 
                                         placeholder="0.00" 
                                         value={customDonation}
                                         onChange={(e) => setCustomDonation(e.target.value)}

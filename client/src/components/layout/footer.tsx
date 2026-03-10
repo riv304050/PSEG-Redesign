@@ -7,10 +7,10 @@ export function Footer() {
       <div className="container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Link href="/" className="flex items-center space-x-2 mb-4 group">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
+            <div className="w-10 h-10 bg-white rounded-none flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
               <Zap className="w-6 h-6 text-primary" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-white">EcoEnergy</span>
+            <span className="font-bold text-xl tracking-tight text-white">PSE&G</span>
           </Link>
           <p className="text-white/70 max-w-xs text-sm leading-relaxed mb-6">
             Empowering communities with reliable, sustainable energy solutions for a brighter tomorrow.

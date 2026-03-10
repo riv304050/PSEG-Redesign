@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Savings() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12">
         <h1 className="text-4xl font-bold text-foreground mb-6">Energy & Savings</h1>
@@ -15,7 +15,7 @@ export default function Savings() {
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white p-8 rounded-xl shadow-sm border">
+          <div className="bg-card p-8 rounded-none shadow-sm border">
             <Home className="w-12 h-12 text-green-600 mb-4" />
             <h2 className="text-2xl font-bold mb-4">Home Energy Assessment</h2>
             <p className="text-muted-foreground mb-6">
@@ -24,7 +24,7 @@ export default function Savings() {
             <Button className="bg-green-700 hover:bg-green-800">Schedule Assessment</Button>
           </div>
           
-          <div className="bg-white p-8 rounded-xl shadow-sm border">
+          <div className="bg-card p-8 rounded-none shadow-sm border">
             <DollarSign className="w-12 h-12 text-blue-600 mb-4" />
             <h2 className="text-2xl font-bold mb-4">Rebates & Discounts</h2>
             <p className="text-muted-foreground mb-6">

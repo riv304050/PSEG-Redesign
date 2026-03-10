@@ -7,7 +7,7 @@ import { Search, MessageCircle, Phone, Mail } from "lucide-react";
 
 export default function SupportCenter() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12">
         <div className="text-center mb-12">
@@ -19,7 +19,7 @@ export default function SupportCenter() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white p-6 rounded-lg border text-center hover:shadow-md transition-shadow">
+          <div className="bg-card p-6 rounded-none border text-center hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
               <MessageCircle className="w-6 h-6" />
             </div>
@@ -28,7 +28,7 @@ export default function SupportCenter() {
             <Button variant="outline" className="w-full">Start Chat</Button>
           </div>
           
-          <div className="bg-white p-6 rounded-lg border text-center hover:shadow-md transition-shadow">
+          <div className="bg-card p-6 rounded-none border text-center hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
               <Phone className="w-6 h-6" />
             </div>
@@ -37,7 +37,7 @@ export default function SupportCenter() {
             <Button variant="outline" className="w-full">View Wait Times</Button>
           </div>
 
-          <div className="bg-white p-6 rounded-lg border text-center hover:shadow-md transition-shadow">
+          <div className="bg-card p-6 rounded-none border text-center hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
               <Mail className="w-6 h-6" />
             </div>
@@ -49,7 +49,7 @@ export default function SupportCenter() {
 
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="bg-white rounded-lg border px-4">
+          <Accordion type="single" collapsible className="bg-card rounded-none border px-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>How do I report a power outage?</AccordionTrigger>
               <AccordionContent>

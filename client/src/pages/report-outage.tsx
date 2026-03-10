@@ -47,7 +47,7 @@ export default function ReportOutage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12 max-w-3xl">
         <div className="mb-8">
@@ -68,7 +68,7 @@ export default function ReportOutage() {
                <p className="text-lg text-red-800 mb-6 max-w-lg mx-auto">
                  For gas leaks or downed wires, please clear the area immediately for your safety.
                </p>
-               <div className="bg-white p-6 rounded-lg border border-red-200 inline-block">
+               <div className="bg-card p-6 rounded-none border border-red-200 inline-block">
                  <p className="text-sm text-muted-foreground mb-2">Call our emergency line immediately:</p>
                  <a href="tel:1-800-880-7734" className="text-3xl font-bold text-red-600 hover:underline">1-800-880-PSEG (7734)</a>
                  <p className="text-xs text-muted-foreground mt-2">Or call 911</p>
@@ -89,7 +89,7 @@ export default function ReportOutage() {
                 Thank you. We have logged your report for <strong>{form.getValues("address")}</strong>.
               </p>
               
-              <div className="bg-white p-6 rounded-xl border border-green-200 max-w-lg mx-auto text-left mb-8 shadow-sm">
+              <div className="bg-card p-6 rounded-none border border-green-200 max-w-lg mx-auto text-left mb-8 shadow-sm">
                 <h3 className="font-semibold text-lg border-b pb-3 mb-4">Current Outage Status</h3>
                 
                 <div className="space-y-5">
@@ -115,7 +115,7 @@ export default function ReportOutage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="p-2.5 bg-slate-50 text-slate-600 rounded-lg shrink-0">
+                    <div className="p-2.5 bg-secondary/50 text-muted-foreground rounded-none shrink-0">
                       <AlertTriangle className="w-5 h-5" />
                     </div>
                     <div>

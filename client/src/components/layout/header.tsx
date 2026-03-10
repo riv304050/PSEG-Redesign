@@ -72,13 +72,13 @@ export function Header() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
+    <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-primary/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.15)]">
       <div className="container mx-auto flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2 mr-8 group">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
-            <Zap className="w-6 h-6 text-white" />
+          <div className="w-10 h-10 bg-white rounded-none flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-md">
+            <Zap className="w-6 h-6 text-primary" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-foreground">EcoEnergy</span>
+          <span className="font-bold text-xl tracking-tight text-white">PSE&G</span>
         </Link>
 
         {/* Desktop Mega Menu */}
@@ -88,7 +88,7 @@ export function Header() {
               
               {/* Account Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-foreground/80 hover:text-primary">Account</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Account</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                     <li className="row-span-3">
@@ -118,7 +118,7 @@ export function Header() {
 
               {/* Outages Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-foreground/80 hover:text-primary">Outages</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Outages</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                     {megaMenuData.outages.items.map((item) => (
@@ -150,7 +150,7 @@ export function Header() {
 
               {/* Payments Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-foreground/80 hover:text-primary">Payments</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Payments</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                     {megaMenuData.payments.items.map((item) => (
@@ -182,7 +182,7 @@ export function Header() {
 
               <NavigationMenuItem>
                 <Link href="/safety">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-base font-medium text-foreground/80 hover:text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-base font-medium text-white/80 hover:text-white")}>
                     Safety
                   </NavigationMenuLink>
                 </Link>
@@ -190,7 +190,7 @@ export function Header() {
               
                {/* Savings Dropdown */}
                <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-foreground/80 hover:text-primary">Savings</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Savings</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                     <li className="row-span-3">
@@ -220,7 +220,7 @@ export function Header() {
 
               <NavigationMenuItem>
                 <Link href="/business">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-base font-medium text-foreground/80 hover:text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-base font-medium text-white/80 hover:text-white")}>
                     Business
                   </NavigationMenuLink>
                 </Link>
@@ -231,7 +231,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" className="text-foreground hover:bg-muted/50">
+          <Button variant="ghost" size="icon" className="text-white/80 hover:text-white hover:bg-white/10">
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </Button>
@@ -239,18 +239,18 @@ export function Header() {
           {user ? (
             <div className="hidden sm:flex items-center gap-2">
               <Link href="/dashboard">
-                <Button variant="ghost" className="gap-2 text-primary font-medium">
+                <Button variant="ghost" className="gap-2 text-white/90 hover:text-white hover:bg-white/10 font-medium">
                   <User className="h-4 w-4" />
                   {user.firstName}
                 </Button>
               </Link>
-              <Button variant="outline" size="icon" className="border-primary/20 text-primary hover:bg-primary hover:text-white" onClick={async () => { await logout(); setLocation("/"); }}>
+              <Button variant="outline" size="icon" className="border-white/30 text-white hover:bg-white hover:text-primary" onClick={async () => { await logout(); setLocation("/"); }}>
                 <LogOut className="h-4 w-4" />
               </Button>
             </div>
           ) : (
             <Link href="/login">
-              <Button variant="outline" className="hidden sm:flex gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+              <Button variant="outline" className="hidden sm:flex gap-2 border-white/40 text-white hover:bg-white hover:text-primary transition-all">
                 <User className="h-4 w-4" />
                 Sign In
               </Button>
@@ -260,7 +260,7 @@ export function Header() {
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden">
+              <Button variant="ghost" size="icon" className="lg:hidden text-white hover:bg-white/10">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
               </Button>

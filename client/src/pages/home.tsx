@@ -11,7 +11,7 @@ import businessImage from "@assets/generated_images/modern_small_business_owner.
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <AlertBanner />
       <Header />
       
@@ -49,7 +49,7 @@ export default function Home() {
                     <img src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&q=80&w=1000" alt="Comfortable Family Home" className="w-full h-full object-cover" />
                  </div>
                  {/* Floating card */}
-                 <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-xl max-w-[200px] hidden md:block border-l-4 border-amber-400">
+                 <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-none shadow-xl max-w-[200px] hidden md:block border-l-4 border-amber-400">
                     <p className="text-sm font-bold text-foreground">"The peace of mind is worth every penny."</p>
                     <div className="flex text-amber-400 mt-2">★★★★★</div>
                  </div>
@@ -62,7 +62,7 @@ export default function Home() {
                  <div className="aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <img src={energyImage} alt="Energy Efficiency" className="w-full h-full object-cover" />
                  </div>
-                 <div className="absolute -top-6 -right-6 bg-white p-4 rounded-lg shadow-xl hidden md:block border-r-4 border-green-500">
+                 <div className="absolute -top-6 -right-6 bg-card p-4 rounded-none shadow-xl hidden md:block border-r-4 border-green-500">
                     <div className="flex items-center gap-2 mb-1">
                       <Zap className="w-5 h-5 text-green-500" />
                       <span className="font-bold text-foreground">Save Money</span>
@@ -108,7 +108,7 @@ export default function Home() {
                     <Button size="lg" className="gap-2">
                       Business Solutions <ArrowRight className="w-4 h-4" />
                     </Button>
-                    <Button size="lg" variant="outline" className="bg-white hover:bg-slate-50">
+                    <Button size="lg" variant="outline" className="bg-card hover:bg-secondary/50">
                       View Rates & Tariffs
                     </Button>
                   </div>
@@ -124,7 +124,7 @@ export default function Home() {
         </section>
 
         {/* Regulatory/Safety Section */}
-        <section className="bg-white py-16 px-4 border-t">
+        <section className="bg-card py-16 px-4 border-t">
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
               <div className="max-w-2xl">

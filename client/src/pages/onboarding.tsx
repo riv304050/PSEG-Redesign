@@ -69,10 +69,10 @@ export default function Onboarding() {
   const Icon = stepData.icon;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 flex items-center justify-center p-4">
-        <div className="max-w-3xl w-full grid md:grid-cols-5 bg-white rounded-2xl shadow-xl overflow-hidden min-h-[500px]">
+        <div className="max-w-3xl w-full grid md:grid-cols-5 bg-card rounded-none shadow-xl overflow-hidden min-h-[500px]">
           
           {/* Left Sidebar / Progress */}
           <div className="col-span-2 bg-primary p-8 text-white flex flex-col justify-between relative overflow-hidden">
@@ -129,7 +129,7 @@ export default function Onboarding() {
 
                   <div className="space-y-6">
                     {stepData.options.map((option) => (
-                      <div key={option.id} className="flex items-start space-x-4 p-4 rounded-lg border hover:border-primary/50 transition-colors bg-slate-50/50">
+                      <div key={option.id} className="flex items-start space-x-4 p-4 rounded-lg border hover:border-primary/50 transition-colors bg-secondary/30">
                         <Switch 
                           id={option.id} 
                           checked={preferences[option.id]}

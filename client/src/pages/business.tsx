@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Business() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12">
         <div className="flex flex-col lg:flex-row gap-12 items-center mb-16">
@@ -25,17 +25,17 @@ export default function Business() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-6 bg-white rounded-lg shadow-sm border border-l-4 border-l-primary">
+          <div className="p-6 bg-card rounded-none shadow-sm border border-l-4 border-l-primary">
             <h3 className="font-bold text-xl mb-3">Efficiency Direct</h3>
             <p className="text-muted-foreground mb-4">Turnkey energy efficiency solutions for businesses.</p>
             <a href="#" className="font-medium text-primary hover:underline">Learn More</a>
           </div>
-          <div className="p-6 bg-white rounded-lg shadow-sm border border-l-4 border-l-primary">
+          <div className="p-6 bg-card rounded-none shadow-sm border border-l-4 border-l-primary">
             <h3 className="font-bold text-xl mb-3">Economic Development</h3>
             <p className="text-muted-foreground mb-4">Incentives for businesses expanding in our territory.</p>
             <a href="#" className="font-medium text-primary hover:underline">Learn More</a>
           </div>
-          <div className="p-6 bg-white rounded-lg shadow-sm border border-l-4 border-l-primary">
+          <div className="p-6 bg-card rounded-none shadow-sm border border-l-4 border-l-primary">
             <h3 className="font-bold text-xl mb-3">Electric Vehicles</h3>
             <p className="text-muted-foreground mb-4">Charging infrastructure programs for your fleet or workplace.</p>
             <a href="#" className="font-medium text-primary hover:underline">Learn More</a>

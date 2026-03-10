@@ -104,7 +104,7 @@ export default function Dashboard() {
   const displayName = user?.firstName || "Alex";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
       <main className="flex-1 py-8 px-4 relative">
@@ -130,7 +130,7 @@ export default function Dashboard() {
           </div>
 
           <Tabs defaultValue="overview" className="space-y-8" onValueChange={setActiveTab}>
-              <TabsList className="bg-white/50 backdrop-blur-sm p-1 border border-white/40 shadow-sm h-auto w-full md:w-auto overflow-x-auto flex-nowrap justify-start rounded-xl mb-6">
+              <TabsList className="bg-card/80 backdrop-blur-sm p-1 border border-border/50 shadow-sm h-auto w-full md:w-auto overflow-x-auto flex-nowrap justify-start rounded-none mb-6">
                 <TabsTrigger value="overview" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Overview</TabsTrigger>
                 <TabsTrigger value="usage" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Usage & Smart Meter</TabsTrigger>
                 <TabsTrigger value="billing" className="px-6 py-2.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">Billing & Payments</TabsTrigger>
@@ -144,7 +144,7 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 
                 {/* Bill Card (Large) */}
-                <Card className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Current Bill</CardTitle>
                   </CardHeader>
@@ -159,8 +159,8 @@ export default function Dashboard() {
                     <div className="flex flex-col gap-3 mt-auto">
                        <Button className="w-full h-12 text-base shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">Pay Bill Now</Button>
                        <div className="flex gap-2">
-                         <Button variant="outline" className="flex-1 text-xs h-10 bg-white/50 hover:bg-white/80 transition-colors">View PDF</Button>
-                         <Button variant="outline" className="flex-1 text-xs h-10 bg-white/50 hover:bg-white/80 transition-colors">History</Button>
+                         <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">View PDF</Button>
+                         <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">History</Button>
                        </div>
                        <div className="text-center pt-2">
                          <Link href="/payment-arrangement">
@@ -172,7 +172,7 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Usage Snapshot */}
-                <Card className="col-span-1 md:col-span-1 lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="col-span-1 md:col-span-1 lg:col-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-center">
                       <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Efficiency Status</CardTitle>
@@ -226,7 +226,7 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Next Meter Read */}
-                <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-center items-center text-center">
+                <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-center items-center text-center">
                    <CardContent className="p-6">
                      <Calendar className="w-8 h-8 text-primary mx-auto mb-3 opacity-80" />
                      <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Next Meter Read</p>
@@ -259,28 +259,28 @@ export default function Dashboard() {
 
               {/* Recommendations Bento */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <div className="p-4 rounded-xl bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                <div className="flex items-center gap-6 p-6 bg-card border border-border/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <div className="p-4 bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
                     <TrendingUp className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                      <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-brand-orange transition-colors">Equal Payment Plan</h4>
-                     <p className="text-sm text-muted-foreground leading-relaxed">Avoid seasonal spikes. Pay exactly <span className="font-semibold text-foreground px-1 py-0.5 bg-white/50 rounded">$115/mo</span> based on history.</p>
+                     <p className="text-sm text-muted-foreground leading-relaxed">Avoid seasonal spikes. Pay exactly <span className="font-semibold text-foreground px-1 py-0.5 bg-secondary/50">$115/mo</span> based on history.</p>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-brand-orange/10 transition-colors">
+                  <div className="w-10 h-10 bg-secondary/50 flex items-center justify-center group-hover:bg-brand-orange/10 transition-colors">
                     <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-brand-orange transition-colors" />
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <div className="p-4 rounded-xl bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                <div className="flex items-center gap-6 p-6 bg-card border border-border/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <div className="p-4 bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
                     <Smartphone className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                      <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-purple-600 transition-colors">Get Outage Alerts</h4>
                      <p className="text-sm text-muted-foreground leading-relaxed">Stay informed. Get instant SMS updates directly to your phone if power goes out.</p>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                  <div className="w-10 h-10 bg-secondary/50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
                     <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-purple-600 transition-colors" />
                   </div>
                 </div>
@@ -301,17 +301,17 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 
-                <Card className="lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="lg:col-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
                         <CardDescription>Real-time electric consumption (kWh)</CardDescription>
                       </div>
-                      <div className="flex gap-2 bg-white/50 p-1 rounded-lg">
-                        <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-md">Yearly</Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Monthly</Button>
-                        <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Daily</Button>
+                      <div className="flex gap-2 bg-secondary/50 p-1 rounded-none">
+                        <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-none">Yearly</Button>
+                        <Button variant="ghost" size="sm" className="hover:bg-secondary rounded-none">Monthly</Button>
+                        <Button variant="ghost" size="sm" className="hover:bg-secondary rounded-none">Daily</Button>
                       </div>
                     </div>
                   </CardHeader>
@@ -333,7 +333,7 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                <Card className="lg:col-span-1 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="text-xl">Where Your Energy Goes</CardTitle>
                     <CardDescription>Estimated electric breakdown this month</CardDescription>
@@ -361,7 +361,7 @@ export default function Dashboard() {
                       ))}
                     </div>
                     
-                    <Button variant="outline" className="w-full mt-6 bg-white/50 hover:bg-white/80 transition-colors text-sm">
+                    <Button variant="outline" className="w-full mt-6 bg-secondary/50 hover:bg-secondary transition-colors text-sm">
                       View Ways to Save
                     </Button>
                   </CardContent>
@@ -378,7 +378,7 @@ export default function Dashboard() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <Card className="lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="lg:col-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
@@ -405,7 +405,7 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                <Card className="lg:col-span-1 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="text-lg">Gas Insights</CardTitle>
                     <CardDescription>Your natural gas summary</CardDescription>
@@ -417,11 +417,11 @@ export default function Dashboard() {
                         <p className="text-2xl font-bold text-foreground">10 therms</p>
                         <p className="text-xs text-green-600 font-medium mt-1">9% less than last year</p>
                       </div>
-                      <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                      <div className="p-4 bg-secondary/50 rounded-none border border-border/50">
                         <p className="text-xs text-muted-foreground mb-1">12-Month Average</p>
                         <p className="text-2xl font-bold text-foreground">46 therms</p>
                       </div>
-                      <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                      <div className="p-4 bg-secondary/50 rounded-none border border-border/50">
                         <p className="text-xs text-muted-foreground mb-1">Next Meter Read</p>
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4 text-muted-foreground" />
@@ -435,7 +435,7 @@ export default function Dashboard() {
 
               {/* Bottom Row */}
               <div className="grid md:grid-cols-2 gap-4 mt-4">
-                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-lg">Daily Insights</CardTitle>
                     <CardDescription>Electric smart meter data</CardDescription>
@@ -491,7 +491,7 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 
                 {/* Equal Payment Plan */}
-                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="p-2.5 bg-primary/10 rounded-none text-primary shrink-0">
@@ -518,7 +518,7 @@ export default function Dashboard() {
                             </div>
                           </div>
                         ) : (
-                          <Button size="sm" variant="outline" className="text-xs w-full bg-white/50" onClick={() => setShowEqualPayConfirm(true)} data-testid="button-enroll-equal-pay">
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50" onClick={() => setShowEqualPayConfirm(true)} data-testid="button-enroll-equal-pay">
                             Enroll Now
                           </Button>
                         )}
@@ -528,7 +528,7 @@ export default function Dashboard() {
                 </Card>
 
                 {/* Deferred Payment */}
-                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="p-2.5 bg-brand-orange/10 rounded-none text-brand-orange shrink-0">
@@ -538,7 +538,7 @@ export default function Dashboard() {
                         <h3 className="font-bold text-sm mb-1">Deferred Payment</h3>
                         <p className="text-xs text-muted-foreground mb-3">Split your balance over several months with a custom arrangement.</p>
                         <Link href="/payment-arrangement">
-                          <Button size="sm" variant="outline" className="text-xs w-full bg-white/50" data-testid="button-deferred-payment">
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50" data-testid="button-deferred-payment">
                             Set Up Arrangement
                           </Button>
                         </Link>
@@ -548,7 +548,7 @@ export default function Dashboard() {
                 </Card>
 
                 {/* AutoPay */}
-                <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="p-2.5 bg-green-100 rounded-none text-green-600 shrink-0">
@@ -587,22 +587,22 @@ export default function Dashboard() {
               </div>
 
               {/* Transaction History */}
-              <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+              <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                 <CardHeader>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <CardTitle className="text-xl">Transaction History</CardTitle>
                       <CardDescription>Your recent billing activity</CardDescription>
                     </div>
-                    <Button variant="outline" size="sm" className="bg-white/50 gap-2 self-start" data-testid="button-download-history">
+                    <Button variant="outline" size="sm" className="bg-secondary/50 gap-2 self-start" data-testid="button-download-history">
                       <Download className="w-4 h-4" /> Export
                     </Button>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-0 divide-y divide-slate-100">
+                  <div className="space-y-0 divide-y divide-border/50">
                     {transactionHistory.map((tx, i) => (
-                      <div key={i} className="flex items-center justify-between py-3.5 px-2 hover:bg-slate-50/50 transition-colors" data-testid={`row-transaction-${i}`}>
+                      <div key={i} className="flex items-center justify-between py-3.5 px-2 hover:bg-secondary/30 transition-colors" data-testid={`row-transaction-${i}`}>
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-none ${
                             tx.type === 'payment' ? 'bg-green-100 text-green-600' :
@@ -647,7 +647,7 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                  {/* Program 1 */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
@@ -667,7 +667,7 @@ export default function Dashboard() {
                  </Card>
 
                  {/* Program 2 */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
@@ -687,7 +687,7 @@ export default function Dashboard() {
                  </Card>
 
                  {/* Program 3 */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
@@ -707,7 +707,7 @@ export default function Dashboard() {
                  </Card>
 
                  {/* Program 4 */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
@@ -727,7 +727,7 @@ export default function Dashboard() {
                  </Card>
 
                  {/* Program 5 */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
@@ -747,7 +747,7 @@ export default function Dashboard() {
                  </Card>
 
                  {/* Existing Account Program */}
-                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300"></div>
                     <CardHeader>
                        <div className="flex justify-between items-start">
@@ -762,7 +762,7 @@ export default function Dashboard() {
                        <CardDescription className="pt-3 text-sm">Saving trees and reducing clutter.</CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="ghost" className="w-full text-muted-foreground bg-white/50 hover:bg-white/80">Manage Settings</Button>
+                       <Button variant="ghost" className="w-full text-muted-foreground bg-secondary/50 hover:bg-secondary">Manage Settings</Button>
                     </CardFooter>
                  </Card>
               </div>

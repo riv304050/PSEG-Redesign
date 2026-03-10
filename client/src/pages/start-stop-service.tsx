@@ -36,7 +36,7 @@ export default function StartStopService() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto py-12 max-w-4xl">
         <div className="mb-8 text-center">

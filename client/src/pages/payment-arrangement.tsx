@@ -43,7 +43,7 @@ export default function PaymentArrangement() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
       <main className="flex-1 py-8 px-4 relative">
@@ -64,7 +64,7 @@ export default function PaymentArrangement() {
           </div>
 
           <Tabs defaultValue="installments" className="space-y-8" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full max-w-md grid-cols-2 p-1.5 bg-white/60 backdrop-blur-sm border border-white/40 shadow-sm rounded-none h-auto">
+            <TabsList className="grid w-full max-w-md grid-cols-2 p-1.5 bg-card/80 backdrop-blur-sm border border-border/50 shadow-sm rounded-none h-auto">
               <TabsTrigger value="installments" className="py-3 text-sm font-semibold rounded-none data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">
                 Pay in Installments
               </TabsTrigger>
@@ -78,7 +78,7 @@ export default function PaymentArrangement() {
               <div className="grid md:grid-cols-3 gap-6">
                 
                 <div className="md:col-span-1 space-y-4">
-                  <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                  <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                     <CardContent className="p-6">
                       <h3 className="font-bold text-base mb-4 flex items-center gap-2">
                         <Info className="w-4 h-4 text-primary" />
@@ -120,14 +120,14 @@ export default function PaymentArrangement() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                       >
-                        <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                        <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                           <CardHeader>
                             <CardTitle className="text-xl">Create Your Plan</CardTitle>
                             <CardDescription>Customize payments to fit your budget.</CardDescription>
                           </CardHeader>
                           <CardContent className="space-y-6">
                             
-                            <div className="bg-slate-50/80 p-4 rounded-none flex justify-between items-center border border-slate-100">
+                            <div className="bg-secondary/50 p-4 rounded-none flex justify-between items-center border border-border/50">
                               <span className="text-sm font-medium text-muted-foreground">Total Past Due Balance</span>
                               <span className="text-2xl font-bold text-foreground">${totalBalance.toFixed(2)}</span>
                             </div>
@@ -139,7 +139,7 @@ export default function PaymentArrangement() {
                                 <DollarSign className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input 
                                   type="number" 
-                                  className="pl-9 bg-white/80" 
+                                  className="pl-9 bg-card/80" 
                                   value={downPayment} 
                                   onChange={(e) => setDownPayment(e.target.value)} 
                                   data-testid="input-down-payment"
@@ -205,13 +205,13 @@ export default function PaymentArrangement() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                       >
-                         <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                         <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                           <CardHeader>
                             <CardTitle className="text-xl">Review & Confirm</CardTitle>
                             <CardDescription>Please review the details of your arrangement.</CardDescription>
                           </CardHeader>
                           <CardContent className="space-y-6">
-                            <div className="space-y-4 border border-slate-100 rounded-none p-5 bg-slate-50/50">
+                            <div className="space-y-4 border border-border/50 rounded-none p-5 bg-secondary/50">
                                <div className="grid grid-cols-2 gap-3 text-sm">
                                   <div className="text-muted-foreground">Total Past Due</div>
                                   <div className="font-semibold text-right">${totalBalance.toFixed(2)}</div>
@@ -235,7 +235,7 @@ export default function PaymentArrangement() {
                                </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 border border-slate-100 rounded-none bg-white/60">
+                            <div className="flex items-start gap-3 p-4 border border-border/50 rounded-none bg-card/80">
                                <Checkbox id="terms" className="mt-0.5" data-testid="checkbox-terms" />
                                <div className="grid gap-1 leading-none">
                                  <Label htmlFor="terms" className="text-sm font-medium leading-snug">
@@ -248,7 +248,7 @@ export default function PaymentArrangement() {
                             </div>
 
                           </CardContent>
-                          <CardFooter className="flex justify-between border-t border-white/40 pt-6">
+                          <CardFooter className="flex justify-between border-t border-border/50 pt-6">
                             <Button variant="ghost" onClick={() => setStep(1)} data-testid="button-back">
                               <ArrowLeft className="w-4 h-4 mr-2" /> Back
                             </Button>
@@ -265,7 +265,7 @@ export default function PaymentArrangement() {
                         key="step3"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-12 bg-white/70 backdrop-blur-md rounded-none shadow-sm border border-white/40"
+                        className="text-center py-12 bg-card backdrop-blur-md rounded-none shadow-sm border border-border/50"
                       >
                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
                            <CheckCircle2 className="w-8 h-8" />
@@ -279,7 +279,7 @@ export default function PaymentArrangement() {
                            <Button onClick={() => setLocation("/dashboard")} className="gap-2" data-testid="button-return-dashboard">
                              Return to Dashboard <ChevronRight className="w-4 h-4" />
                            </Button>
-                           <Button variant="outline" className="gap-2 bg-white/50">
+                           <Button variant="outline" className="gap-2 bg-secondary/50">
                              <Calendar className="w-4 h-4" /> Add to Calendar
                            </Button>
                          </div>
@@ -295,7 +295,7 @@ export default function PaymentArrangement() {
             <TabsContent value="extension">
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="md:col-span-1">
-                  <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                  <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                     <CardContent className="p-6">
                       <h3 className="font-bold text-base mb-4 flex items-center gap-2">
                         <CalendarClock className="w-4 h-4 text-primary" />
@@ -319,13 +319,13 @@ export default function PaymentArrangement() {
                 </div>
 
                 <div className="md:col-span-2">
-                   <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                   <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
                      <CardHeader>
                        <CardTitle className="text-xl">Request Extension</CardTitle>
                        <CardDescription>Select a new date to pay your current balance.</CardDescription>
                      </CardHeader>
                      <CardContent className="space-y-6">
-                        <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                        <div className="p-4 bg-secondary/50 rounded-none border border-border/50">
                            <p className="text-sm mb-1">Current Due Date: <span className="font-semibold text-red-600">Dec 26, 2025</span></p>
                            <p className="text-sm">Balance Due: <span className="font-semibold text-foreground">$142.50</span></p>
                         </div>
@@ -334,7 +334,7 @@ export default function PaymentArrangement() {
                           <Label className="text-sm font-semibold">Select New Due Date</Label>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                              {[10, 15, 20, 30].map(days => (
-                               <Button key={days} variant="outline" className="h-auto py-4 flex flex-col gap-1 bg-white/60 hover:border-primary hover:bg-primary/5 rounded-none" data-testid={`button-extension-${days}`}>
+                               <Button key={days} variant="outline" className="h-auto py-4 flex flex-col gap-1 bg-card/80 hover:border-primary hover:bg-primary/5 rounded-none" data-testid={`button-extension-${days}`}>
                                  <span className="font-bold text-base">+{days} Days</span>
                                  <span className="text-xs text-muted-foreground">Jan {days + 5}</span>
                                </Button>
@@ -353,7 +353,7 @@ export default function PaymentArrangement() {
           </Tabs>
 
           <div className="mt-12">
-            <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+            <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm">
               <CardContent className="p-6 md:p-8">
                 <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
                 <Accordion type="single" collapsible className="w-full">
