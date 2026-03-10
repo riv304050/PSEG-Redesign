@@ -15,7 +15,12 @@ import {
   Bell,
   BarChart3,
   HelpCircle,
-  ArrowRight
+  ArrowRight,
+  Snowflake,
+  Droplets,
+  Lightbulb,
+  Tv,
+  Power
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -25,6 +30,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+import { motion, AnimatePresence } from "framer-motion";
 
 // Mock Data
 const usageData = [
@@ -42,6 +48,14 @@ const dailyData = [
   { time: '8am', kwh: 1.2 }, { time: '12pm', kwh: 1.5 },
   { time: '4pm', kwh: 2.1 }, { time: '8pm', kwh: 1.8 },
   { time: '11pm', kwh: 0.9 }
+];
+
+const disaggregationData = [
+  { category: 'Cooling / AC', percentage: 35, icon: Snowflake, color: 'bg-blue-500' },
+  { category: 'Water Heating', percentage: 25, icon: Droplets, color: 'bg-brand-orange' },
+  { category: 'Lighting', percentage: 15, icon: Lightbulb, color: 'bg-yellow-400' },
+  { category: 'Appliances', percentage: 15, icon: Tv, color: 'bg-purple-500' },
+  { category: 'Always On', percentage: 10, icon: Power, color: 'bg-slate-400' },
 ];
 
 export default function Dashboard() {
@@ -211,39 +225,78 @@ export default function Dashboard() {
 
             {/* USAGE TAB */}
             <TabsContent value="usage" className="space-y-4">
-              <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
-                      <CardDescription>Your energy consumption over time</CardDescription>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                
+                {/* Smart Meter Analysis */}
+                <Card className="lg:col-span-2 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <CardTitle className="text-xl">Smart Meter Analysis</CardTitle>
+                        <CardDescription>Your energy consumption over time</CardDescription>
+                      </div>
+                      <div className="flex gap-2 bg-white/50 p-1 rounded-lg">
+                        <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-md">Yearly</Button>
+                        <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Monthly</Button>
+                        <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Daily</Button>
+                      </div>
                     </div>
-                    <div className="flex gap-2 bg-white/50 p-1 rounded-lg">
-                      <Button variant="ghost" size="sm" className="bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm rounded-md">Yearly</Button>
-                      <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Monthly</Button>
-                      <Button variant="ghost" size="sm" className="hover:bg-white/60 rounded-md">Daily</Button>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="h-[400px] pt-4">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
-                      <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
-                      <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} />
-                      <Tooltip 
-                        contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
-                        cursor={{ fill: 'rgba(0,0,0,0.02)' }}
-                      />
-                      <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                      <Bar dataKey="kwh" name="Current Year" fill="#142C41" radius={[6, 6, 0, 0]} barSize={32} />
-                      <Bar dataKey="prevYear" name="Last Year" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={32} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+                  </CardHeader>
+                  <CardContent className="h-[400px] pt-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={usageData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} />
+                        <Tooltip 
+                          contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
+                          cursor={{ fill: 'rgba(0,0,0,0.02)' }}
+                        />
+                        <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                        <Bar dataKey="kwh" name="Current Year" fill="#142C41" radius={[6, 6, 0, 0]} barSize={32} />
+                        <Bar dataKey="prevYear" name="Last Year" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={32} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
 
-              <div className="grid md:grid-cols-2 gap-4">
+                {/* Energy Disaggregation Module */}
+                <Card className="lg:col-span-1 bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Where Your Energy Goes</CardTitle>
+                    <CardDescription>Estimated usage breakdown for this month</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between pt-2">
+                    <div className="space-y-6">
+                      {disaggregationData.map((item, index) => (
+                        <div key={index} className="space-y-2">
+                          <div className="flex justify-between items-center text-sm">
+                            <div className="flex items-center gap-2 font-medium text-foreground">
+                              <item.icon className={`w-4 h-4 text-muted-foreground`} />
+                              {item.category}
+                            </div>
+                            <span className="font-bold">{item.percentage}%</span>
+                          </div>
+                          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                            <motion.div 
+                              className={`h-full ${item.color} rounded-full`}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${item.percentage}%` }}
+                              transition={{ duration: 1, delay: index * 0.1 }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Button variant="outline" className="w-full mt-8 bg-white/50 hover:bg-white/80 transition-colors">
+                      View Ways to Save
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
                 <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-lg">Daily Insights</CardTitle>
