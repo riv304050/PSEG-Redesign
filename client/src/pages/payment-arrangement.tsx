@@ -10,15 +10,12 @@ import {
   Clock, 
   ChevronRight, 
   Info,
-  CreditCard,
-  Calculator,
   Calendar
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -37,86 +34,85 @@ export default function PaymentArrangement() {
   
   const totalBalance = 450.00;
   
-  // Calculations
   const downPaymentValue = parseFloat(downPayment) || 0;
   const remainingBalance = totalBalance - downPaymentValue;
   const monthlyPayment = remainingBalance / months;
 
   const handleEnroll = () => {
-    // Mock enrollment
-    setStep(3); // Success step
+    setStep(3);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/50">
       <Header />
       
-      <main className="flex-1 py-8 px-4">
-        <div className="container mx-auto max-w-4xl">
+      <main className="flex-1 py-8 px-4 relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="container mx-auto max-w-5xl relative z-10">
           
           <Button variant="ghost" className="mb-6 pl-0 gap-2 hover:bg-transparent hover:text-primary" onClick={() => setLocation("/dashboard")}>
              <ArrowLeft className="w-4 h-4" /> Back to Dashboard
           </Button>
 
           <div className="mb-10">
-            <h1 className="text-3xl font-bold text-foreground mb-4">Payment Assistance Options</h1>
-            <p className="text-lg text-muted-foreground">
-              We understand that sometimes you might need a little extra time or help with your bill. 
-              Review our payment arrangement options below to find a plan that works for you.
+            <h1 className="text-3xl font-bold text-foreground mb-3">Payment Assistance</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl">
+              We understand things come up. Choose an option below to find a plan that works for you.
             </p>
           </div>
 
           <Tabs defaultValue="installments" className="space-y-8" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2 p-1 bg-muted rounded-xl">
-              <TabsTrigger value="installments" className="py-3 text-base data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg">
+            <TabsList className="grid w-full max-w-md grid-cols-2 p-1.5 bg-white/60 backdrop-blur-sm border border-white/40 shadow-sm rounded-none h-auto">
+              <TabsTrigger value="installments" className="py-3 text-sm font-semibold rounded-none data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">
                 Pay in Installments
               </TabsTrigger>
-              <TabsTrigger value="extension" className="py-3 text-base data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg">
+              <TabsTrigger value="extension" className="py-3 text-sm font-semibold rounded-none data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all">
                 Due Date Extension
               </TabsTrigger>
             </TabsList>
 
             {/* INSTALLMENT PLAN CONTENT */}
-            <TabsContent value="installments" className="space-y-8">
-              <div className="grid md:grid-cols-3 gap-8">
+            <TabsContent value="installments" className="space-y-6">
+              <div className="grid md:grid-cols-3 gap-6">
                 
-                {/* Information Column */}
-                <div className="md:col-span-1 space-y-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border">
-                    <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                      <Info className="w-5 h-5 text-primary" />
-                      How it works
-                    </h3>
-                    <ul className="space-y-4 text-sm text-muted-foreground">
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                        <span>Break your existing balance into smaller monthly payments.</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                        <span>Pay current charges plus your installment amount on time.</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                        <span>No penalty for paying off your plan early.</span>
-                      </li>
-                    </ul>
-                  </div>
+                <div className="md:col-span-1 space-y-4">
+                  <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                    <CardContent className="p-6">
+                      <h3 className="font-bold text-base mb-4 flex items-center gap-2">
+                        <Info className="w-4 h-4 text-primary" />
+                        How it works
+                      </h3>
+                      <ul className="space-y-3 text-sm text-muted-foreground">
+                        <li className="flex gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                          <span>Break your balance into smaller monthly payments.</span>
+                        </li>
+                        <li className="flex gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                          <span>Pay current charges plus your installment on time.</span>
+                        </li>
+                        <li className="flex gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                          <span>No penalty for paying off early.</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
 
-                  <Alert className="bg-amber-50 border-amber-200">
+                  <Alert className="bg-amber-50/80 border-amber-200/60 backdrop-blur-sm">
                     <AlertTriangle className="h-4 w-4 text-amber-600" />
-                    <AlertTitle className="text-amber-800">Important</AlertTitle>
+                    <AlertTitle className="text-amber-800 text-sm">Important</AlertTitle>
                     <AlertDescription className="text-amber-700 text-xs mt-1">
-                      If you break a payment plan, you may not be offered another one in the future and could risk service disconnection.
+                      Breaking a payment plan may affect your eligibility for future arrangements.
                     </AlertDescription>
                   </Alert>
                 </div>
 
-                {/* Interaction Column */}
                 <div className="md:col-span-2">
                   <AnimatePresence mode="wait">
                     
-                    {/* STEP 1: CONFIGURATION */}
                     {step === 1 && (
                       <motion.div
                         key="step1"
@@ -124,39 +120,37 @@ export default function PaymentArrangement() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                       >
-                        <Card className="border-t-4 border-t-primary">
+                        <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
                           <CardHeader>
-                            <CardTitle>Create Your Plan</CardTitle>
-                            <CardDescription>Customize your payments to fit your budget.</CardDescription>
+                            <CardTitle className="text-xl">Create Your Plan</CardTitle>
+                            <CardDescription>Customize payments to fit your budget.</CardDescription>
                           </CardHeader>
-                          <CardContent className="space-y-8">
+                          <CardContent className="space-y-6">
                             
-                            {/* Balance Info */}
-                            <div className="bg-slate-50 p-4 rounded-lg flex justify-between items-center">
-                              <span className="font-medium text-muted-foreground">Total Past Due Balance</span>
+                            <div className="bg-slate-50/80 p-4 rounded-none flex justify-between items-center border border-slate-100">
+                              <span className="text-sm font-medium text-muted-foreground">Total Past Due Balance</span>
                               <span className="text-2xl font-bold text-foreground">${totalBalance.toFixed(2)}</span>
                             </div>
 
-                            {/* Down Payment Input */}
                             <div className="space-y-3">
-                              <Label className="text-base font-semibold">1. Make a Down Payment (Optional)</Label>
-                              <p className="text-sm text-muted-foreground">Paying a portion now reduces your monthly installments.</p>
+                              <Label className="text-sm font-semibold">1. Down Payment (Optional)</Label>
+                              <p className="text-xs text-muted-foreground">A down payment reduces your monthly installments.</p>
                               <div className="relative max-w-xs">
-                                <DollarSign className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                                <DollarSign className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input 
                                   type="number" 
-                                  className="pl-10 text-lg" 
+                                  className="pl-9 bg-white/80" 
                                   value={downPayment} 
                                   onChange={(e) => setDownPayment(e.target.value)} 
+                                  data-testid="input-down-payment"
                                 />
                               </div>
                             </div>
 
-                            {/* Slider for Months */}
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                               <div className="flex justify-between items-center">
-                                <Label className="text-base font-semibold">2. Choose Installment Period</Label>
-                                <span className="text-lg font-bold text-primary">{months} Months</span>
+                                <Label className="text-sm font-semibold">2. Installment Period</Label>
+                                <span className="text-base font-bold text-primary">{months} Months</span>
                               </div>
                               <Slider 
                                 defaultValue={[3]} 
@@ -166,37 +160,37 @@ export default function PaymentArrangement() {
                                 value={[months]} 
                                 onValueChange={(vals) => setMonths(vals[0])}
                                 className="py-4" 
+                                data-testid="slider-months"
                               />
-                              <div className="flex justify-between text-xs text-muted-foreground px-1">
-                                <span>2 Months</span>
-                                <span>6 Months</span>
-                                <span>12 Months</span>
+                              <div className="flex justify-between text-xs text-muted-foreground">
+                                <span>2 mo</span>
+                                <span>6 mo</span>
+                                <span>12 mo</span>
                               </div>
                             </div>
 
-                            {/* Summary Calculation */}
-                            <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 space-y-3">
+                            <div className="bg-primary/5 p-5 rounded-none border border-primary/10 space-y-2">
                               <div className="flex justify-between text-sm">
-                                <span>Remaining Balance:</span>
+                                <span className="text-muted-foreground">Remaining Balance</span>
                                 <span>${remainingBalance.toFixed(2)}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span>Number of Installments:</span>
+                                <span className="text-muted-foreground">Installments</span>
                                 <span>{months}</span>
                               </div>
-                              <div className="pt-3 border-t border-blue-200 flex justify-between items-center">
-                                <span className="font-bold text-blue-900">Your Monthly Installment:</span>
-                                <span className="text-2xl font-bold text-blue-700">${monthlyPayment.toFixed(2)}</span>
+                              <div className="pt-3 border-t border-primary/10 flex justify-between items-center">
+                                <span className="font-bold text-foreground">Monthly Payment</span>
+                                <span className="text-2xl font-bold text-primary" data-testid="text-monthly-payment">${monthlyPayment.toFixed(2)}</span>
                               </div>
-                              <p className="text-xs text-blue-600 mt-2">
-                                *This amount will be added to your regular monthly bill.
+                              <p className="text-xs text-muted-foreground pt-1">
+                                *Added to your regular monthly bill.
                               </p>
                             </div>
 
                           </CardContent>
-                          <CardFooter className="flex justify-end gap-4 border-t pt-6">
+                          <CardFooter className="flex justify-end gap-3 border-t border-white/40 pt-6">
                             <Button variant="ghost" onClick={() => setLocation("/dashboard")}>Cancel</Button>
-                            <Button className="gap-2 px-8" onClick={() => setStep(2)}>
+                            <Button className="gap-2 px-6" onClick={() => setStep(2)} data-testid="button-review">
                               Review Plan <ArrowRight className="w-4 h-4" />
                             </Button>
                           </CardFooter>
@@ -204,7 +198,6 @@ export default function PaymentArrangement() {
                       </motion.div>
                     )}
 
-                    {/* STEP 2: REVIEW */}
                     {step === 2 && (
                       <motion.div
                         key="step2"
@@ -212,54 +205,54 @@ export default function PaymentArrangement() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                       >
-                         <Card className="border-t-4 border-t-primary">
+                         <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
                           <CardHeader>
-                            <CardTitle>Review & Confirm</CardTitle>
-                            <CardDescription>Please review the details of your payment arrangement.</CardDescription>
+                            <CardTitle className="text-xl">Review & Confirm</CardTitle>
+                            <CardDescription>Please review the details of your arrangement.</CardDescription>
                           </CardHeader>
                           <CardContent className="space-y-6">
-                            <div className="space-y-4 border rounded-xl p-6 bg-slate-50/50">
-                               <div className="grid grid-cols-2 gap-4 text-sm">
-                                  <div className="text-muted-foreground">Total Past Due:</div>
+                            <div className="space-y-4 border border-slate-100 rounded-none p-5 bg-slate-50/50">
+                               <div className="grid grid-cols-2 gap-3 text-sm">
+                                  <div className="text-muted-foreground">Total Past Due</div>
                                   <div className="font-semibold text-right">${totalBalance.toFixed(2)}</div>
                                   
-                                  <div className="text-muted-foreground">Down Payment (Due Now):</div>
+                                  <div className="text-muted-foreground">Down Payment</div>
                                   <div className="font-semibold text-right text-green-600">-${downPaymentValue.toFixed(2)}</div>
                                   
-                                  <div className="text-muted-foreground">Amount Financed:</div>
+                                  <div className="text-muted-foreground">Amount Financed</div>
                                   <div className="font-semibold text-right">${remainingBalance.toFixed(2)}</div>
                                   
-                                  <div className="col-span-2 h-px bg-slate-200 my-2" />
+                                  <div className="col-span-2 h-px bg-slate-200 my-1" />
                                   
-                                  <div className="text-lg font-bold text-primary">Monthly Installment:</div>
-                                  <div className="text-lg font-bold text-right text-primary">${monthlyPayment.toFixed(2)}</div>
+                                  <div className="font-bold text-primary">Monthly Installment</div>
+                                  <div className="font-bold text-right text-primary">${monthlyPayment.toFixed(2)}</div>
                                   
-                                  <div className="text-muted-foreground">Duration:</div>
+                                  <div className="text-muted-foreground">Duration</div>
                                   <div className="text-right">{months} Months</div>
                                   
-                                  <div className="text-muted-foreground">First Installment Due:</div>
+                                  <div className="text-muted-foreground">First Due</div>
                                   <div className="text-right">Jan 25, 2026</div>
                                </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 border rounded-lg bg-white">
-                               <Checkbox id="terms" className="mt-1" />
-                               <div className="grid gap-1.5 leading-none">
-                                 <Label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            <div className="flex items-start gap-3 p-4 border border-slate-100 rounded-none bg-white/60">
+                               <Checkbox id="terms" className="mt-0.5" data-testid="checkbox-terms" />
+                               <div className="grid gap-1 leading-none">
+                                 <Label htmlFor="terms" className="text-sm font-medium leading-snug">
                                    I agree to the terms and conditions
                                  </Label>
                                  <p className="text-xs text-muted-foreground">
-                                   I understand that I must pay my regular monthly bill PLUS this installment amount on time to keep this arrangement active.
+                                   I understand I must pay my regular bill plus this installment on time.
                                  </p>
                                </div>
                             </div>
 
                           </CardContent>
-                          <CardFooter className="flex justify-between border-t pt-6">
-                            <Button variant="ghost" onClick={() => setStep(1)}>
+                          <CardFooter className="flex justify-between border-t border-white/40 pt-6">
+                            <Button variant="ghost" onClick={() => setStep(1)} data-testid="button-back">
                               <ArrowLeft className="w-4 h-4 mr-2" /> Back
                             </Button>
-                            <Button className="gap-2 px-8 bg-green-600 hover:bg-green-700" onClick={handleEnroll}>
+                            <Button className="gap-2 px-6" onClick={handleEnroll} data-testid="button-confirm">
                               Confirm Arrangement <CheckCircle2 className="w-4 h-4" />
                             </Button>
                           </CardFooter>
@@ -267,28 +260,27 @@ export default function PaymentArrangement() {
                       </motion.div>
                     )}
 
-                    {/* STEP 3: SUCCESS */}
                     {step === 3 && (
                       <motion.div
                         key="step3"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-12 bg-white rounded-xl shadow-sm border"
+                        className="text-center py-12 bg-white/70 backdrop-blur-md rounded-none shadow-sm border border-white/40"
                       >
-                         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
-                           <CheckCircle2 className="w-10 h-10" />
+                         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+                           <CheckCircle2 className="w-8 h-8" />
                          </div>
-                         <h2 className="text-3xl font-bold text-foreground mb-4">You're All Set!</h2>
-                         <p className="text-lg text-muted-foreground max-w-md mx-auto mb-8">
-                           Your payment arrangement has been successfully created. A confirmation email has been sent to your inbox.
+                         <h2 className="text-2xl font-bold text-foreground mb-3">You're All Set!</h2>
+                         <p className="text-muted-foreground max-w-md mx-auto mb-8">
+                           Your payment arrangement has been created. A confirmation has been sent to your email.
                          </p>
                          
-                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                           <Button onClick={() => setLocation("/dashboard")} className="gap-2">
+                         <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                           <Button onClick={() => setLocation("/dashboard")} className="gap-2" data-testid="button-return-dashboard">
                              Return to Dashboard <ChevronRight className="w-4 h-4" />
                            </Button>
-                           <Button variant="outline" className="gap-2">
-                             <Calendar className="w-4 h-4" /> Add Reminders to Calendar
+                           <Button variant="outline" className="gap-2 bg-white/50">
+                             <Calendar className="w-4 h-4" /> Add to Calendar
                            </Button>
                          </div>
                       </motion.div>
@@ -301,56 +293,58 @@ export default function PaymentArrangement() {
 
             {/* EXTENSION TAB */}
             <TabsContent value="extension">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="md:col-span-1 space-y-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border">
-                    <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                      <CalendarClock className="w-5 h-5 text-primary" />
-                      About Extensions
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      A due date extension moves your due date up to 30 days into the future, giving you extra time to pay the balance in full.
-                    </p>
-                     <ul className="space-y-4 text-sm text-muted-foreground">
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
-                        <span>Continue to pay your regular monthly bill.</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
-                        <span>Available for residential gas or electric customers.</span>
-                      </li>
-                    </ul>
-                  </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="md:col-span-1">
+                  <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+                    <CardContent className="p-6">
+                      <h3 className="font-bold text-base mb-4 flex items-center gap-2">
+                        <CalendarClock className="w-4 h-4 text-primary" />
+                        About Extensions
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Move your due date up to 30 days into the future for extra time to pay in full.
+                      </p>
+                       <ul className="space-y-3 text-sm text-muted-foreground">
+                        <li className="flex gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          <span>Continue paying your regular monthly bill.</span>
+                        </li>
+                        <li className="flex gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          <span>Available for residential gas or electric customers.</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
                 </div>
 
                 <div className="md:col-span-2">
-                   <Card className="border-t-4 border-t-blue-500">
+                   <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
                      <CardHeader>
-                       <CardTitle>Request Due Date Extension</CardTitle>
+                       <CardTitle className="text-xl">Request Extension</CardTitle>
                        <CardDescription>Select a new date to pay your current balance.</CardDescription>
                      </CardHeader>
                      <CardContent className="space-y-6">
-                        <div className="p-4 bg-slate-50 rounded-lg">
-                           <p className="text-sm font-medium mb-2">Current Due Date: <span className="text-red-600">Dec 26, 2025</span></p>
-                           <p className="text-sm font-medium">Balance Due: <span className="text-foreground">$142.50</span></p>
+                        <div className="p-4 bg-slate-50/80 rounded-none border border-slate-100">
+                           <p className="text-sm mb-1">Current Due Date: <span className="font-semibold text-red-600">Dec 26, 2025</span></p>
+                           <p className="text-sm">Balance Due: <span className="font-semibold text-foreground">$142.50</span></p>
                         </div>
                         
-                        <div className="grid gap-2">
-                          <Label>Select New Due Date</Label>
+                        <div className="space-y-3">
+                          <Label className="text-sm font-semibold">Select New Due Date</Label>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                              {[10, 15, 20, 30].map(days => (
-                               <Button key={days} variant="outline" className="h-auto py-4 flex flex-col gap-1 hover:border-primary hover:bg-primary/5">
-                                 <span className="font-bold text-lg">+{days} Days</span>
+                               <Button key={days} variant="outline" className="h-auto py-4 flex flex-col gap-1 bg-white/60 hover:border-primary hover:bg-primary/5 rounded-none" data-testid={`button-extension-${days}`}>
+                                 <span className="font-bold text-base">+{days} Days</span>
                                  <span className="text-xs text-muted-foreground">Jan {days + 5}</span>
                                </Button>
                              ))}
                           </div>
                         </div>
                      </CardContent>
-                     <CardFooter className="flex justify-end gap-4 border-t pt-6">
+                     <CardFooter className="flex justify-end gap-3 border-t border-white/40 pt-6">
                         <Button variant="ghost">Cancel</Button>
-                        <Button className="bg-blue-600 hover:bg-blue-700">Confirm Extension</Button>
+                        <Button data-testid="button-confirm-extension">Confirm Extension</Button>
                      </CardFooter>
                    </Card>
                 </div>
@@ -358,29 +352,32 @@ export default function PaymentArrangement() {
             </TabsContent>
           </Tabs>
 
-          {/* FAQ Section */}
-          <div className="mt-16 bg-white p-8 rounded-xl shadow-sm border">
-            <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>How do I know what I’m supposed to pay?</AccordionTrigger>
-                <AccordionContent>
-                  When you have a payment plan, you are agreeing to pay the current charges plus the agreed payment plan amount every month until the plan is fulfilled. These amounts are clearly visible on your bill each month.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Can I change my payment plan later?</AccordionTrigger>
-                <AccordionContent>
-                  We cannot make changes to an existing payment plan. To cancel or change it, you must pay off the total balance of the current plan first.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>What happens if I miss a payment?</AccordionTrigger>
-                <AccordionContent>
-                  If you break a payment plan, you may not be offered a payment plan in the future and could have your service shut off. It is critical to make both your regular monthly payment and your installment payment on time.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+          <div className="mt-12">
+            <Card className="bg-white/70 backdrop-blur-md border-white/40 shadow-sm">
+              <CardContent className="p-6 md:p-8">
+                <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="item-1" className="border-slate-200/60">
+                    <AccordionTrigger className="text-sm font-medium hover:no-underline">How do I know what I'm supposed to pay?</AccordionTrigger>
+                    <AccordionContent className="text-sm text-muted-foreground">
+                      When you have a payment plan, you agree to pay current charges plus the plan amount each month. These are clearly shown on your bill.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-2" className="border-slate-200/60">
+                    <AccordionTrigger className="text-sm font-medium hover:no-underline">Can I change my payment plan later?</AccordionTrigger>
+                    <AccordionContent className="text-sm text-muted-foreground">
+                      Changes to an existing plan aren't possible. To modify it, you'd need to pay off the current plan balance first.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-3" className="border-slate-200/60">
+                    <AccordionTrigger className="text-sm font-medium hover:no-underline">What happens if I miss a payment?</AccordionTrigger>
+                    <AccordionContent className="text-sm text-muted-foreground">
+                      Missing payments may affect future plan eligibility and could impact your service. It's important to make both regular and installment payments on time.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
           </div>
 
         </div>
