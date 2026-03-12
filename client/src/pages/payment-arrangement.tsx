@@ -57,6 +57,10 @@ export default function PaymentArrangement() {
           </Button>
 
           <div className="mb-10">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(var(--brand-orange))]/10 text-[hsl(var(--brand-orange))] text-sm font-semibold mb-4" data-testid="badge-payment-assistance">
+              <CalendarClock className="w-3.5 h-3.5" />
+              Flexible Options
+            </span>
             <h1 className="text-3xl font-bold text-foreground mb-3">Payment Assistance</h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
               We understand things come up. Choose an option below to find a plan that works for you.
@@ -190,7 +194,7 @@ export default function PaymentArrangement() {
                           </CardContent>
                           <CardFooter className="flex justify-end gap-3 border-t border-white/40 pt-6">
                             <Button variant="ghost" onClick={() => setLocation("/dashboard")}>Cancel</Button>
-                            <Button className="gap-2 px-6" onClick={() => setStep(2)} data-testid="button-review">
+                            <Button className="gap-2 px-6 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" onClick={() => setStep(2)} data-testid="button-review">
                               Review Plan <ArrowRight className="w-4 h-4" />
                             </Button>
                           </CardFooter>
@@ -252,7 +256,7 @@ export default function PaymentArrangement() {
                             <Button variant="ghost" onClick={() => setStep(1)} data-testid="button-back">
                               <ArrowLeft className="w-4 h-4 mr-2" /> Back
                             </Button>
-                            <Button className="gap-2 px-6" onClick={handleEnroll} data-testid="button-confirm">
+                            <Button className="gap-2 px-6 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" onClick={handleEnroll} data-testid="button-confirm">
                               Confirm Arrangement <CheckCircle2 className="w-4 h-4" />
                             </Button>
                           </CardFooter>

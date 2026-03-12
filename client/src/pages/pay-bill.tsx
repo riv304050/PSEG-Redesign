@@ -94,17 +94,23 @@ export default function PayBill() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 container mx-auto py-12 max-w-2xl">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Pay Your Bill</h1>
-          <p className="text-muted-foreground">Securely pay your PSE&G bill online.</p>
+      <div className="bg-primary relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--brand-orange))]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="container mx-auto px-4 py-14 relative z-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(var(--brand-orange))]/20 text-[hsl(var(--brand-orange))] text-sm font-semibold mb-4" data-testid="badge-pay-bill">
+            <CreditCard className="w-3.5 h-3.5" />
+            Quick & Secure
+          </span>
+          <h1 className="text-4xl font-bold text-white mb-3" data-testid="heading-pay-bill">Pay Your Bill</h1>
+          <p className="text-lg text-white/70 max-w-2xl">Securely pay your PSE&G bill online. Guest checkout available — no login required.</p>
         </div>
+      </div>
 
-        {/* Progress Steps */}
+      <main className="flex-1 container mx-auto py-12 max-w-2xl px-4">
         <div className="flex justify-between items-center mb-8 px-8">
           {[1, 2, 3].map((s) => (
             <div key={s} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-colors ${step >= s ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}>
+              <div className={`w-10 h-10 flex items-center justify-center font-bold transition-colors ${step >= s ? 'bg-[hsl(var(--brand-orange))] text-white' : 'bg-muted text-muted-foreground'}`}>
                 {s === 3 ? <CheckCircle className="w-6 h-6" /> : s}
               </div>
               <span className="text-xs mt-2 font-medium text-muted-foreground">
@@ -112,12 +118,9 @@ export default function PayBill() {
               </span>
             </div>
           ))}
-          <div className="absolute left-0 w-full top-5 -z-10 px-12">
-             {/* Progress line connector */}
-          </div>
         </div>
 
-        <Card className="border-none shadow-lg overflow-hidden">
+        <Card className="border-border/50 shadow-lg overflow-hidden">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div
@@ -167,7 +170,7 @@ export default function PayBill() {
                               </FormItem>
                             )}
                           />
-                          <Button type="submit" className="w-full mt-4" disabled={lookupForm.formState.isSubmitting}>
+                          <Button type="submit" className="w-full mt-4 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" disabled={lookupForm.formState.isSubmitting} data-testid="button-find-bill">
                             {lookupForm.formState.isSubmitting ? "Searching..." : "Find My Bill"}
                           </Button>
                         </form>
@@ -270,9 +273,9 @@ export default function PayBill() {
                       />
 
                       {/* NJ Shares Donation Section */}
-                      <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-lg mt-6 mb-6">
+                      <div className="bg-[hsl(var(--brand-orange))]/5 border border-[hsl(var(--brand-orange))]/20 p-4 mt-6 mb-6">
                         <div className="flex items-start gap-3">
-                          <div className="mt-1 bg-orange-100 p-1.5 rounded-full text-orange-600 shrink-0">
+                          <div className="mt-1 bg-[hsl(var(--brand-orange))]/10 p-1.5 text-[hsl(var(--brand-orange))] shrink-0">
                             <Heart className="w-4 h-4" />
                           </div>
                           <div className="flex-1">
@@ -371,7 +374,7 @@ export default function PayBill() {
 
                       <div className="flex gap-3 pt-4">
                         <Button type="button" variant="outline" className="flex-1" onClick={() => setStep(1)}>Back</Button>
-                        <Button type="submit" className="flex-[2]" disabled={paymentForm.formState.isSubmitting}>
+                        <Button type="submit" className="flex-[2] bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" disabled={paymentForm.formState.isSubmitting} data-testid="button-submit-payment">
                           {paymentForm.formState.isSubmitting ? "Processing..." : `Pay $${totalPayment.toFixed(2)}`}
                         </Button>
                       </div>

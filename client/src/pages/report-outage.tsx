@@ -49,14 +49,19 @@ export default function ReportOutage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 container mx-auto py-12 max-w-3xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-3">
-            <Zap className="h-8 w-8 text-amber-500" />
-            Report an Outage
-          </h1>
-          <p className="text-muted-foreground">Tell us about your power or gas issue so we can help.</p>
+      <div className="bg-primary relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="container mx-auto px-4 py-14 relative z-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/20 text-amber-400 text-sm font-semibold mb-4" data-testid="badge-outage">
+            <Zap className="w-3.5 h-3.5" />
+            Report an Issue
+          </span>
+          <h1 className="text-4xl font-bold text-white mb-3" data-testid="heading-outage">Report an Outage</h1>
+          <p className="text-lg text-white/70 max-w-2xl">Tell us about your power or gas issue so we can dispatch a crew to help.</p>
         </div>
+      </div>
+
+      <main className="flex-1 container mx-auto py-12 max-w-3xl px-4">
 
         {isEmergency ? (
            <Card className="border-red-200 bg-red-50 shadow-lg">
@@ -234,7 +239,7 @@ export default function ReportOutage() {
                         )}
                       />
 
-                      <Button type="submit" size="lg" className="w-full" disabled={form.formState.isSubmitting}>
+                      <Button type="submit" size="lg" className="w-full bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" disabled={form.formState.isSubmitting} data-testid="button-submit-report">
                         {form.formState.isSubmitting ? "Submitting Report..." : "Submit Report"}
                       </Button>
                     </form>

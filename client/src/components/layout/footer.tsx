@@ -19,27 +19,27 @@ export function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4">Customer Support</h3>
           <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">FAQs</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Report an Outage</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Sitemap</a></li>
+            <li><a href="/support-center" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Contact Us</a></li>
+            <li><a href="/support-center" className="hover:text-[hsl(var(--brand-orange))] transition-colors">FAQs</a></li>
+            <li><a href="/report-outage" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Report an Outage</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Sitemap</a></li>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-4">Company Info</h3>
           <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li><a href="#" className="hover:text-white transition-colors">About PSE&G</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Investors</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Newsroom</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">About PSE&G</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Careers</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Investors</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Newsroom</a></li>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-4">Legal</h3>
           <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Terms & Conditions</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Website Usage</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Privacy Policy</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Terms & Conditions</a></li>
+            <li><a href="#" className="hover:text-[hsl(var(--brand-orange))] transition-colors">Website Usage</a></li>
           </ul>
         </div>
         <div>

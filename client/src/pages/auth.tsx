@@ -100,15 +100,15 @@ export default function AuthPage() {
             <h2 className="text-4xl font-bold mb-6">Welcome to Your Energy Hub</h2>
             <ul className="space-y-4 text-lg text-white/90">
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-brand-orange" />
+                <CheckCircle className="w-6 h-6 text-[hsl(var(--brand-orange))]" />
                 <span>Pay bills securely in seconds</span>
               </li>
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-brand-orange" />
+                <CheckCircle className="w-6 h-6 text-[hsl(var(--brand-orange))]" />
                 <span>Track your real-time energy usage</span>
               </li>
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-brand-orange" />
+                <CheckCircle className="w-6 h-6 text-[hsl(var(--brand-orange))]" />
                 <span>Get personalized efficiency tips</span>
               </li>
             </ul>
@@ -200,7 +200,7 @@ export default function AuthPage() {
                       {authError && view === "login" && (
                         <p className="text-sm text-red-600 text-center bg-red-50 p-3 rounded-lg" data-testid="text-auth-error">{authError}</p>
                       )}
-                      <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
+                      <Button type="submit" className="w-full bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" disabled={loginForm.formState.isSubmitting} data-testid="button-sign-in">
                         {loginForm.formState.isSubmitting ? "Signing In..." : "Sign In"}
                       </Button>
                     </form>
@@ -302,7 +302,7 @@ export default function AuthPage() {
                       {authError && view === "register" && (
                         <p className="text-sm text-red-600 text-center bg-red-50 p-3 rounded-lg" data-testid="text-register-error">{authError}</p>
                       )}
-                      <Button type="submit" className="w-full mt-4" disabled={registerForm.formState.isSubmitting}>
+                      <Button type="submit" className="w-full mt-4 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" disabled={registerForm.formState.isSubmitting} data-testid="button-create-account">
                         {registerForm.formState.isSubmitting ? "Creating Account..." : "Create Account"}
                       </Button>
                     </form>

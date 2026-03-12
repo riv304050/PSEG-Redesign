@@ -124,7 +124,7 @@ export default function Dashboard() {
       
       <main className="flex-1 py-8 px-4 relative">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[hsl(var(--brand-orange))]/5 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="container mx-auto max-w-7xl relative z-10">
           
@@ -172,7 +172,7 @@ export default function Dashboard() {
                     </div>
                     
                     <div className="flex flex-col gap-3 mt-auto">
-                       <Button className="w-full h-12 text-base shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">Pay Bill Now</Button>
+                       <Button className="w-full h-12 text-base bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white shadow-lg shadow-[hsl(var(--brand-orange))]/20 hover:scale-[1.02] transition-transform" data-testid="button-pay-bill-now">Pay Bill Now</Button>
                        <div className="flex gap-2">
                          <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">View PDF</Button>
                          <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">History</Button>

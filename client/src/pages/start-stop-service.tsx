@@ -38,14 +38,21 @@ export default function StartStopService() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 container mx-auto py-12 max-w-4xl">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Start, Stop, or Move Service</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Moving to a new home? We're here to make your transition as smooth as possible. 
-            Select an option below to get started.
+      <div className="bg-primary relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--brand-orange))]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="container mx-auto px-4 py-14 relative z-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(var(--brand-orange))]/20 text-[hsl(var(--brand-orange))] text-sm font-semibold mb-4" data-testid="badge-service">
+            <Truck className="w-3.5 h-3.5" />
+            Moving Made Easy
+          </span>
+          <h1 className="text-4xl font-bold text-white mb-3" data-testid="heading-service">Start, Stop, or Move Service</h1>
+          <p className="text-lg text-white/70 max-w-2xl">
+            Moving to a new home? We're here to make your transition as smooth as possible.
           </p>
         </div>
+      </div>
+
+      <main className="flex-1 container mx-auto py-12 max-w-4xl px-4">
 
         {submitted ? (
           <Card className="max-w-md mx-auto text-center py-12">
@@ -149,7 +156,7 @@ export default function StartStopService() {
                             )}
                           />
 
-                          <Button type="submit" className="w-full" size="lg" disabled={form.formState.isSubmitting}>
+                          <Button type="submit" className="w-full bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" size="lg" disabled={form.formState.isSubmitting} data-testid="button-continue-service">
                             {form.formState.isSubmitting ? "Processing..." : "Continue"}
                           </Button>
                         </form>

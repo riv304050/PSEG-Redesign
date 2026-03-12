@@ -78,7 +78,7 @@ export default function Onboarding() {
           <div className="col-span-2 bg-primary p-8 text-white flex flex-col justify-between relative overflow-hidden">
              {/* Background Decoration */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-orange/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[hsl(var(--brand-orange))]/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
             <div className="relative z-10">
               <h2 className="text-2xl font-bold mb-2">Welcome, Alex!</h2>
@@ -151,7 +151,7 @@ export default function Onboarding() {
             </div>
 
             <div className="pt-8 flex justify-end">
-              <Button onClick={nextStep} size="lg" className="gap-2 px-8">
+              <Button onClick={nextStep} size="lg" className="gap-2 px-8 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" data-testid="button-next-step">
                 {currentStep === steps.length - 1 ? "Finish Setup" : "Next Step"} 
                 <ArrowRight className="w-4 h-4" />
               </Button>
