@@ -218,7 +218,7 @@ export default function Home() {
               </div>
               <div className="relative">
                 <div className="aspect-[4/3] overflow-hidden shadow-2xl">
-                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&q=80&w=1000" alt="Family reviewing energy bill at home" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1000" alt="Modern home with energy efficient features" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute -bottom-5 -left-5 bg-[hsl(var(--brand-orange))] text-white p-5 shadow-xl max-w-[220px] hidden md:block" data-testid="card-savings-stat">
                   <p className="text-3xl font-bold">$847</p>
