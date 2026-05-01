@@ -18,6 +18,11 @@ import AuthPage from "@/pages/auth";
 import Onboarding from "@/pages/onboarding";
 import Dashboard from "@/pages/dashboard";
 import PaymentArrangement from "@/pages/payment-arrangement";
+import EnergyHub from "@/pages/energy-hub";
+import EnergyAssessment from "@/pages/energy-assessment";
+import EnergyRebates from "@/pages/energy-rebates";
+import EnergyRecycling from "@/pages/energy-recycling";
+import EnergyDemandResponse from "@/pages/energy-demand-response";
 
 function Router() {
   return (
@@ -40,6 +45,12 @@ function Router() {
       <Route path="/outages" component={ReportOutage} />
       <Route path="/payments" component={PayBill} />
       <Route path="/help" component={SupportCenter} />
+      {/* Energy Efficiency Programs */}
+      <Route path="/energy" component={EnergyHub} />
+      <Route path="/energy/home-assessment" component={EnergyAssessment} />
+      <Route path="/energy/rebates" component={EnergyRebates} />
+      <Route path="/energy/recycling" component={EnergyRecycling} />
+      <Route path="/energy/demand-response" component={EnergyDemandResponse} />
       <Route component={NotFound} />
     </Switch>
   );

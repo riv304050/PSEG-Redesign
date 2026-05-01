@@ -58,10 +58,12 @@ const megaMenuData = {
   savings: {
     title: "Energy & Savings",
     items: [
-      { title: "Home Energy Assessment", href: "/savings", description: "Personalized audit." },
-      { title: "Rebates & Discounts", href: "/savings/rebates", description: "Get money back." },
-      { title: "Marketplace", href: "/savings/marketplace", description: "Shop efficiency." },
-      { title: "Energy Tips", href: "/savings/tips", description: "Lower your usage." },
+      { title: "My Energy Plan", href: "/energy", description: "All programs, personalized." },
+      { title: "Free Home Checkup", href: "/energy/home-assessment", description: "Free · 1 hour · Products included." },
+      { title: "Rebates & Incentives", href: "/energy/rebates", description: "Up to $900 back." },
+      { title: "Appliance Recycling", href: "/energy/recycling", description: "Free pickup + bill credit." },
+      { title: "Demand Response", href: "/energy/demand-response", description: "Earn credits automatically." },
+      { title: "Energy Marketplace", href: "https://marketplace.pseg.com/", description: "Shop smart products." },
     ]
   }
 };
@@ -192,29 +194,27 @@ export function Header() {
                <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Savings</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-green-600 to-green-700 p-6 no-underline outline-none focus:shadow-md"
-                          href="/savings"
-                        >
-                          <Leaf className="h-6 w-6 text-white mb-2" />
-                          <div className="mb-2 mt-2 text-lg font-medium text-white">
-                            Go Green
-                          </div>
-                          <p className="text-sm leading-tight text-white/90">
-                            Discover rebates and tips to save energy and money.
-                          </p>
-                        </a>
-                      </NavigationMenuLink>
-                    </li>
-                    {megaMenuData.savings.items.map((item) => (
-                      <ListItem key={item.title} href={item.href} title={item.title}>
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
+                  <div className="p-4 w-[500px]">
+                    <NavigationMenuLink asChild>
+                      <a
+                        href="/energy"
+                        className="flex items-center gap-4 p-4 mb-3 bg-gradient-to-r from-green-600 to-emerald-700 no-underline outline-none hover:opacity-95 transition-opacity"
+                      >
+                        <Leaf className="h-6 w-6 text-white shrink-0" />
+                        <div>
+                          <div className="text-base font-bold text-white">My Energy Plan</div>
+                          <p className="text-sm text-white/80">All programs in one place — personalized for your home.</p>
+                        </div>
+                      </a>
+                    </NavigationMenuLink>
+                    <ul className="grid grid-cols-2 gap-1">
+                      {megaMenuData.savings.items.slice(1).map((item) => (
+                        <ListItem key={item.title} href={item.href} title={item.title}>
+                          {item.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -281,7 +281,7 @@ export function Header() {
                   <MobileLink href="/report-outage" setIsOpen={setIsOpen}>Outages</MobileLink>
                   <MobileLink href="/pay-bill" setIsOpen={setIsOpen}>Payments</MobileLink>
                   <MobileLink href="/safety" setIsOpen={setIsOpen}>Safety</MobileLink>
-                  <MobileLink href="/savings" setIsOpen={setIsOpen}>Energy & Savings</MobileLink>
+                  <MobileLink href="/energy" setIsOpen={setIsOpen}>Energy & Savings</MobileLink>
                   <MobileLink href="/business" setIsOpen={setIsOpen}>Business</MobileLink>
                   <MobileLink href="/help" setIsOpen={setIsOpen}>Help & Contact</MobileLink>
                 </nav>

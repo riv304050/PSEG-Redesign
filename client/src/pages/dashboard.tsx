@@ -265,9 +265,13 @@ export default function Dashboard() {
                         Get up to $7,500 in rebates and a free home energy assessment. See which programs you qualify for and start saving today.
                       </p>
                     </div>
-                    <Button className="bg-white text-green-700 hover:bg-green-50 shadow-lg px-8 py-6 text-lg rounded-xl whitespace-nowrap shrink-0 transition-transform hover:scale-105" onClick={() => setActiveTab("programs")}>
-                      Explore Programs <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
+                    <Link href="/energy">
+                      <a>
+                        <Button className="bg-white text-green-700 hover:bg-green-50 shadow-lg px-8 py-6 text-lg rounded-xl whitespace-nowrap shrink-0 transition-transform hover:scale-105">
+                          See My Energy Plan <ArrowRight className="ml-2 w-5 h-5" />
+                        </Button>
+                      </a>
+                    </Link>
                   </CardContent>
                 </Card>
               </div>
@@ -738,7 +742,9 @@ export default function Dashboard() {
                        </CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="default" className="w-full bg-green-600 hover:bg-green-700 shadow-md">Apply Now</Button>
+                       <Link href="/energy/home-assessment" className="w-full">
+                         <Button variant="default" className="w-full bg-green-600 hover:bg-green-700 shadow-md">Schedule Free Checkup</Button>
+                       </Link>
                     </CardFooter>
                  </Card>
 
@@ -758,7 +764,9 @@ export default function Dashboard() {
                        </CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50">Find a Contractor</Button>
+                       <Link href="/energy/rebates" className="w-full">
+                         <Button variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50">Claim Rebate</Button>
+                       </Link>
                     </CardFooter>
                  </Card>
 
@@ -778,7 +786,9 @@ export default function Dashboard() {
                        </CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="outline" className="w-full border-brand-orange/30 text-brand-orange hover:bg-brand-orange/10">Shop Appliances</Button>
+                       <Link href="/energy/rebates" className="w-full">
+                         <Button variant="outline" className="w-full border-brand-orange/30 text-brand-orange hover:bg-brand-orange/10">Claim Rebate</Button>
+                       </Link>
                     </CardFooter>
                  </Card>
 
@@ -794,11 +804,13 @@ export default function Dashboard() {
                          </CardTitle>
                        </div>
                        <CardDescription className="pt-3 text-sm">
-                         Schedule a free pickup for your old, working refrigerator or freezer and receive a cash rebate.
+                         Schedule a free pickup for your old, working refrigerator or freezer and receive a $50 bill credit.
                        </CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="outline" className="w-full">Schedule Pickup</Button>
+                       <Link href="/energy/recycling" className="w-full">
+                         <Button variant="outline" className="w-full">Schedule Pickup</Button>
+                       </Link>
                     </CardFooter>
                  </Card>
 
@@ -807,18 +819,20 @@ export default function Dashboard() {
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
-                            <div className="p-2.5 bg-emerald-100 rounded-xl text-emerald-600">
-                              <CheckCircle2 className="w-6 h-6" />
+                            <div className="p-2.5 bg-teal-100 rounded-xl text-teal-600">
+                              <TrendingUp className="w-6 h-6" />
                             </div>
-                            Comfort Partners
+                            Demand Response
                          </CardTitle>
                        </div>
                        <CardDescription className="pt-3 text-sm">
-                         Free energy-saving improvements and education for income-eligible customers to help reduce utility bills.
+                         Earn up to $120/year in bill credits. Your smart devices adjust automatically — enroll in one click.
                        </CardDescription>
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
-                       <Button variant="outline" className="w-full">Check Eligibility</Button>
+                       <Link href="/energy/demand-response" className="w-full">
+                         <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50">Enroll Now</Button>
+                       </Link>
                     </CardFooter>
                  </Card>
 
