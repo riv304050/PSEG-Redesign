@@ -23,6 +23,12 @@ import EnergyAssessment from "@/pages/energy-assessment";
 import EnergyRebates from "@/pages/energy-rebates";
 import EnergyRecycling from "@/pages/energy-recycling";
 import EnergyDemandResponse from "@/pages/energy-demand-response";
+import BusinessEnergyHub from "@/pages/business-energy-hub";
+import BusinessDirectInstall from "@/pages/business-direct-install";
+import BusinessPrescriptive from "@/pages/business-prescriptive";
+import BusinessEngineeredSolutions from "@/pages/business-engineered-solutions";
+import BusinessMultifamily from "@/pages/business-multifamily";
+import BusinessEnergyManagement from "@/pages/business-energy-management";
 
 function Router() {
   return (
@@ -47,6 +53,13 @@ function Router() {
       <Route path="/help" component={SupportCenter} />
       {/* Energy Efficiency Programs */}
       <Route path="/energy" component={EnergyHub} />
+      {/* Commercial Energy Programs */}
+      <Route path="/business/energy" component={BusinessEnergyHub} />
+      <Route path="/business/direct-install" component={BusinessDirectInstall} />
+      <Route path="/business/prescriptive" component={BusinessPrescriptive} />
+      <Route path="/business/engineered-solutions" component={BusinessEngineeredSolutions} />
+      <Route path="/business/multifamily" component={BusinessMultifamily} />
+      <Route path="/business/energy-management" component={BusinessEnergyManagement} />
       <Route path="/energy/home-assessment" component={EnergyAssessment} />
       <Route path="/energy/rebates" component={EnergyRebates} />
       <Route path="/energy/recycling" component={EnergyRecycling} />
