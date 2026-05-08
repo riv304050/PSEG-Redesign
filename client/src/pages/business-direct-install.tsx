@@ -84,14 +84,14 @@ export default function BusinessDirectInstall() {
 
       {/* Hero */}
       <div className="bg-primary relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--brand-orange))]/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-4 py-12 md:py-14 relative z-10 max-w-6xl">
           <Link href="/business/energy">
             <a className="inline-flex items-center gap-1.5 text-white/50 hover:text-white/80 text-sm mb-4 transition-colors">
               <ChevronLeft className="w-4 h-4" /> Back to Commercial Programs
             </a>
           </Link>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/20 text-green-400 text-xs font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[hsl(var(--brand-orange))]/20 text-[hsl(var(--brand-orange))] text-xs font-semibold mb-4">
             <Wrench className="w-3.5 h-3.5" /> Direct Install Program
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -117,13 +117,13 @@ export default function BusinessDirectInstall() {
         <div className="grid md:grid-cols-2 gap-6 mb-12">
 
           {/* Track 1: Direct Install */}
-          <div className="border-2 border-green-200 bg-card relative overflow-hidden">
-            <div className="bg-green-600 px-5 py-3 flex items-center justify-between">
+          <div className="border-2 border-orange-200 bg-card relative overflow-hidden">
+            <div className="bg-[hsl(var(--brand-orange))] px-5 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Wrench className="w-4 h-4 text-white" />
                 <span className="text-white font-bold text-sm">DIRECT INSTALL PROGRAM</span>
               </div>
-              <Badge className="bg-white text-green-700 border-none text-xs font-bold">FREE AUDIT</Badge>
+              <Badge className="bg-white text-orange-700 border-none text-xs font-bold">FREE AUDIT</Badge>
             </div>
 
             <div className="p-5 md:p-6">
@@ -140,8 +140,8 @@ export default function BusinessDirectInstall() {
                 <p className="text-xs font-bold text-foreground uppercase tracking-wide mb-3">What the audit covers</p>
                 {AUDIT_INCLUDES.map(({ icon: Icon, text }) => (
                   <div key={text} className="flex items-center gap-3">
-                    <div className="w-7 h-7 bg-green-100 flex items-center justify-center shrink-0">
-                      <Icon className="w-3.5 h-3.5 text-green-700" />
+                    <div className="w-7 h-7 bg-orange-100 flex items-center justify-center shrink-0">
+                      <Icon className="w-3.5 h-3.5 text-orange-700" />
                     </div>
                     <span className="text-sm text-foreground">{text}</span>
                   </div>
@@ -208,8 +208,8 @@ export default function BusinessDirectInstall() {
                               onClick={() => setSelectedDate(date)}
                               className={`flex flex-col items-center py-2 px-1 text-xs transition-all ${
                                 isSelected
-                                  ? "bg-green-600 text-white"
-                                  : "bg-background hover:bg-green-50 hover:border-green-300 border border-transparent"
+                                  ? "bg-[hsl(var(--brand-orange))] text-white"
+                                  : "bg-background hover:bg-orange-50 hover:border-orange-300 border border-transparent"
                               }`}
                             >
                               <span className="font-medium text-[10px] mb-0.5 opacity-70">{DAY_NAMES[date.getDay()]}</span>
@@ -235,8 +235,8 @@ export default function BusinessDirectInstall() {
                               onClick={() => setSelectedSlot(id)}
                               className={`flex flex-col items-center py-3 px-2 text-xs border-2 transition-all ${
                                 selectedSlot === id
-                                  ? "border-green-600 bg-green-50 text-green-800"
-                                  : "border-border hover:border-green-300 bg-background"
+                                  ? "border-green-600 bg-orange-50 text-orange-800"
+                                  : "border-border hover:border-orange-300 bg-background"
                               }`}
                             >
                               <Icon className="w-4 h-4 mb-1 opacity-60" />
@@ -256,7 +256,7 @@ export default function BusinessDirectInstall() {
                     <Button
                       onClick={() => setScheduled(true)}
                       disabled={!canSchedule}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white disabled:opacity-40 h-12 text-base font-semibold"
+                      className="w-full bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white disabled:opacity-40 h-12 text-base font-semibold"
                     >
                       Request Free Audit <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -274,23 +274,23 @@ export default function BusinessDirectInstall() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-4"
                   >
-                    <div className="w-14 h-14 bg-green-100 flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle2 className="w-8 h-8 text-green-600" />
+                    <div className="w-14 h-14 bg-orange-100 flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle2 className="w-8 h-8 text-[hsl(var(--brand-orange))]" />
                     </div>
                     <h3 className="font-bold text-foreground text-lg mb-2">Audit Request Submitted!</h3>
                     <p className="text-sm text-muted-foreground mb-4">
                       {selectedDate && `${DAY_NAMES[selectedDate.getDay()]}, ${MONTH_NAMES[selectedDate.getMonth()]} ${selectedDate.getDate()}`}
                       {selectedSlot && ` · ${TIME_SLOTS.find(s => s.id === selectedSlot)?.range}`}
                     </p>
-                    <div className="bg-green-50 border border-green-100 p-4 text-left space-y-2 mb-4">
-                      <p className="text-xs font-bold text-green-900">What happens next</p>
+                    <div className="bg-orange-50 border border-orange-100 p-4 text-left space-y-2 mb-4">
+                      <p className="text-xs font-bold text-orange-900">What happens next</p>
                       {[
                         "A PSE&G energy adviser confirms within 1 business day",
                         "On-site audit takes 2–4 hours (no disruption to operations)",
                         "You receive a custom savings report with recommended upgrades",
                         "Choose which upgrades to proceed with — no obligation",
                       ].map(item => (
-                        <div key={item} className="flex items-center gap-2 text-xs text-green-800">
+                        <div key={item} className="flex items-center gap-2 text-xs text-orange-800">
                           <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> {item}
                         </div>
                       ))}
@@ -375,7 +375,7 @@ export default function BusinessDirectInstall() {
               <thead>
                 <tr className="bg-secondary/50">
                   <th className="text-left px-4 py-3 text-sm font-semibold text-muted-foreground w-1/2">Feature</th>
-                  <th className="text-center px-4 py-3 text-sm font-bold text-green-700 w-1/4">Direct Install</th>
+                  <th className="text-center px-4 py-3 text-sm font-bold text-orange-700 w-1/4">Direct Install</th>
                   <th className="text-center px-4 py-3 text-sm font-bold text-primary w-1/4">Prescriptive</th>
                 </tr>
               </thead>
@@ -385,9 +385,9 @@ export default function BusinessDirectInstall() {
                     <td className="px-4 py-3 text-sm text-foreground">{row.feature}</td>
                     <td className="px-4 py-3 text-center">
                       {row.special ? (
-                        <span className="text-sm font-semibold text-green-700">{row.direct as string}</span>
+                        <span className="text-sm font-semibold text-orange-700">{row.direct as string}</span>
                       ) : row.direct ? (
-                        <CheckCircle2 className="w-4 h-4 text-green-600 mx-auto" />
+                        <CheckCircle2 className="w-4 h-4 text-[hsl(var(--brand-orange))] mx-auto" />
                       ) : (
                         <span className="text-muted-foreground text-lg leading-none">—</span>
                       )}

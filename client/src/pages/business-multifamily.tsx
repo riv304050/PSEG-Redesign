@@ -21,8 +21,8 @@ const BUILDING_TYPES = [
     label: "Garden Apartments",
     sub: "1–3 stories",
     icon: Home,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-700",
     highlights: [
       "In-unit heating system upgrades",
       "Common area LED lighting",
@@ -51,8 +51,8 @@ const BUILDING_TYPES = [
     label: "High-Rise & Mixed-Use",
     sub: "13+ stories",
     icon: Layers,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
     highlights: [
       "Complex HVAC and central plant systems",
       "Commercial / residential mixed upgrade programs",
@@ -87,9 +87,9 @@ const UPGRADE_CATEGORIES = [
   { icon: Lightbulb, label: "Lighting", desc: "Common areas, parking, hallways, exterior", color: "bg-yellow-100 text-yellow-700" },
   { icon: Wind, label: "HVAC", desc: "Central systems, in-unit heating, ventilation", color: "bg-blue-100 text-blue-700" },
   { icon: Refrigerator, label: "Appliances", desc: "In-unit appliances in owner-managed units", color: "bg-slate-100 text-slate-700" },
-  { icon: Wrench, label: "Building Envelope", desc: "Insulation, air sealing, weatherization", color: "bg-green-100 text-green-700" },
+  { icon: Wrench, label: "Building Envelope", desc: "Insulation, air sealing, weatherization", color: "bg-orange-100 text-orange-700" },
   { icon: DollarSign, label: "Domestic Hot Water", desc: "Central boilers and heat pump water heaters", color: "bg-orange-100 text-orange-700" },
-  { icon: Home, label: "In-Unit Improvements", desc: "For buildings with owner-controlled units", color: "bg-teal-100 text-teal-700" },
+  { icon: Home, label: "In-Unit Improvements", desc: "For buildings with owner-controlled units", color: "bg-blue-100 text-blue-700" },
 ];
 
 const AVAILABLE_DATES = getAvailableDates();
@@ -115,14 +115,14 @@ export default function BusinessMultifamily() {
 
       {/* Hero */}
       <div className="bg-primary relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-700/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-4 py-12 md:py-14 relative z-10 max-w-6xl">
           <Link href="/business/energy">
             <a className="inline-flex items-center gap-1.5 text-white/50 hover:text-white/80 text-sm mb-4 transition-colors">
               <ChevronLeft className="w-4 h-4" /> Back to Commercial Programs
             </a>
           </Link>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 text-xs font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-700/20 text-blue-300 text-xs font-semibold mb-4">
             <Home className="w-3.5 h-3.5" /> Multifamily Program
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -139,7 +139,7 @@ export default function BusinessMultifamily() {
               { icon: Home, text: "Garden, mid-rise & high-rise" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-2 text-white/70 text-sm">
-                <Icon className="w-4 h-4 text-purple-400" />
+                <Icon className="w-4 h-4 text-blue-400" />
                 <span>{text}</span>
               </div>
             ))}

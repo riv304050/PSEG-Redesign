@@ -18,9 +18,9 @@ type Sector = "hospital" | "school" | "municipality" | "commercial" | "multifami
 const SECTORS = [
   { value: "hospital", label: "Hospital / Healthcare", icon: Building2, color: "text-red-700", bg: "bg-red-100" },
   { value: "school", label: "School / University", icon: GraduationCap, color: "text-blue-700", bg: "bg-blue-100" },
-  { value: "municipality", label: "Municipality / Nonprofit", icon: Landmark, color: "text-purple-700", bg: "bg-purple-100" },
+  { value: "municipality", label: "Municipality / Nonprofit", icon: Landmark, color: "text-blue-700", bg: "bg-blue-100" },
   { value: "commercial", label: "Large Commercial / Industrial", icon: Factory, color: "text-orange-700", bg: "bg-orange-100" },
-  { value: "multifamily", label: "Multifamily Building", icon: Home, color: "text-teal-700", bg: "bg-teal-100" },
+  { value: "multifamily", label: "Multifamily Building", icon: Home, color: "text-blue-700", bg: "bg-blue-100" },
 ] as const;
 
 const SECTOR_CONTENT: Record<string, { headline: string; highlights: string[]; term: string }> = {
@@ -332,14 +332,14 @@ export default function BusinessEngineeredSolutions() {
                     key="success"
                     initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 max-w-lg"
+                    className="flex items-center gap-4 p-4 bg-orange-50 border border-orange-200 max-w-lg"
                   >
-                    <div className="w-10 h-10 bg-green-100 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-6 h-6 text-green-600" />
+                    <div className="w-10 h-10 bg-orange-100 flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-6 h-6 text-[hsl(var(--brand-orange))]" />
                     </div>
                     <div>
-                      <p className="font-bold text-green-900">Audit request received</p>
-                      <p className="text-sm text-green-700">A PSE&G engineer will contact you within 3 business days to schedule your free facility assessment.</p>
+                      <p className="font-bold text-orange-900">Audit request received</p>
+                      <p className="text-sm text-orange-700">A PSE&G engineer will contact you within 3 business days to schedule your free facility assessment.</p>
                     </div>
                   </motion.div>
                 )}

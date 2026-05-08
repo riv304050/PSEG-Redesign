@@ -19,10 +19,10 @@ const PROGRAMS = [
     name: "Virtual Commissioning (VCx®)",
     tagline: "Start saving in days — no paperwork, no site visits.",
     badge: "COMPLIMENTARY",
-    badgeClass: "bg-green-100 text-green-800",
+    badgeClass: "bg-orange-100 text-orange-800",
     icon: Monitor,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-700",
     featured: true,
     bestFor: "Any PSE&G business customer",
     highlights: [
@@ -91,10 +91,10 @@ const PROGRAMS = [
     name: "Retro-Commissioning (RCx)",
     tagline: "Get more out of the equipment you already have.",
     badge: "HVAC FOCUSED",
-    badgeClass: "bg-teal-100 text-teal-800",
+    badgeClass: "bg-blue-100 text-blue-800",
     icon: Wrench,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
     featured: false,
     bestFor: "Buildings with aging or underperforming HVAC",
     highlights: [
@@ -115,10 +115,10 @@ const PROGRAMS = [
     name: "Building Operations Program",
     tagline: "Expert support and certification for your facilities team.",
     badge: "MIDSIZE OPERATIONS",
-    badgeClass: "bg-purple-100 text-purple-800",
+    badgeClass: "bg-blue-100 text-blue-800",
     icon: Users2,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
     featured: false,
     bestFor: "Midsize commercial & institutional buildings",
     highlights: [
@@ -146,7 +146,7 @@ const MOCK_ALERTS = [
 const ALERT_STYLES = {
   warning: { bar: "bg-amber-500", dot: "bg-amber-500", text: "text-amber-800", bg: "bg-amber-50 border-amber-100" },
   info: { bar: "bg-blue-500", dot: "bg-blue-500", text: "text-blue-800", bg: "bg-blue-50 border-blue-100" },
-  success: { bar: "bg-green-500", dot: "bg-green-500", text: "text-green-800", bg: "bg-green-50 border-green-100" },
+  success: { bar: "bg-[hsl(var(--brand-orange))]", dot: "bg-[hsl(var(--brand-orange))]", text: "text-orange-800", bg: "bg-orange-50 border-orange-100" },
 };
 
 export default function BusinessEnergyManagement() {
@@ -158,14 +158,14 @@ export default function BusinessEnergyManagement() {
 
       {/* Hero */}
       <div className="bg-primary relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-4 py-12 md:py-16 relative z-10 max-w-6xl">
           <Link href="/business/energy">
             <a className="inline-flex items-center gap-1.5 text-white/50 hover:text-white/80 text-sm mb-4 transition-colors">
               <ChevronLeft className="w-4 h-4" /> Back to Commercial Programs
             </a>
           </Link>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-teal-500/20 text-teal-300 text-xs font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600/20 text-blue-300 text-xs font-semibold mb-4">
             <BarChart3 className="w-3.5 h-3.5" /> Energy Management Programs
           </span>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 max-w-2xl">
@@ -182,7 +182,7 @@ export default function BusinessEnergyManagement() {
               { icon: Star, text: "Works alongside equipment upgrades" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-2 text-white/70 text-sm">
-                <Icon className="w-4 h-4 text-teal-400" />
+                <Icon className="w-4 h-4 text-blue-400" />
                 <span>{text}</span>
               </div>
             ))}
@@ -198,11 +198,11 @@ export default function BusinessEnergyManagement() {
           <div className="flex flex-col md:flex-row md:items-center gap-5 relative z-10">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Star className="w-4 h-4 text-green-200" />
-                <span className="text-green-200 text-xs font-semibold uppercase tracking-wide">Easiest starting point</span>
+                <Star className="w-4 h-4 text-orange-200" />
+                <span className="text-orange-200 text-xs font-semibold uppercase tracking-wide">Easiest starting point</span>
               </div>
               <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Start with VCx® — takes minutes, zero paperwork</h2>
-              <p className="text-green-100 text-sm max-w-lg leading-relaxed">
+              <p className="text-orange-100 text-sm max-w-lg leading-relaxed">
                 Virtual Commissioning uses your meter data to find savings opportunities — no site visits, no enrollment forms. PSE&G's partner Power TakeOff delivers a personalized facility analysis with measured results. It's the fastest way to start saving.
               </p>
             </div>
@@ -225,10 +225,10 @@ export default function BusinessEnergyManagement() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.3 }}
-                  className={`bg-card border ${program.featured ? "border-green-200 ring-1 ring-green-200/60" : "border-border/50"} overflow-hidden`}
+                  className={`bg-card border ${program.featured ? "border-orange-200 ring-1 ring-orange-200/60" : "border-border/50"} overflow-hidden`}
                 >
                   {program.featured && (
-                    <div className="bg-green-600 text-white text-xs font-bold text-center py-1.5 tracking-wide">
+                    <div className="bg-[hsl(var(--brand-orange))] text-white text-xs font-bold text-center py-1.5 tracking-wide">
                       RECOMMENDED — ZERO EFFORT TO START
                     </div>
                   )}
@@ -262,7 +262,7 @@ export default function BusinessEnergyManagement() {
                       <div className="md:w-40 shrink-0">
                         <a href={program.href} target="_blank" rel="noopener noreferrer">
                           <Button
-                            className={`w-full ${program.featured ? "bg-green-600 hover:bg-green-700" : "bg-primary hover:bg-primary/90"} text-white`}
+                            className={`w-full ${program.featured ? "bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90" : "bg-primary hover:bg-primary/90"} text-white`}
                           >
                             {program.cta}
                             {program.external && <ExternalLink className="w-3.5 h-3.5 ml-1.5" />}
@@ -357,10 +357,10 @@ function AnimateEnrollButton({ submitted, onSubmit }: { submitted: boolean; onSu
         animate={{ opacity: 1, scale: 1 }}
         className="flex items-center gap-3 bg-white/10 border border-white/20 px-4 py-3"
       >
-        <CheckCircle2 className="w-5 h-5 text-green-200 shrink-0" />
+        <CheckCircle2 className="w-5 h-5 text-orange-200 shrink-0" />
         <div>
           <p className="text-white font-semibold text-sm">Enrollment submitted</p>
-          <p className="text-green-200 text-xs">Power TakeOff will contact you within 2 business days.</p>
+          <p className="text-orange-200 text-xs">Power TakeOff will contact you within 2 business days.</p>
         </div>
       </motion.div>
     );
@@ -368,7 +368,7 @@ function AnimateEnrollButton({ submitted, onSubmit }: { submitted: boolean; onSu
   return (
     <Button
       size="lg"
-      className="bg-white text-green-700 hover:bg-green-50 font-semibold shadow-md w-full"
+      className="bg-white text-orange-700 hover:bg-orange-50 font-semibold shadow-md w-full"
       onClick={onSubmit}
     >
       Enroll in VCx® — Free <ArrowRight className="w-4 h-4 ml-1" />

@@ -72,8 +72,8 @@ const LIGHTING_PRODUCTS: RebateProduct[] = [
     description: "Automated lighting controls that cut energy waste in low-traffic areas.",
     requirements: "NEMA certified · Compatible with existing LED or new install",
     icon: Zap,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
   },
   {
     id: "led-exit-signs",
@@ -121,8 +121,8 @@ const HVAC_PRODUCTS: RebateProduct[] = [
     description: "Add variable speed drives to HVAC fans and pumps for significant motor savings.",
     requirements: "≥ 1 HP motor · Replaces fixed-speed application · Trade Ally required",
     icon: Zap,
-    iconBg: "bg-indigo-100",
-    iconColor: "text-indigo-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
   },
   {
     id: "bms",
@@ -132,8 +132,8 @@ const HVAC_PRODUCTS: RebateProduct[] = [
     description: "Automated building controls for HVAC, lighting, and equipment scheduling.",
     requirements: "New install or major expansion · Must include HVAC control · 12-mo M&V",
     icon: Wind,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
   },
 ];
 
@@ -146,8 +146,8 @@ const REFRIGERATION_PRODUCTS: RebateProduct[] = [
     description: "LED lighting upgrade inside walk-in coolers and freezers.",
     requirements: "DLC Listed · Rated for cold storage · Replaces fluorescent",
     icon: Refrigerator,
-    iconBg: "bg-cyan-100",
-    iconColor: "text-cyan-700",
+    iconBg: "bg-sky-100",
+    iconColor: "text-sky-700",
     popular: true,
     pointOfSale: true,
   },
@@ -181,8 +181,8 @@ const REFRIGERATION_PRODUCTS: RebateProduct[] = [
     description: "Add doors to open refrigerated display cases — one of the highest-ROI upgrades.",
     requirements: "Replaces open/doorless case · Must be new door addition · Trade Ally required",
     icon: Refrigerator,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-700",
     popular: true,
   },
 ];
@@ -220,8 +220,8 @@ const FOOD_SERVICE_PRODUCTS: RebateProduct[] = [
     description: "ENERGY STAR® high-temperature or low-temperature commercial dishwashers.",
     requirements: "ENERGY STAR® certified · Rack conveyor or door type",
     icon: Utensils,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
   },
   {
     id: "fryer",
@@ -286,7 +286,7 @@ interface SubmittedApp {
 const STATUS_STYLES: Record<SubmittedApp["status"], string> = {
   pending: "bg-yellow-100 text-yellow-800",
   approved: "bg-blue-100 text-blue-800",
-  paid: "bg-green-100 text-green-800",
+  paid: "bg-orange-100 text-orange-800",
 };
 
 export default function BusinessPrescriptive() {
@@ -346,7 +346,7 @@ export default function BusinessPrescriptive() {
             <Badge className="bg-[hsl(var(--brand-orange))]/10 text-[hsl(var(--brand-orange))] border-none text-[10px] font-bold">POPULAR</Badge>
           )}
           {product.pointOfSale && (
-            <Badge className="bg-green-100 text-green-800 border-none text-[10px] font-bold">POINT-OF-SALE</Badge>
+            <Badge className="bg-orange-100 text-orange-800 border-none text-[10px] font-bold">POINT-OF-SALE</Badge>
           )}
         </div>
         <p className="text-xs text-muted-foreground mb-2 leading-relaxed flex-1">{product.description}</p>
@@ -603,7 +603,7 @@ export default function BusinessPrescriptive() {
                                 className="w-full text-left p-4 border-2 border-border hover:border-primary/50 transition-all"
                               >
                                 <div className="flex items-start gap-3">
-                                  <div className="w-6 h-6 bg-green-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
+                                  <div className="w-6 h-6 bg-[hsl(var(--brand-orange))] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
                                   <div>
                                     <p className="text-sm font-semibold text-foreground">Point-of-Sale (Instant)</p>
                                     <p className="text-xs text-muted-foreground mt-0.5">Rebate deducted immediately at a participating distributor. No waiting.</p>
@@ -629,9 +629,9 @@ export default function BusinessPrescriptive() {
 
                       {claimPath === "pos" && (
                         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-                          <div className="p-4 bg-green-50 border border-green-200 mb-5">
-                            <p className="text-sm font-semibold text-green-900 mb-2">Point-of-Sale next steps</p>
-                            <ol className="space-y-2 text-xs text-green-800 list-decimal list-inside">
+                          <div className="p-4 bg-orange-50 border border-orange-200 mb-5">
+                            <p className="text-sm font-semibold text-orange-900 mb-2">Point-of-Sale next steps</p>
+                            <ol className="space-y-2 text-xs text-orange-800 list-decimal list-inside">
                               <li>Find a participating distributor near you</li>
                               <li>Ask for the PSE&G Prescriptive rebate at the counter</li>
                               <li>Rebate is deducted from your purchase price on the spot</li>
@@ -643,7 +643,7 @@ export default function BusinessPrescriptive() {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-semibold">
+                            <Button className="w-full h-12 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white font-semibold">
                               Find Participating Distributors <ExternalLink className="w-4 h-4 ml-1" />
                             </Button>
                           </a>
@@ -759,8 +759,8 @@ export default function BusinessPrescriptive() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center text-center py-8"
                 >
-                  <div className="w-16 h-16 bg-green-100 flex items-center justify-center mb-4">
-                    <CheckCircle2 className="w-9 h-9 text-green-600" />
+                  <div className="w-16 h-16 bg-orange-100 flex items-center justify-center mb-4">
+                    <CheckCircle2 className="w-9 h-9 text-[hsl(var(--brand-orange))]" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2">Application Submitted!</h3>
                   <p className="text-muted-foreground text-sm mb-2">
