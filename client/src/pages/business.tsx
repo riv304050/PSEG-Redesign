@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
@@ -33,9 +34,9 @@ export default function Business() {
       <main className="flex-1 container mx-auto py-12 px-4">
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
-            { title: "Efficiency Direct", desc: "Turnkey energy efficiency solutions for businesses. Custom assessments and retrofit programs to reduce operating costs.", icon: Zap, accent: true },
-            { title: "Economic Development", desc: "Incentives for businesses expanding in our territory. Tax credits, infrastructure support, and rate options.", icon: Building2, accent: false },
-            { title: "Electric Vehicles", desc: "Charging infrastructure programs for your fleet or workplace. Rebates and installation support.", icon: Truck, accent: true },
+            { title: "Energy Efficiency Programs", desc: "Free audits, equipment rebates, and 0% on-bill financing. Programs for every business size — from small shops to hospitals.", icon: Zap, accent: true, href: "/business/energy" },
+            { title: "Economic Development", desc: "Incentives for businesses expanding in our territory. Tax credits, infrastructure support, and rate options.", icon: Building2, accent: false, href: "#" },
+            { title: "Electric Vehicles", desc: "Charging infrastructure programs for your fleet or workplace. Rebates and installation support.", icon: Truck, accent: true, href: "#" },
           ].map((item, i) => (
             <div key={i} className="bg-card border border-border/50 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-testid={`card-business-${i}`}>
               <div className={`w-12 h-12 flex items-center justify-center mb-4 transition-colors ${item.accent ? 'bg-[hsl(var(--brand-orange))]/10 group-hover:bg-[hsl(var(--brand-orange))]' : 'bg-primary/10 group-hover:bg-primary'}`}>
@@ -43,9 +44,17 @@ export default function Business() {
               </div>
               <h3 className="font-bold text-xl mb-2 text-foreground">{item.title}</h3>
               <p className="text-sm text-muted-foreground mb-4">{item.desc}</p>
-              <a href="#" className={`inline-flex items-center gap-1.5 font-semibold text-sm hover:gap-2.5 transition-all ${item.accent ? 'text-[hsl(var(--brand-orange))]' : 'text-primary'}`}>
-                Learn More <ArrowRight className="w-4 h-4" />
-              </a>
+              {item.href.startsWith("/") ? (
+                <Link href={item.href}>
+                  <a className={`inline-flex items-center gap-1.5 font-semibold text-sm hover:gap-2.5 transition-all ${item.accent ? 'text-[hsl(var(--brand-orange))]' : 'text-primary'}`}>
+                    Explore Programs <ArrowRight className="w-4 h-4" />
+                  </a>
+                </Link>
+              ) : (
+                <a href={item.href} className={`inline-flex items-center gap-1.5 font-semibold text-sm hover:gap-2.5 transition-all ${item.accent ? 'text-[hsl(var(--brand-orange))]' : 'text-primary'}`}>
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </a>
+              )}
             </div>
           ))}
         </div>
