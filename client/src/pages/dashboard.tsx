@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
-import { 
-  Zap, 
-  Home, 
-  CreditCard, 
-  AlertTriangle, 
-  TrendingUp, 
-  Settings, 
-  Download, 
-  Leaf, 
-  Smartphone, 
+import {
+  Zap,
+  Home,
+  CreditCard,
+  AlertTriangle,
+  TrendingUp,
+  Settings,
+  Download,
+  Leaf,
+  Smartphone,
   Calendar,
   CheckCircle2,
   Bell,
@@ -29,7 +29,16 @@ import {
   DollarSign,
   CalendarClock,
   Repeat,
-  Flame
+  Flame,
+  Heart,
+  Wrench,
+  Car,
+  Lamp,
+  Calculator,
+  BadgeCheck,
+  PlusCircle,
+  MapPin,
+  ThumbsUp
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -102,7 +111,7 @@ const gasUsageData = [
 
 const disaggregationData = [
   { category: 'Cooling / AC', percentage: 35, icon: Snowflake, color: 'bg-blue-500' },
-  { category: 'Water Heating', percentage: 25, icon: Droplets, color: 'bg-brand-orange' },
+  { category: 'Water Heating', percentage: 25, icon: Droplets, color: 'bg-primary' },
   { category: 'Lighting', percentage: 15, icon: Lightbulb, color: 'bg-yellow-400' },
   { category: 'Appliances', percentage: 15, icon: Tv, color: 'bg-purple-500' },
   { category: 'Always On', percentage: 10, icon: Power, color: 'bg-slate-400' },
@@ -115,19 +124,20 @@ export default function Dashboard() {
   const [equalPayEnrolled, setEqualPayEnrolled] = useState(false);
   const [autoPayEnrolled, setAutoPayEnrolled] = useState(false);
   const [usageTimeRange, setUsageTimeRange] = useState<"yearly" | "weekly" | "daily">("yearly");
+  const [eeEnrolled, setEeEnrolled] = useState(false);
   const { user } = useAuth();
   const displayName = user?.firstName || "Alex";
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      
+
       <main className="flex-1 py-8 px-4 relative">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[hsl(var(--brand-orange))]/5 rounded-full blur-[100px] pointer-events-none"></div>
-        
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
         <div className="container mx-auto max-w-7xl relative z-10">
-          
+
           {/* Welcome Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
@@ -154,10 +164,10 @@ export default function Dashboard() {
 
             {/* OVERVIEW TAB */}
             <TabsContent value="overview" className="space-y-4">
-              
+
               {/* Bento Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                
+
                 {/* Bill Card (Large) */}
                 <Card className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader className="pb-2">
@@ -170,9 +180,9 @@ export default function Dashboard() {
                       </div>
                       <p className="text-sm font-medium text-red-600 mb-6">Due in 3 days (Dec 26)</p>
                     </div>
-                    
+
                     <div className="flex flex-col gap-3 mt-auto">
-                       <Button className="w-full h-12 text-base bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white shadow-lg shadow-[hsl(var(--brand-orange))]/20 hover:scale-[1.02] transition-transform" data-testid="button-pay-bill-now">Pay Bill Now</Button>
+                       <Button className="w-full h-12 text-base bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">Pay Bill Now</Button>
                        <div className="flex gap-2">
                          <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">View PDF</Button>
                          <Button variant="outline" className="flex-1 text-xs h-10 bg-secondary/50 hover:bg-secondary transition-colors">History</Button>
@@ -201,7 +211,7 @@ export default function Dashboard() {
                       <p className="text-xl font-bold text-foreground mb-1">Good Job!</p>
                       <p className="text-sm text-muted-foreground mb-4">You used 5% less energy than last month.</p>
                     </div>
-                    
+
                     <div className="h-[120px] w-full mt-auto">
                        <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={usageData.slice(-4)}>
@@ -250,47 +260,190 @@ export default function Dashboard() {
                 </Card>
               </div>
 
-              {/* Energy Savings CTA */}
-              <div className="mt-6 mb-4">
-                <Card className="bg-gradient-to-r from-green-600 to-emerald-800 text-white border-none shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
-                  <CardContent className="p-8 md:p-10 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex-1">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full text-xs font-semibold mb-4 backdrop-blur-sm">
-                        <Leaf className="w-3 h-3" /> New Programs Available
+              {/* Energy Efficiency + Worry Free Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+
+                {/* Energy Efficiency Card */}
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2.5 rounded-none ${eeEnrolled ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'}`}>
+                          <Leaf className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-base">Energy Efficiency Programs</CardTitle>
+                          {eeEnrolled
+                            ? <Badge className="bg-green-100 text-green-700 border-none mt-1">2 Active Programs</Badge>
+                            : <Badge variant="outline" className="text-muted-foreground mt-1">Not Enrolled</Badge>
+                          }
+                        </div>
                       </div>
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">Stop paying for wasted energy.</h2>
-                      <p className="text-green-50 text-lg max-w-2xl">
-                        Get up to $7,500 in rebates and a free home energy assessment. See which programs you qualify for and start saving today.
-                      </p>
+                      {/* Demo toggle */}
+                      <button onClick={() => setEeEnrolled(!eeEnrolled)} className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors shrink-0">
+                        {eeEnrolled ? 'View unenrolled' : 'View enrolled'}
+                      </button>
                     </div>
-                    <Link href="/energy">
-                      <a>
-                        <Button className="bg-white text-green-700 hover:bg-green-50 shadow-lg px-8 py-6 text-lg rounded-xl whitespace-nowrap shrink-0 transition-transform hover:scale-105">
-                          See My Energy Plan <ArrowRight className="ml-2 w-5 h-5" />
+                  </CardHeader>
+
+                  <CardContent className="flex-1 flex flex-col">
+                    {eeEnrolled ? (
+                      <>
+                        {/* Enrolled state */}
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center justify-between p-3 bg-green-50 border border-green-100 rounded-none">
+                            <div className="flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+                              <div>
+                                <p className="text-sm font-medium text-foreground">Demand Response</p>
+                                <p className="text-xs text-muted-foreground">Enrolled · Earning credits automatically</p>
+                              </div>
+                            </div>
+                            <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">+$0.47 this mo.</span>
+                          </div>
+                          <div className="flex items-center justify-between p-3 bg-green-50 border border-green-100 rounded-none">
+                            <div className="flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+                              <div>
+                                <p className="text-sm font-medium text-foreground">Paperless Billing</p>
+                                <p className="text-xs text-muted-foreground">Enrolled · Saving paper since 2023</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="p-3 bg-primary/5 border border-primary/10 rounded-none mb-4">
+                          <div className="flex items-center gap-2 mb-1">
+                            <TrendingUp className="w-4 h-4 text-primary" />
+                            <span className="text-sm font-semibold text-foreground">$127 saved this year</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">3 more programs available for your home.</p>
+                        </div>
+
+                        <Link href="/energy" className="mt-auto">
+                          <Button className="w-full bg-primary hover:bg-primary/90 text-white gap-2">
+                            <PlusCircle className="w-4 h-4" /> Enroll in More Programs
+                          </Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        {/* Not enrolled state */}
+                        <div className="p-4 bg-slate-50 border border-dashed border-slate-200 rounded-none mb-4 text-center">
+                          <Leaf className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                          <p className="text-sm font-semibold text-foreground mb-1">No active programs</p>
+                          <p className="text-xs text-muted-foreground">PSE&G customers save an average of <span className="font-semibold text-foreground">$400/year</span> through our efficiency programs.</p>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-2 mb-4">
+                          <div className="p-2 bg-primary/5 rounded-none text-center">
+                            <p className="text-base font-bold text-primary">Free</p>
+                            <p className="text-xs text-muted-foreground leading-tight">Home Assessment</p>
+                          </div>
+                          <div className="p-2 bg-primary/5 rounded-none text-center">
+                            <p className="text-base font-bold text-primary">$7,500</p>
+                            <p className="text-xs text-muted-foreground leading-tight">Max Rebates</p>
+                          </div>
+                          <div className="p-2 bg-primary/5 rounded-none text-center">
+                            <p className="text-base font-bold text-primary">0%</p>
+                            <p className="text-xs text-muted-foreground leading-tight">Financing</p>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-2 mt-auto">
+                          <Link href="/energy">
+                            <Button className="w-full bg-primary hover:bg-primary/90 text-white">Explore Programs</Button>
+                          </Link>
+                          <Link href="/energy/home-assessment">
+                            <Button variant="outline" className="w-full text-sm">Schedule Free Home Assessment</Button>
+                          </Link>
+                        </div>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Worry Free Coverage Card */}
+                <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 bg-primary/10 rounded-none text-primary">
+                        <Heart className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base">Worry Free® Protection</CardTitle>
+                        <Badge className="bg-primary/10 text-primary border-none mt-1">Home Protection Plus</Badge>
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="flex-1 flex flex-col">
+                    {/* Covered items */}
+                    <div className="mb-3">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Covered in Your Plan</p>
+                      <div className="flex flex-wrap gap-2">
+                        {['HVAC System', 'Gas Water Heater', 'Electrical System'].map(item => (
+                          <span key={item} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full">
+                            <CheckCircle2 className="w-3 h-3 text-green-600" /> {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Appointment suggestions */}
+                    <div className="space-y-2 mb-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Recommended Service</p>
+
+                      <div className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-100 rounded-none group cursor-pointer hover:border-amber-300 transition-colors">
+                        <div className="p-1.5 bg-amber-100 rounded text-amber-700 shrink-0 mt-0.5">
+                          <Flame className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-foreground">Annual Furnace Tune-Up</p>
+                          <p className="text-xs text-muted-foreground">Schedule before heating season — keeps your system efficient and safe.</p>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-amber-600 shrink-0 mt-1 group-hover:translate-x-0.5 transition-transform" />
+                      </div>
+
+                      <div className="flex items-start gap-3 p-3 bg-blue-50 border border-blue-100 rounded-none group cursor-pointer hover:border-blue-300 transition-colors">
+                        <div className="p-1.5 bg-blue-100 rounded text-blue-700 shrink-0 mt-0.5">
+                          <Snowflake className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-foreground">AC System Tune-Up</p>
+                          <p className="text-xs text-muted-foreground">Spring checkup included with your plan — book now before summer demand.</p>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-blue-600 shrink-0 mt-1 group-hover:translate-x-0.5 transition-transform" />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 mt-auto">
+                      <a href="https://worryfree.pseg.com/how-worryfree-works" target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button className="w-full bg-primary hover:bg-primary/90 text-white gap-2">
+                          <Wrench className="w-4 h-4" /> Schedule Now
                         </Button>
                       </a>
-                    </Link>
+                      <Button variant="outline" className="text-sm px-4">View Contract</Button>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
 
               {/* Recommendations Bento */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="flex items-center gap-6 p-6 bg-card border border-border/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <div className="p-4 bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                  <div className="p-4 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <TrendingUp className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                     <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-brand-orange transition-colors">Equal Payment Plan</h4>
+                     <h4 className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">Equal Payment Plan</h4>
                      <p className="text-sm text-muted-foreground leading-relaxed">Avoid seasonal spikes. Pay exactly <span className="font-semibold text-foreground px-1 py-0.5 bg-secondary/50">$115/mo</span> based on history.</p>
                   </div>
-                  <div className="w-10 h-10 bg-secondary/50 flex items-center justify-center group-hover:bg-brand-orange/10 transition-colors">
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-brand-orange transition-colors" />
+                  <div className="w-10 h-10 bg-secondary/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-6 p-6 bg-card border border-border/50 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                   <div className="p-4 bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
                     <Smartphone className="w-6 h-6" />
@@ -319,7 +472,7 @@ export default function Dashboard() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                
+
                 <Card className="lg:col-span-2 bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -332,9 +485,9 @@ export default function Dashboard() {
                         </CardDescription>
                       </div>
                       <div className="flex gap-2 bg-secondary/50 p-1 rounded-none">
-                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("yearly")} className={`rounded-none ${usageTimeRange === "yearly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-yearly">Yearly</Button>
-                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("weekly")} className={`rounded-none ${usageTimeRange === "weekly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-weekly">Weekly</Button>
-                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("daily")} className={`rounded-none ${usageTimeRange === "daily" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`} data-testid="button-usage-daily">Daily</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("yearly")} className={`rounded-none ${usageTimeRange === "yearly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`}>Yearly</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("weekly")} className={`rounded-none ${usageTimeRange === "weekly" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`}>Weekly</Button>
+                        <Button variant="ghost" size="sm" onClick={() => setUsageTimeRange("daily")} className={`rounded-none ${usageTimeRange === "daily" ? "bg-primary text-white hover:bg-primary/90 hover:text-white shadow-sm" : "hover:bg-secondary"}`}>Daily</Button>
                       </div>
                     </div>
                   </CardHeader>
@@ -396,7 +549,7 @@ export default function Dashboard() {
                             <span className="font-bold">{item.percentage}%</span>
                           </div>
                           <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                            <motion.div 
+                            <motion.div
                               className={`h-full ${item.color} rounded-full`}
                               initial={{ width: 0 }}
                               animate={{ width: `${item.percentage}%` }}
@@ -406,7 +559,7 @@ export default function Dashboard() {
                         </div>
                       ))}
                     </div>
-                    
+
                     <Button variant="outline" className="w-full mt-6 bg-secondary/50 hover:bg-secondary transition-colors text-sm">
                       View Ways to Save
                     </Button>
@@ -416,8 +569,8 @@ export default function Dashboard() {
 
               {/* Gas Section */}
               <div className="flex items-center gap-2 mt-8 mb-2">
-                <div className="p-1.5 bg-brand-orange/10 rounded-none">
-                  <Flame className="w-4 h-4 text-brand-orange" />
+                <div className="p-1.5 bg-orange-100 rounded-none">
+                  <Flame className="w-4 h-4 text-orange-600" />
                 </div>
                 <h3 className="text-lg font-bold text-foreground">Gas Usage</h3>
                 <Badge variant="outline" className="text-xs ml-2 border-slate-300">Monthly Read</Badge>
@@ -439,13 +592,13 @@ export default function Dashboard() {
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                         <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
                         <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} unit=" thm" />
-                        <Tooltip 
+                        <Tooltip
                           contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}
                           cursor={{ fill: 'rgba(0,0,0,0.02)' }}
                         />
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                        <Bar dataKey="therms" name="This Year (Therms)" fill="#F0512C" radius={[6, 6, 0, 0]} barSize={28} />
-                        <Bar dataKey="prevYear" name="Last Year (Therms)" fill="#fecaca" radius={[6, 6, 0, 0]} barSize={28} />
+                        <Bar dataKey="therms" name="This Year (Therms)" fill="#ea580c" radius={[6, 6, 0, 0]} barSize={28} />
+                        <Bar dataKey="prevYear" name="Last Year (Therms)" fill="#fed7aa" radius={[6, 6, 0, 0]} barSize={28} />
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -458,7 +611,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="p-4 bg-brand-orange/5 rounded-none border border-brand-orange/10">
+                      <div className="p-4 bg-orange-50 rounded-none border border-orange-100">
                         <p className="text-xs text-muted-foreground mb-1">This Month</p>
                         <p className="text-2xl font-bold text-foreground">10 therms</p>
                         <p className="text-xs text-green-600 font-medium mt-1">9% less than last year</p>
@@ -488,7 +641,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-none border border-green-100" data-testid="card-lowest-usage">
+                      <div className="flex items-center justify-between p-4 bg-green-50/80 rounded-none border border-green-100">
                         <div className="flex items-center gap-3">
                            <div className="p-2 bg-green-100 rounded-none">
                              <Calendar className="w-5 h-5 text-green-700" />
@@ -497,7 +650,7 @@ export default function Dashboard() {
                         </div>
                         <span className="font-bold text-green-900">Sundays</span>
                       </div>
-                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-none border border-amber-100" data-testid="card-peak-hours">
+                      <div className="flex items-center justify-between p-4 bg-amber-50/80 rounded-none border border-amber-100">
                         <div className="flex items-center gap-3">
                            <div className="p-2 bg-amber-100 rounded-none">
                              <Zap className="w-5 h-5 text-amber-700" />
@@ -507,7 +660,7 @@ export default function Dashboard() {
                         <span className="font-bold text-amber-900">5–8 PM</span>
                       </div>
 
-                      <div className="p-4 bg-red-50/80 rounded-none border border-red-200 space-y-3" data-testid="card-peak-period">
+                      <div className="p-4 bg-red-50/80 rounded-none border border-red-200 space-y-3">
                         <div className="flex items-center gap-2 mb-1">
                           <div className="p-1.5 bg-red-100 rounded-none">
                             <AlertTriangle className="w-4 h-4 text-red-600" />
@@ -520,22 +673,10 @@ export default function Dashboard() {
                         <div className="bg-white/60 p-3 rounded-none border border-red-100">
                           <p className="text-xs font-semibold text-red-900 mb-2">Ways to reduce peak usage:</p>
                           <ul className="text-xs text-red-800 space-y-1.5">
-                            <li className="flex items-start gap-2">
-                              <span className="text-red-400 mt-0.5">•</span>
-                              <span>Pre-cool your home before 5 PM by lowering your thermostat earlier in the afternoon</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-red-400 mt-0.5">•</span>
-                              <span>Run dishwashers, laundry, and dryers before 4 PM or after 9 PM</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-red-400 mt-0.5">•</span>
-                              <span>Use smart plugs or timers to shift heavy loads to off-peak hours</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-red-400 mt-0.5">•</span>
-                              <span>Switch to LED lighting — it uses up to 75% less energy than incandescent bulbs</span>
-                            </li>
+                            <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">•</span><span>Pre-cool your home before 5 PM by lowering your thermostat earlier in the afternoon</span></li>
+                            <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">•</span><span>Run dishwashers, laundry, and dryers before 4 PM or after 9 PM</span></li>
+                            <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">•</span><span>Use smart plugs or timers to shift heavy loads to off-peak hours</span></li>
+                            <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">•</span><span>Switch to LED lighting — it uses up to 75% less energy than incandescent bulbs</span></li>
                           </ul>
                         </div>
                         <p className="text-xs text-red-700 italic">Shifting just 1 kWh/day from peak to off-peak could save you approximately <strong>$8–12/month</strong>.</p>
@@ -543,7 +684,7 @@ export default function Dashboard() {
                     </div>
                   </CardContent>
                 </Card>
-                
+
                 <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-none shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
                    <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-white/10 transition-colors"></div>
                    <CardHeader className="relative z-10">
@@ -563,13 +704,13 @@ export default function Dashboard() {
                 </Card>
               </div>
             </TabsContent>
-            
+
             {/* BILLING TAB */}
             <TabsContent value="billing" className="space-y-6">
 
               {/* Quick Actions Row */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
+
                 {/* Equal Payment Plan */}
                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-6">
@@ -593,12 +734,12 @@ export default function Dashboard() {
                               <p className="text-xs text-muted-foreground mt-1">Based on your 12-month average</p>
                             </div>
                             <div className="flex gap-2">
-                              <Button size="sm" className="flex-1 text-xs" onClick={() => { setEqualPayEnrolled(true); setShowEqualPayConfirm(false); }} data-testid="button-confirm-equal-pay">Confirm</Button>
+                              <Button size="sm" className="flex-1 text-xs" onClick={() => { setEqualPayEnrolled(true); setShowEqualPayConfirm(false); }}>Confirm</Button>
                               <Button size="sm" variant="ghost" className="text-xs" onClick={() => setShowEqualPayConfirm(false)}>Cancel</Button>
                             </div>
                           </div>
                         ) : (
-                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50" onClick={() => setShowEqualPayConfirm(true)} data-testid="button-enroll-equal-pay">
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50" onClick={() => setShowEqualPayConfirm(true)}>
                             Enroll Now
                           </Button>
                         )}
@@ -611,14 +752,14 @@ export default function Dashboard() {
                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="p-2.5 bg-brand-orange/10 rounded-none text-brand-orange shrink-0">
+                      <div className="p-2.5 bg-primary/10 rounded-none text-primary shrink-0">
                         <CalendarClock className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-bold text-sm mb-1">Deferred Payment</h3>
                         <p className="text-xs text-muted-foreground mb-3">Split your balance over several months with a custom arrangement.</p>
                         <Link href="/payment-arrangement">
-                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50" data-testid="button-deferred-payment">
+                          <Button size="sm" variant="outline" className="text-xs w-full bg-secondary/50">
                             Set Up Arrangement
                           </Button>
                         </Link>
@@ -646,14 +787,14 @@ export default function Dashboard() {
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
                               <span className="text-xs font-medium text-muted-foreground">Enable AutoPay</span>
-                              <Switch checked={autoPayEnabled} onCheckedChange={setAutoPayEnabled} data-testid="switch-autopay" />
+                              <Switch checked={autoPayEnabled} onCheckedChange={setAutoPayEnabled} />
                             </div>
                             {autoPayEnabled && (
                               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-2">
                                 <div className="bg-green-50/80 p-3 rounded-none border border-green-100 text-xs text-green-800">
                                   Your bill will be automatically paid from your default payment method on the due date each month.
                                 </div>
-                                <Button size="sm" className="w-full text-xs bg-green-600 hover:bg-green-700" onClick={() => { setAutoPayEnrolled(true); setAutoPayEnabled(false); }} data-testid="button-confirm-autopay">
+                                <Button size="sm" className="w-full text-xs bg-green-600 hover:bg-green-700" onClick={() => { setAutoPayEnrolled(true); setAutoPayEnabled(false); }}>
                                   Activate AutoPay
                                 </Button>
                               </motion.div>
@@ -674,7 +815,7 @@ export default function Dashboard() {
                       <CardTitle className="text-xl">Transaction History</CardTitle>
                       <CardDescription>Your recent billing activity</CardDescription>
                     </div>
-                    <Button variant="outline" size="sm" className="bg-secondary/50 gap-2 self-start" data-testid="button-download-history">
+                    <Button variant="outline" size="sm" className="bg-secondary/50 gap-2 self-start">
                       <Download className="w-4 h-4" /> Export
                     </Button>
                   </div>
@@ -682,7 +823,7 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-0 divide-y divide-border/50">
                     {transactionHistory.map((tx, i) => (
-                      <div key={i} className="flex items-center justify-between py-3.5 px-2 hover:bg-secondary/30 transition-colors" data-testid={`row-transaction-${i}`}>
+                      <div key={i} className="flex items-center justify-between py-3.5 px-2 hover:bg-secondary/30 transition-colors">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-none ${
                             tx.type === 'payment' ? 'bg-green-100 text-green-600' :
@@ -708,7 +849,7 @@ export default function Dashboard() {
                   </div>
 
                   <div className="mt-4 pt-4 border-t border-slate-100 text-center">
-                    <Button variant="ghost" className="text-sm text-primary" data-testid="button-view-all-transactions">
+                    <Button variant="ghost" className="text-sm text-primary">
                       View All Transactions <ArrowRight className="w-4 h-4 ml-1" />
                     </Button>
                   </div>
@@ -719,7 +860,7 @@ export default function Dashboard() {
 
             {/* PROGRAMS TAB */}
             <TabsContent value="programs" className="space-y-6">
-              
+
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Available Rebates & Programs</h3>
                 <p className="text-muted-foreground">Take advantage of these offers to lower your bill and make your home more comfortable.</p>
@@ -775,7 +916,7 @@ export default function Dashboard() {
                     <CardHeader>
                        <div className="flex justify-between items-start">
                          <CardTitle className="flex items-center gap-3">
-                            <div className="p-2.5 bg-brand-orange/10 rounded-xl text-brand-orange">
+                            <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
                               <Tv className="w-6 h-6" />
                             </div>
                             Appliance Rebates
@@ -787,7 +928,7 @@ export default function Dashboard() {
                     </CardHeader>
                     <CardFooter className="mt-auto pt-4">
                        <Link href="/energy/rebates" className="w-full">
-                         <Button variant="outline" className="w-full border-brand-orange/30 text-brand-orange hover:bg-brand-orange/10">Claim Rebate</Button>
+                         <Button variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary/10">Claim Rebate</Button>
                        </Link>
                     </CardFooter>
                  </Card>
@@ -836,7 +977,7 @@ export default function Dashboard() {
                     </CardFooter>
                  </Card>
 
-                 {/* Existing Account Program */}
+                 {/* Program 6 - Paperless */}
                  <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300"></div>
                     <CardHeader>
@@ -855,6 +996,96 @@ export default function Dashboard() {
                        <Button variant="ghost" className="w-full text-muted-foreground bg-secondary/50 hover:bg-secondary">Manage Settings</Button>
                     </CardFooter>
                  </Card>
+
+                 {/* Program 7 - Report Street Light */}
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-yellow-100 rounded-xl text-yellow-600">
+                              <Lamp className="w-6 h-6" />
+                            </div>
+                            Report Street Light Outage
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         See a street light that's out or flickering? Report it and we'll schedule a repair — usually within 10 business days.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-yellow-200 text-yellow-700 hover:bg-yellow-50 gap-2">
+                         <MapPin className="w-4 h-4" /> Report Now
+                       </Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 8 - Upgrade Service */}
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
+                              <Zap className="w-6 h-6" />
+                            </div>
+                            Upgrade My Service
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Adding an EV charger, pool, or major appliance? Request a service upgrade to increase your electrical capacity.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary/10 gap-2">
+                         <ArrowRight className="w-4 h-4" /> Start Request
+                       </Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 9 - EV Charging Credit */}
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-emerald-100 rounded-xl text-emerald-600">
+                              <Car className="w-6 h-6" />
+                            </div>
+                            EV Charging Credit
+                         </CardTitle>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Own an electric vehicle? Enroll in off-peak charging and earn up to $300/year in bill credits. Charge smarter, pay less.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-emerald-200 text-emerald-700 hover:bg-emerald-50 gap-2">
+                         <PlusCircle className="w-4 h-4" /> Enroll Now
+                       </Button>
+                    </CardFooter>
+                 </Card>
+
+                 {/* Program 10 - Rate Analysis */}
+                 <Card className="bg-card backdrop-blur-md border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <CardHeader>
+                       <div className="flex justify-between items-start">
+                         <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-indigo-100 rounded-xl text-indigo-600">
+                              <Calculator className="w-6 h-6" />
+                            </div>
+                            Rate Analysis
+                         </CardTitle>
+                         <Badge className="bg-indigo-50 text-indigo-700 border-none">Recommended</Badge>
+                       </div>
+                       <CardDescription className="pt-3 text-sm">
+                         Are you on the right rate plan? Based on your usage pattern, you may qualify for a time-of-use rate that could save you money.
+                       </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="mt-auto pt-4">
+                       <Button variant="outline" className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50 gap-2">
+                         <BarChart3 className="w-4 h-4" /> Analyze My Rate
+                       </Button>
+                    </CardFooter>
+                 </Card>
+
               </div>
             </TabsContent>
 
