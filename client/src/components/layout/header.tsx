@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight, LogOut, Wrench, Heart, BarChart3, Gauge, Shuffle } from "lucide-react";
+import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight, LogOut, Wrench, Heart, BarChart3, Gauge, Shuffle, Flame, Wind, MapPin, Bell } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -51,18 +51,18 @@ const megaMenuData = {
     ]
   },
   outages: {
-    title: "Outages",
-    featured: {
-      title: "Outage Center",
-      description: "Report an issue, view the outage map, or check restoration status.",
-      href: "/report-outage",
-      image: "bg-amber-50"
-    },
-    items: [
-      { title: "Report Outage", href: "/report-outage", icon: Zap },
-      { title: "View Outage Map", href: "/outages/map", icon: Home },
-      { title: "Storm Safety", href: "/safety", icon: ShieldCheck },
-      { title: "Get Alerts", href: "/outages/alerts", icon: Phone },
+    title: "Outages & Gas Safety",
+    outageItems: [
+      { title: "Report an Outage", href: "/report-outage", icon: Zap, description: "Tell us about a power outage." },
+      { title: "View Outage Map", href: "/outages/map", icon: MapPin, description: "See current outages in your area." },
+      { title: "Get Alerts", href: "/outages/alerts", icon: Bell, description: "Sign up for restoration updates." },
+      { title: "Check Restoration Status", href: "/report-outage", icon: ArrowRight, description: "Track your outage status." },
+    ],
+    gasItems: [
+      { title: "Smell Gas? Act Immediately", href: "/safety#gas", icon: Flame, description: "Leave now, don't use electronics, call 911.", emergency: true },
+      { title: "Gas Safety Information", href: "/safety", icon: ShieldCheck, description: "Know the signs of a gas leak." },
+      { title: "Carbon Monoxide Safety", href: "/safety#co", icon: Wind, description: "Symptoms, prevention & what to do." },
+      { title: "Home Safety Checkup", href: "/safety", icon: Home, description: "Schedule a free safety inspection." },
     ]
   },
   payments: {
@@ -166,35 +166,67 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Outages Dropdown */}
+              {/* Outages & Gas Safety Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Outages</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Outages & Gas Safety</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    {megaMenuData.outages.items.map((item) => (
-                      <li key={item.title}>
-                        <NavigationMenuLink asChild>
-                           <a href={item.href} className="flex select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group items-center gap-3">
-                             <div className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                               <item.icon className="h-4 w-4" />
-                             </div>
-                             <div>
-                               <div className="text-sm font-medium leading-none">{item.title}</div>
-                             </div>
-                           </a>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                    <li className="col-span-2 mt-2">
-                       <div className="bg-amber-50 p-4 rounded-lg flex items-center justify-between">
-                          <div>
-                            <h4 className="font-semibold text-amber-900 text-sm">Check Outage Status</h4>
-                            <p className="text-amber-700 text-xs mt-1">See updates for your area instantly.</p>
-                          </div>
-                          <Button size="sm" variant="outline" className="border-amber-200 text-amber-900 hover:bg-amber-100">Check Now</Button>
-                       </div>
-                    </li>
-                  </ul>
+                  <div className="w-[680px]">
+                    {/* Gas leak emergency banner */}
+                    <a href="/safety#gas" className="flex items-center gap-4 px-5 py-4 bg-red-700 hover:bg-red-800 transition-colors no-underline">
+                      <div className="p-2 rounded-full bg-white/20 shrink-0">
+                        <Flame className="h-5 w-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-bold text-white">Smell Gas? Leave immediately.</div>
+                        <p className="text-xs text-red-200 mt-0.5">Don't use lights or electronics. Go outside and call <span className="font-semibold text-white">1-800-880-7734</span> or 911.</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-white/70 shrink-0" />
+                    </a>
+
+                    {/* Two-column section grid */}
+                    <div className="grid grid-cols-2 gap-0 p-4">
+                      {/* Outages column */}
+                      <div className="pr-4 border-r border-border">
+                        <p className="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Outages</p>
+                        {megaMenuData.outages.outageItems.map((item) => (
+                          <NavigationMenuLink asChild key={item.title}>
+                            <a href={item.href} className="flex items-start gap-2.5 rounded-md p-2 hover:bg-accent transition-colors group">
+                              <div className="mt-0.5 p-1.5 rounded bg-amber-100 text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors shrink-0">
+                                <item.icon className="h-3.5 w-3.5" />
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium leading-none">{item.title}</div>
+                                <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{item.description}</p>
+                              </div>
+                            </a>
+                          </NavigationMenuLink>
+                        ))}
+                      </div>
+
+                      {/* Gas Safety column */}
+                      <div className="pl-4">
+                        <p className="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Gas Safety</p>
+                        {megaMenuData.outages.gasItems.map((item) => (
+                          <NavigationMenuLink asChild key={item.title}>
+                            <a href={item.href} className="flex items-start gap-2.5 rounded-md p-2 hover:bg-accent transition-colors group">
+                              <div className={cn(
+                                "mt-0.5 p-1.5 rounded transition-colors shrink-0",
+                                item.emergency
+                                  ? "bg-red-100 text-red-700 group-hover:bg-red-600 group-hover:text-white"
+                                  : "bg-orange-100 text-orange-700 group-hover:bg-orange-600 group-hover:text-white"
+                              )}>
+                                <item.icon className="h-3.5 w-3.5" />
+                              </div>
+                              <div>
+                                <div className={cn("text-sm font-medium leading-none", item.emergency && "text-red-700")}>{item.title}</div>
+                                <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{item.description}</p>
+                              </div>
+                            </a>
+                          </NavigationMenuLink>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -230,15 +262,7 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <Link href="/safety">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-base font-medium text-white/80 hover:text-white")}>
-                    Safety
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              
-               {/* Savings Dropdown */}
+              {/* Savings Dropdown */}
                <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Savings</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -324,11 +348,16 @@ export function Header() {
                    </Link>
                 </div>
                 
-                <nav className="flex flex-col gap-2">
-                  <MobileLink href="/dashboard" setIsOpen={setIsOpen}>My Home</MobileLink>
-                  <MobileLink href="/report-outage" setIsOpen={setIsOpen}>Outages</MobileLink>
+                <nav className="flex flex-col gap-1">
+                  <MobileExpandSection title="My Home" setIsOpen={setIsOpen} subLinks={[
+                    { title: "View Bill", href: "/account/bill" },
+                    { title: "Start / Stop Service", href: "/start-stop-service" },
+                    { title: "My Coverage Plan", href: "https://worryfree.pseg.com/how-worryfree-works", external: true },
+                    { title: "Energy Efficiency Programs", href: "/energy" },
+                    { title: "Energy Choice & Third Party Supply", href: "https://nj.myaccount.pseg.com/myservicepublic/energychoiceandthirdpartysuppliers", external: true },
+                  ]} />
+                  <MobileLink href="/report-outage" setIsOpen={setIsOpen}>Outages & Gas Safety</MobileLink>
                   <MobileLink href="/pay-bill" setIsOpen={setIsOpen}>Payments</MobileLink>
-                  <MobileLink href="/safety" setIsOpen={setIsOpen}>Safety</MobileLink>
                   <MobileLink href="/energy" setIsOpen={setIsOpen}>Energy & Savings</MobileLink>
                   <MobileLink href="/business" setIsOpen={setIsOpen}>Business</MobileLink>
                   <MobileLink href="/help" setIsOpen={setIsOpen}>Help & Contact</MobileLink>
@@ -367,7 +396,7 @@ const ListItem = ({ className, title, children, href, ...props }: any) => {
 const MobileLink = ({ href, children, setIsOpen }: any) => {
   const [location] = useLocation();
   const isActive = location === href;
-  
+
   return (
     <Link href={href}>
       <a
@@ -380,5 +409,48 @@ const MobileLink = ({ href, children, setIsOpen }: any) => {
         {children}
       </a>
     </Link>
+  );
+}
+
+const MobileExpandSection = ({ title, subLinks, setIsOpen }: { title: string; subLinks: { title: string; href: string; external?: boolean }[]; setIsOpen: (v: boolean) => void }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center justify-between text-lg font-medium py-3 px-4 rounded-md transition-colors hover:bg-muted text-foreground"
+      >
+        {title}
+        <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform duration-200", expanded && "rotate-180")} />
+      </button>
+      {expanded && (
+        <div className="ml-4 mb-1 flex flex-col gap-0.5 border-l-2 border-primary/20 pl-3">
+          {subLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.title}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base py-2 px-3 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.title}
+              </a>
+            ) : (
+              <Link key={link.title} href={link.href}>
+                <a
+                  className="block text-base py-2 px-3 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.title}
+                </a>
+              </Link>
+            )
+          )}
+        </div>
+      )}
+    </div>
   );
 }
