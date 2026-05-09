@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight, LogOut } from "lucide-react";
+import { Menu, X, User, Search, ChevronDown, CreditCard, Zap, ShieldCheck, Leaf, Building2, HelpCircle, Home, FileText, AlertTriangle, Lightbulb, Phone, ArrowRight, LogOut, Wrench, Heart, BarChart3, Gauge, Shuffle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -17,12 +17,37 @@ import { cn } from "@/lib/utils";
 
 const megaMenuData = {
   account: {
-    title: "Account",
-    items: [
-      { title: "Log In / Register", href: "/account", description: "Access your dashboard." },
-      { title: "View Bill", href: "/account/bill", description: "See current balance." },
-      { title: "Update Profile", href: "/account/profile", description: "Manage contact info." },
-      { title: "Usage History", href: "/account/usage", description: "Track your consumption." },
+    title: "My Home",
+    sections: [
+      {
+        heading: "My Account",
+        items: [
+          { title: "View Bill", href: "/account/bill", description: "See current balance.", icon: FileText },
+          { title: "Usage History", href: "/account/usage", description: "Track your consumption.", icon: BarChart3 },
+          { title: "Update Profile", href: "/account/profile", description: "Manage contact info.", icon: User },
+          { title: "Start / Stop Service", href: "/start-stop-service", description: "Move, start, or stop service.", icon: Zap },
+        ]
+      },
+      {
+        heading: "Worry Free Coverage",
+        items: [
+          { title: "My Coverage Plan", href: "https://worryfree.pseg.com/how-worryfree-works", description: "Protect your home appliances & systems.", icon: Heart, external: true },
+          { title: "Schedule Service Appointment", href: "https://worryfree.pseg.com/how-worryfree-works", description: "Book a repair or maintenance visit.", icon: Wrench, external: true },
+        ]
+      },
+      {
+        heading: "Energy Efficiency",
+        items: [
+          { title: "My Energy Efficiency Programs", href: "/energy", description: "View your enrolled programs & savings.", icon: Leaf },
+        ]
+      },
+      {
+        heading: "Smart Meters & Rates",
+        items: [
+          { title: "Smart Meters & Time of Use Rates", href: "/account/smart-meter", description: "Understand your smart meter & rate options.", icon: Gauge },
+          { title: "Energy Choice & Third Party Supply", href: "https://nj.myaccount.pseg.com/myservicepublic/energychoiceandthirdpartysuppliers", description: "Compare suppliers and choose your energy.", icon: Shuffle, external: true },
+        ]
+      },
     ]
   },
   outages: {
@@ -88,33 +113,56 @@ export function Header() {
           <NavigationMenu>
             <NavigationMenuList>
               
-              {/* Account Dropdown */}
+              {/* My Home Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">Account</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-base font-medium text-white/80 hover:text-white">My Home</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <li className="row-span-3">
+                  <div className="flex w-[720px]">
+                    {/* Featured card */}
+                    <div className="w-52 shrink-0 p-3">
                       <NavigationMenuLink asChild>
                         <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/80 to-primary p-6 no-underline outline-none focus:shadow-md"
-                          href="/account"
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/80 to-primary p-5 no-underline outline-none focus:shadow-md"
+                          href="/dashboard"
                         >
-                          <User className="h-6 w-6 text-white mb-2" />
-                          <div className="mb-2 mt-2 text-lg font-medium text-white">
-                            My Account
+                          <Home className="h-6 w-6 text-white mb-2" />
+                          <div className="mb-1 mt-2 text-base font-semibold text-white">
+                            My Home
                           </div>
-                          <p className="text-sm leading-tight text-white/90">
-                            Manage your service, pay bills, and track usage all in one place.
+                          <p className="text-xs leading-tight text-white/80">
+                            Manage your service, coverage, and energy all in one place.
                           </p>
                         </a>
                       </NavigationMenuLink>
-                    </li>
-                    {megaMenuData.account.items.map((item) => (
-                      <ListItem key={item.title} href={item.href} title={item.title}>
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
+                    </div>
+
+                    {/* Sections */}
+                    <div className="flex-1 grid grid-cols-2 gap-x-2 p-4">
+                      {megaMenuData.account.sections.map((section) => (
+                        <div key={section.heading} className="mb-4">
+                          <p className="px-2 mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{section.heading}</p>
+                          {section.items.map((item) => (
+                            <NavigationMenuLink asChild key={item.title}>
+                              <a
+                                href={item.href}
+                                target={item.external ? "_blank" : undefined}
+                                rel={item.external ? "noopener noreferrer" : undefined}
+                                className="flex items-start gap-2.5 rounded-md p-2 hover:bg-accent transition-colors group"
+                              >
+                                <div className="mt-0.5 p-1.5 rounded bg-primary/8 text-primary group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
+                                  <item.icon className="h-3.5 w-3.5" />
+                                </div>
+                                <div>
+                                  <div className="text-sm font-medium leading-none">{item.title}</div>
+                                  <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{item.description}</p>
+                                </div>
+                              </a>
+                            </NavigationMenuLink>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -277,7 +325,7 @@ export function Header() {
                 </div>
                 
                 <nav className="flex flex-col gap-2">
-                  <MobileLink href="/account" setIsOpen={setIsOpen}>Account</MobileLink>
+                  <MobileLink href="/dashboard" setIsOpen={setIsOpen}>My Home</MobileLink>
                   <MobileLink href="/report-outage" setIsOpen={setIsOpen}>Outages</MobileLink>
                   <MobileLink href="/pay-bill" setIsOpen={setIsOpen}>Payments</MobileLink>
                   <MobileLink href="/safety" setIsOpen={setIsOpen}>Safety</MobileLink>
