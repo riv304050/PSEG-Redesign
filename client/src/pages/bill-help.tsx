@@ -16,14 +16,32 @@ type Step = "situation" | "arrangement" | "income" | "audit" | "results";
 
 type Situation = "past-due" | "high-monthly" | "high-usage" | "exploring";
 type Arrangement = "yes" | "no";
+type HouseholdSize = "1-2" | "3-4" | "5+";
 type IncomeTier = "benefits" | "low" | "moderate" | "higher";
 type Audit = "yes" | "no";
 
 interface Answers {
   situation: Situation | null;
   arrangement: Arrangement | null;
+  householdSize: HouseholdSize | null;
   income: IncomeTier | null;
   audit: Audit | null;
+}
+
+// Income thresholds by household size (NJ 2024 FPL-based, matching PSE&G program eligibility)
+const COMFORT_THRESHOLDS: Record<HouseholdSize, number> = { "1-2": 46000, "3-4": 70000, "5+": 84000 };
+const WEATHERIZATION_THRESHOLDS: Record<HouseholdSize, number> = { "1-2": 82000, "3-4": 125000, "5+": 150000 };
+
+function getIncomeBrackets(size: HouseholdSize) {
+  const low = COMFORT_THRESHOLDS[size];
+  const mod = WEATHERIZATION_THRESHOLDS[size];
+  const lowFmt = `$${(low / 1000).toFixed(0)}k`;
+  const modFmt = `$${(mod / 1000).toFixed(0)}k`;
+  return [
+    { tier: "low" as IncomeTier, label: `Under ${lowFmt} per year`, description: "You likely qualify for free whole-home upgrades and financial assistance programs." },
+    { tier: "moderate" as IncomeTier, label: `${lowFmt} – ${modFmt} per year`, description: "You may qualify for reduced-cost efficiency upgrades and payment tools." },
+    { tier: "higher" as IncomeTier, label: `Over ${modFmt} per year`, description: "Free energy checkup and budget billing options are available to you." },
+  ];
 }
 
 // ─── Program definitions ───────────────────────────────────────────────────────
@@ -218,12 +236,19 @@ const PROGRAMS: Record<string, Program> = {
 // ─── Result routing logic ─────────────────────────────────────────────────────
 
 function getRecommendations(answers: Answers): Program[] {
-  const { situation, arrangement, income } = answers;
+  const { situation, arrangement, income, householdSize } = answers;
   const results: Program[] = [];
   const isPastDue = situation === "past-due";
   const isHighUsage = situation === "high-usage";
-  const isLowIncome = income === "benefits" || income === "low";
-  const isModerate = income === "moderate";
+  const size = householdSize ?? "3-4";
+
+  // Derive tier from household size + income for accurate eligibility
+  // (benefits fast-track to low regardless of income dollar amount)
+  let isLowIncome = income === "benefits";
+  let isModerate = false;
+  if (income === "low") isLowIncome = true;
+  else if (income === "moderate") isModerate = true;
+  // For "higher", both remain false → standard programs only
 
   // ── High-usage path: efficiency programs only ────────────────────────────
   if (isHighUsage) {
@@ -542,6 +567,7 @@ export default function BillHelp() {
   const [answers, setAnswers] = useState<Answers>({
     situation: null,
     arrangement: null,
+    householdSize: null,
     income: null,
     audit: null,
   });
@@ -568,7 +594,7 @@ export default function BillHelp() {
   }
 
   function restart() {
-    setAnswers({ situation: null, arrangement: null, income: null, audit: null });
+    setAnswers({ situation: null, arrangement: null, householdSize: null, income: null, audit: null });
     setStep("situation");
   }
 
@@ -587,6 +613,10 @@ export default function BillHelp() {
   }
 
   // ── Step: Income ─────────────────────────────────────────────────────────
+  function handleHouseholdSize(val: HouseholdSize) {
+    setAnswers((a) => ({ ...a, householdSize: val, income: null }));
+  }
+
   function handleIncome(val: IncomeTier) {
     setAnswers((a) => ({ ...a, income: val }));
     const isLow = val === "benefits" || val === "low";
@@ -733,41 +763,73 @@ export default function BillHelp() {
                   <StepHeader
                     step={isPastDue ? 3 : 2}
                     total={isPastDue ? 4 : isHighUsage ? 2 : 3}
-                    question="Which best describes your household?"
+                    question="Tell us about your household"
                     sub={isHighUsage
                       ? "This helps us match you with the right energy efficiency program — some are free, some are reduced-cost."
                       : "This is completely confidential and helps us match you with programs you're most likely to qualify for."}
                   />
-                  <div className="space-y-3 mt-6">
-                    <OptionButton
-                      selected={answers.income === "benefits"}
-                      onClick={() => handleIncome("benefits")}
-                      icon={ShieldCheck}
-                      label="Someone in my household receives SNAP, Medicaid, SSI, or NJ FamilyCare"
-                      description="These government benefits typically qualify you for the most comprehensive assistance programs."
-                    />
-                    <OptionButton
-                      selected={answers.income === "low"}
-                      onClick={() => handleIncome("low")}
-                      icon={Wallet}
-                      label="My household earns under $55,000 per year"
-                      description="Roughly under 200% of the federal poverty level — you may qualify for multiple programs."
-                    />
-                    <OptionButton
-                      selected={answers.income === "moderate"}
-                      onClick={() => handleIncome("moderate")}
-                      icon={Home}
-                      label="My household earns $55,000–$100,000 per year"
-                      description="You may qualify for reduced-cost efficiency upgrades and payment planning tools."
-                    />
-                    <OptionButton
-                      selected={answers.income === "higher"}
-                      onClick={() => handleIncome("higher")}
-                      icon={Zap}
-                      label="My household earns over $100,000 per year"
-                      description="Several budget-management and efficiency programs are still available to you."
-                    />
+
+                  {/* Part 1: Household size */}
+                  <div className="mt-6">
+                    <p className="text-sm font-semibold text-foreground mb-3">How many people live in your home?</p>
+                    <div className="grid grid-cols-3 gap-3">
+                      {(["1-2", "3-4", "5+"] as HouseholdSize[]).map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => handleHouseholdSize(size)}
+                          className={`py-4 border-2 text-center transition-all duration-200 ${
+                            answers.householdSize === size
+                              ? "border-[hsl(var(--brand-orange))] bg-[hsl(var(--brand-orange))]/5"
+                              : "border-border/60 bg-card hover:border-[hsl(var(--brand-orange))]/40"
+                          }`}
+                        >
+                          <p className={`text-2xl font-bold ${answers.householdSize === size ? "text-[hsl(var(--brand-orange))]" : "text-foreground"}`}>
+                            {size === "5+" ? "5+" : size.replace("-", "–")}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {size === "1-2" ? "people" : size === "3-4" ? "people" : "or more"}
+                          </p>
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Part 2: Income — revealed once size is selected */}
+                  <AnimatePresence>
+                    {answers.householdSize && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{ duration: 0.2 }}
+                        className="mt-6"
+                      >
+                        <p className="text-sm font-semibold text-foreground mb-3">What's your approximate annual household income?</p>
+                        <div className="space-y-3">
+                          {/* Benefits fast-track — always shown first */}
+                          <OptionButton
+                            selected={answers.income === "benefits"}
+                            onClick={() => handleIncome("benefits")}
+                            icon={ShieldCheck}
+                            label="Someone receives SNAP, Medicaid, SSI, or NJ FamilyCare"
+                            description="Government benefits typically qualify you for the most comprehensive programs regardless of income."
+                          />
+                          {/* Dynamic brackets based on household size */}
+                          {getIncomeBrackets(answers.householdSize).map(({ tier, label, description }) => (
+                            <OptionButton
+                              key={tier}
+                              selected={answers.income === tier}
+                              onClick={() => handleIncome(tier)}
+                              icon={tier === "low" ? Wallet : tier === "moderate" ? Home : Zap}
+                              label={label}
+                              description={description}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <BackButton onClick={goBack} />
                 </motion.div>
               )}
