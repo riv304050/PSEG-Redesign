@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Leaf, Home, Zap, ArrowRight, DollarSign, Recycle,
   TrendingDown, ShoppingBag, Award, Clock, Shield, Star,
-  ChevronRight, CheckCircle2, Heart, HelpCircle,
+  ChevronRight, CheckCircle2, Heart, HelpCircle, Thermometer,
 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -13,9 +13,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
 
-type AssessmentResult = "comfort-partners" | "weatherization" | "standard" | null;
+type AssessmentResult = "comfort-partners" | "weatherization" | "whole-home" | null;
 
-// Income thresholds — approximate NJ 2024 FPL percentages
 const COMFORT_THRESHOLDS: Record<string, number> = {
   "1-2": 46000,
   "3-4": 70000,
@@ -47,14 +46,14 @@ function getAssessmentResult(size: string, income: number): AssessmentResult {
   const weatherMax = WEATHERIZATION_THRESHOLDS[size] ?? 82000;
   if (income < comfortMax) return "comfort-partners";
   if (income < weatherMax) return "weatherization";
-  return "standard";
+  return "whole-home";
 }
 
-const FREE_ASSESSMENTS = [
+const UPGRADE_PROGRAMS = [
   {
     id: "comfort-partners" as const,
     title: "Comfort Partners",
-    eyebrow: "For lower-income households",
+    eyebrow: "Lower-income households",
     description:
       "Whole-home upgrades at little to no out-of-pocket cost — insulation, heating systems, water heaters, air sealing, and more.",
     badge: "NO COST",
@@ -72,7 +71,7 @@ const FREE_ASSESSMENTS = [
   {
     id: "weatherization" as const,
     title: "Home Weatherization",
-    eyebrow: "For moderate-income households",
+    eyebrow: "Moderate-income households",
     description:
       "Insulation, air sealing, and heating improvements with significantly reduced or no out-of-pocket cost.",
     badge: "REDUCED COST",
@@ -88,40 +87,26 @@ const FREE_ASSESSMENTS = [
     includes: ["Insulation upgrades", "Air sealing", "Heating improvements", "Energy education"],
   },
   {
-    id: "standard" as const,
-    title: "Free Home Energy Checkup",
-    eyebrow: "Available to all PSE&G customers",
+    id: "whole-home" as const,
+    title: "Whole Home Upgrade",
+    eyebrow: "All income levels",
     description:
-      "One-hour visit from a PSE&G energy advisor. Walk away with a smart thermostat, LED bulbs, and a custom savings report — installed that day.",
-    badge: "FREE",
-    badgeClass: "bg-green-100 text-green-800",
-    borderClass: "border-green-200",
-    headerClass: "bg-green-700",
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
-    matchBannerClass: "bg-green-600",
-    icon: Home,
-    cta: "Schedule Now",
-    href: "/energy/home-assessment",
-    includes: ["Smart thermostat ($250 value)", "LED bulbs for your home", "Advanced power strips", "Custom savings report"],
+      "A licensed contractor goes deep — insulation, HVAC, air sealing. Upgrades go on your bill at 0% interest.",
+    badge: "0% FINANCING",
+    badgeClass: "bg-blue-100 text-blue-800",
+    borderClass: "border-blue-200",
+    headerClass: "bg-blue-700",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-700",
+    matchBannerClass: "bg-blue-600",
+    icon: Zap,
+    cta: "Find a Contractor",
+    href: "/energy/home-assessment#whole-home",
+    includes: ["Deep energy audit", "Insulation & air sealing", "HVAC upgrades", "0% bill financing up to $7,500"],
   },
 ];
 
-const otherPrograms = [
-  {
-    id: "upgrade",
-    title: "Whole Home Upgrade",
-    description: "A licensed contractor goes deep — insulation, HVAC, air sealing. Upgrades go on your bill at 0% interest.",
-    badge: "0% FINANCING",
-    badgeClass: "bg-blue-100 text-blue-800",
-    value: "Up to $7,500 financed",
-    cta: "Find a Contractor",
-    href: "/energy/home-assessment#whole-home",
-    icon: Zap,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-700",
-    external: false,
-  },
+const REBATE_PROGRAMS = [
   {
     id: "rebates",
     title: "Rebates & Incentives",
@@ -221,11 +206,11 @@ export default function EnergyHub() {
           <p className="text-white/70 text-base md:text-lg max-w-xl mb-8">
             Based on your usage, you could save up to{" "}
             <span className="text-white font-semibold">$1,240 this year</span>.
-            Start with the free assessment that matches your household.
+            Start with a free home energy assessment — open to renters and owners alike.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             {[
-              { icon: Clock, text: "3 free assessment options" },
+              { icon: Clock, text: "Free assessment for everyone" },
               { icon: DollarSign, text: "Up to $7,500 in rebates" },
               { icon: Shield, text: "0% financing on upgrades" },
               { icon: Star, text: "Avg $847/year saved" },
@@ -241,21 +226,89 @@ export default function EnergyHub() {
 
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12 max-w-6xl">
 
-        {/* ── Assessment Finder ── */}
-        <div className="mb-12">
-          <div className="mb-6">
+        {/* ── Step 1: Free Home Energy Assessment ── */}
+        <div className="mb-14">
+          <div className="mb-5">
             <div className="flex items-center gap-2 mb-1">
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold shrink-0">1</span>
-              <h2 className="text-xl font-bold text-foreground">Find Your Free Home Assessment</h2>
+              <h2 className="text-xl font-bold text-foreground">Start with a Free Home Energy Assessment</h2>
             </div>
             <p className="text-muted-foreground text-sm ml-8">
-              PSE&G offers three free programs — your income level determines which one provides the most benefits.
+              Available to all PSE&G customers — whether you rent or own. One hour, no cost, and you walk away with products installed that day.
+            </p>
+          </div>
+
+          <div className="border-2 border-green-200 bg-card overflow-hidden">
+            <div className="bg-green-700 px-5 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Home className="w-4 h-4 text-white" />
+                <span className="text-white font-bold text-xs tracking-wide uppercase">Free Home Energy Checkup</span>
+              </div>
+              <Badge className="bg-green-100 text-green-800 border-none text-xs font-bold">FREE — ALL CUSTOMERS</Badge>
+            </div>
+            <div className="p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-lg font-semibold text-foreground mb-2">One visit. Real products. Installed today.</p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  A PSE&G energy advisor comes to your home for about an hour, identifies where you're losing energy, and installs efficiency products on the spot — at no charge to you.
+                </p>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-6">
+                  {[
+                    "Smart thermostat ($250 value)",
+                    "LED bulbs throughout",
+                    "Advanced power strips",
+                    "Custom savings report",
+                    "Water-saving fixtures",
+                    "No cost, no obligation",
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-foreground">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <Link href="/energy/home-assessment">
+                  <Button className="bg-green-700 hover:bg-green-800 text-white">
+                    Schedule My Free Assessment <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                {[
+                  { icon: Home, label: "Renters welcome", sub: "No landlord permission required for the visit" },
+                  { icon: Thermometer, label: "Products installed same day", sub: "Thermostat, bulbs, and strips go in during the visit" },
+                  { icon: Clock, label: "About 1 hour", sub: "Flexible scheduling, including evenings" },
+                ].map(({ icon: Icon, label, sub }) => (
+                  <div key={label} className="flex items-start gap-3 p-4 bg-secondary/30 border border-border/40">
+                    <div className="w-9 h-9 bg-green-100 flex items-center justify-center shrink-0">
+                      <Icon className="w-4 h-4 text-green-700" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Step 2: Deeper Home Upgrades ── */}
+        <div className="mb-14">
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold shrink-0">2</span>
+              <h2 className="text-xl font-bold text-foreground">Deeper Home Upgrades</h2>
+            </div>
+            <p className="text-muted-foreground text-sm ml-8">
+              Ready to go further? Three programs offer the same comprehensive home improvements — insulation, HVAC, air sealing — scaled to your income level.
             </p>
           </div>
 
           {/* 3 Program Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {FREE_ASSESSMENTS.map((program) => {
+            {UPGRADE_PROGRAMS.map((program) => {
               const Icon = program.icon;
               const isMatch = assessmentResult === program.id;
               const isDimmed = assessmentResult !== null && !isMatch;
@@ -315,8 +368,8 @@ export default function EnergyHub() {
               >
                 <HelpCircle className="w-5 h-5 text-muted-foreground shrink-0" />
                 <p className="text-sm text-muted-foreground flex-1">
-                  <span className="font-semibold text-foreground">Not sure which program applies to you?</span>{" "}
-                  Answer 2 quick questions to find out — takes about 10 seconds.
+                  <span className="font-semibold text-foreground">Not sure which upgrade program fits your household?</span>{" "}
+                  Answer 2 quick questions — takes about 10 seconds.
                 </p>
                 <Button
                   size="sm"
@@ -339,7 +392,7 @@ export default function EnergyHub() {
               >
                 <h3 className="text-base font-bold text-foreground mb-1">Two quick questions</h3>
                 <p className="text-sm text-muted-foreground mb-5">
-                  This helps us highlight the right program for your household.
+                  This helps us highlight the right upgrade program for your household.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6 mb-5">
                   <div>
@@ -408,7 +461,7 @@ export default function EnergyHub() {
                 exit={{ opacity: 0, y: -6 }}
               >
                 {(() => {
-                  const matched = FREE_ASSESSMENTS.find((p) => p.id === assessmentResult)!;
+                  const matched = UPGRADE_PROGRAMS.find((p) => p.id === assessmentResult)!;
                   const Icon = matched.icon;
                   return (
                     <div className={`flex flex-col sm:flex-row sm:items-center gap-4 p-4 border ${matched.borderClass} bg-card`}>
@@ -424,8 +477,8 @@ export default function EnergyHub() {
                             "You may qualify for whole-home upgrades at little to no cost. Eligibility is confirmed when you apply."}
                           {assessmentResult === "weatherization" &&
                             "You may qualify for insulation and heating upgrades at significantly reduced cost. Eligibility is confirmed when you apply."}
-                          {assessmentResult === "standard" &&
-                            "The free checkup is available to all PSE&G customers — smart thermostat, LED bulbs, and a savings report, all at no cost."}
+                          {assessmentResult === "whole-home" &&
+                            "Deep home upgrades financed at 0% interest — spread the cost on your monthly bill with no upfront payment required."}
                         </p>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
@@ -449,14 +502,14 @@ export default function EnergyHub() {
           </AnimatePresence>
         </div>
 
-        {/* ── More Ways to Save ── */}
+        {/* ── Step 3: Rebates & Appliance Programs ── */}
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-5">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold shrink-0">2</span>
-            <h2 className="text-xl font-bold text-foreground">More Ways to Save</h2>
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold shrink-0">3</span>
+            <h2 className="text-xl font-bold text-foreground">Rebates & Appliance Programs</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {otherPrograms.map((program, i) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {REBATE_PROGRAMS.map((program, i) => {
               const Icon = program.icon;
               const card = (
                 <Card className="h-full border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer overflow-hidden">
@@ -526,7 +579,7 @@ export default function EnergyHub() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
             <div>
               <h3 className="text-xl font-bold text-white mb-1">Not sure where to start?</h3>
-              <p className="text-white/60 text-sm">The free checkup is available to all customers — one hour, no cost, and you walk away with real products installed.</p>
+              <p className="text-white/60 text-sm">The free checkup is open to all customers — renters and owners, one hour, no cost, and you walk away with real products installed.</p>
             </div>
             <Link href="/energy/home-assessment">
               <Button size="lg" className="bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white shrink-0 shadow-lg">
