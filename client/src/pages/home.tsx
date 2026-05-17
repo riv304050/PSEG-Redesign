@@ -4,7 +4,7 @@ import { IntelligentSearch } from "@/components/home/intelligent-search";
 import { ActionTiles } from "@/components/home/action-tiles";
 import { AlertBanner } from "@/components/home/alert-banner";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf, ShieldCheck, Wallet, AlertTriangle, DollarSign, TrendingDown, Lightbulb, Users, Building2, Search, HandCoins, Zap, BarChart3, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Leaf, ShieldCheck, Wallet, AlertTriangle, DollarSign, TrendingDown, Lightbulb, Users, Building2, Search, HandCoins, Zap, BarChart3, CheckCircle2, Heart, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 
@@ -17,6 +17,44 @@ export default function Home() {
       <main className="flex-1">
         <IntelligentSearch />
         <ActionTiles />
+
+        {/* Bill Help Center CTA */}
+        <section className="px-4 py-10 bg-[hsl(var(--brand-orange))]/5 border-y border-[hsl(var(--brand-orange))]/15">
+          <div className="container mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col md:flex-row items-center justify-between gap-6"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-14 h-14 bg-[hsl(var(--brand-orange))] flex items-center justify-center shrink-0">
+                  <Heart className="w-7 h-7 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[hsl(var(--brand-orange))] uppercase tracking-wider mb-1">Bill Help Center</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight">
+                    "My bill is too high. I don't know what to do."
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1 max-w-xl">
+                    We hear this every day — and we have more answers than most people expect. Payment arrangements, income assistance, free home upgrades, and more. Let's find what fits your situation.
+                  </p>
+                </div>
+              </div>
+              <Link href="/bill-help">
+                <a className="shrink-0">
+                  <Button
+                    size="lg"
+                    className="gap-2 bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white whitespace-nowrap shadow-lg"
+                    data-testid="button-bill-help-center"
+                  >
+                    Get Help Now <ChevronRight className="w-5 h-5" />
+                  </Button>
+                </a>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
 
         <section className="py-16 px-4 bg-background">
           <div className="container mx-auto">
