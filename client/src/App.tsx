@@ -38,6 +38,7 @@ import BusinessPrescriptive from "@/pages/business-prescriptive";
 import BusinessEngineeredSolutions from "@/pages/business-engineered-solutions";
 import BusinessMultifamily from "@/pages/business-multifamily";
 import BusinessEnergyManagement from "@/pages/business-energy-management";
+import BillHelp from "@/pages/bill-help";
 
 function Router() {
   return (
@@ -56,6 +57,7 @@ function Router() {
       <Route path="/business" component={Business} />
       <Route path="/start-stop-service" component={StartStopService} />
       <Route path="/bill-assistance" component={BillAssistance} />
+      <Route path="/bill-help" component={BillHelp} />
       <Route path="/support-center" component={SupportCenter} />
       <Route path="/outages" component={ReportOutage} />
       <Route path="/payments" component={PayBill} />
