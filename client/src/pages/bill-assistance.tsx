@@ -68,8 +68,8 @@ export default function BillAssistance() {
 
           <Card className="h-full flex flex-col border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-testid="card-page-program">
             <CardHeader>
-              <div className="w-12 h-12 bg-green-100 flex items-center justify-center mb-4 group-hover:bg-green-600 transition-colors">
-                <Users className="w-6 h-6 text-green-700 group-hover:text-white transition-colors" />
+              <div className="w-12 h-12 bg-[hsl(var(--brand-orange))]/10 flex items-center justify-center mb-4 group-hover:bg-[hsl(var(--brand-orange))] transition-colors">
+                <Users className="w-6 h-6 text-[hsl(var(--brand-orange))] group-hover:text-white transition-colors" />
               </div>
               <CardTitle>PAGE Program</CardTitle>
               <CardDescription>Temporary assistance.</CardDescription>

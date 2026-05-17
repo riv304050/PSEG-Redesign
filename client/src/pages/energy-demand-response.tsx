@@ -31,8 +31,8 @@ const DEVICES: Device[] = [
     name: "Smart Thermostat",
     description: "Received at your free energy checkup",
     icon: Thermometer,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-[hsl(var(--brand-orange))]/10",
+    iconColor: "text-[hsl(var(--brand-orange))]",
     connected: true,
   },
   {
@@ -68,8 +68,8 @@ const HOW_IT_WORKS = [
     title: "You earn credits",
     description: "After each event, credits are automatically applied to your PSE&G bill. No action needed.",
     icon: DollarSign,
-    color: "bg-green-100",
-    iconColor: "text-green-700",
+    color: "bg-[hsl(var(--brand-orange))]/10",
+    iconColor: "text-[hsl(var(--brand-orange))]",
   },
 ];
 
@@ -330,8 +330,8 @@ export default function EnergyDemandResponse() {
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-sm font-bold text-green-700">{event.credit}</span>
-                          <Badge className="bg-green-100 text-green-800 border-none text-xs capitalize">
+                          <span className="text-sm font-bold text-[hsl(var(--brand-orange))]">{event.credit}</span>
+                          <Badge className="bg-[hsl(var(--brand-orange))]/10 text-[hsl(var(--brand-orange))] border-none text-xs capitalize">
                             {event.status}
                           </Badge>
                         </div>

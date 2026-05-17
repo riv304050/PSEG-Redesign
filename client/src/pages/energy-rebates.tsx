@@ -75,8 +75,8 @@ const HVAC_PRODUCTS: RebateProduct[] = [
     description: "Wi-Fi connected, ENERGY STAR® certified smart thermostat.",
     requirements: "ENERGY STAR® certified · Must be compatible with existing HVAC",
     icon: Thermometer,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-[hsl(var(--brand-orange))]/10",
+    iconColor: "text-[hsl(var(--brand-orange))]",
   },
   {
     id: "heat-pump-water-heater",
@@ -159,8 +159,8 @@ const EV_PRODUCTS: RebateProduct[] = [
     description: "240V Level 2 home charger — charges your EV up to 5x faster than a standard outlet.",
     requirements: "ENERGY STAR® certified · Must be installed by licensed electrician",
     icon: PlugZap,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-700",
+    iconBg: "bg-[hsl(var(--brand-orange))]/10",
+    iconColor: "text-[hsl(var(--brand-orange))]",
     popular: true,
   },
   {
@@ -191,7 +191,7 @@ const MOCK_SUBMITTED: SubmittedRebate[] = [
 const STATUS_STYLES: Record<SubmittedRebate["status"], string> = {
   pending: "bg-yellow-100 text-yellow-800",
   approved: "bg-blue-100 text-blue-800",
-  paid: "bg-green-100 text-green-800",
+  paid: "bg-[hsl(var(--brand-orange))]/10 text-[hsl(var(--brand-orange))]",
 };
 
 export default function EnergyRebates() {

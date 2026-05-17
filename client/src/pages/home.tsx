@@ -85,15 +85,15 @@ export default function Home() {
                 className="bg-card border border-border/50 p-8 group hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 data-testid="card-efficiency-programs"
               >
-                <div className="w-14 h-14 bg-green-100 flex items-center justify-center mb-5 group-hover:bg-green-600 transition-colors duration-300">
-                  <Lightbulb className="w-7 h-7 text-green-700 group-hover:text-white transition-colors duration-300" />
+                <div className="w-14 h-14 bg-[hsl(var(--brand-orange))]/10 flex items-center justify-center mb-5 group-hover:bg-[hsl(var(--brand-orange))] transition-colors duration-300">
+                  <Lightbulb className="w-7 h-7 text-[hsl(var(--brand-orange))] group-hover:text-white transition-colors duration-300" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Cut Your Usage, Cut Your Bill</h3>
                 <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   Get up to $7,500 in rebates, free home energy assessments, and smart meter insights to help you use less and save more.
                 </p>
                 <Link href="/savings">
-                  <a className="inline-flex items-center gap-2 text-green-700 font-semibold text-sm hover:gap-3 transition-all" data-testid="link-efficiency-programs">
+                  <a className="inline-flex items-center gap-2 text-[hsl(var(--brand-orange))] font-semibold text-sm hover:gap-3 transition-all" data-testid="link-efficiency-programs">
                     View Programs <ArrowRight className="w-4 h-4" />
                   </a>
                 </Link>
@@ -190,8 +190,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4 p-4 bg-card border border-border/50 hover:border-[hsl(var(--brand-orange))]/30 transition-colors group cursor-pointer" data-testid="card-program-comfort">
-                    <div className="w-10 h-10 bg-green-100 flex items-center justify-center shrink-0 group-hover:bg-green-600 transition-colors">
-                      <Leaf className="w-5 h-5 text-green-700 group-hover:text-white transition-colors" />
+                    <div className="w-10 h-10 bg-[hsl(var(--brand-orange))]/10 flex items-center justify-center shrink-0 group-hover:bg-[hsl(var(--brand-orange))] transition-colors">
+                      <Leaf className="w-5 h-5 text-[hsl(var(--brand-orange))] group-hover:text-white transition-colors" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground text-sm">Comfort Partners</h4>

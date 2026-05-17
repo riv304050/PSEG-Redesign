@@ -193,7 +193,7 @@ export default function BusinessEnergyManagement() {
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12 max-w-6xl">
 
         {/* Featured VCx CTA */}
-        <div className="mb-10 bg-gradient-to-r from-green-600 to-emerald-700 p-6 md:p-8 relative overflow-hidden">
+        <div className="mb-10 bg-gradient-to-r from-[hsl(var(--brand-orange))] to-[hsl(var(--brand-orange))]/80 p-6 md:p-8 relative overflow-hidden">
           <div className="absolute right-0 top-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="flex flex-col md:flex-row md:items-center gap-5 relative z-10">
             <div className="flex-1">

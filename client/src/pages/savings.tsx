@@ -13,7 +13,7 @@ export default function Savings() {
       <div className="bg-primary relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--brand-orange))]/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-4 py-14 relative z-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/20 text-green-400 text-sm font-semibold mb-4" data-testid="badge-savings">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(var(--brand-orange))]/20 text-[hsl(var(--brand-orange))] text-sm font-semibold mb-4" data-testid="badge-savings">
             <Leaf className="w-3.5 h-3.5" />
             Save Money & Energy
           </span>
@@ -27,8 +27,8 @@ export default function Savings() {
       <main className="flex-1 container mx-auto py-12 px-4">
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           <div className="bg-card border border-border/50 p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-testid="card-home-assessment">
-            <div className="w-14 h-14 bg-green-100 flex items-center justify-center mb-5 group-hover:bg-green-600 transition-colors">
-              <Home className="w-7 h-7 text-green-700 group-hover:text-white transition-colors" />
+            <div className="w-14 h-14 bg-[hsl(var(--brand-orange))]/10 flex items-center justify-center mb-5 group-hover:bg-[hsl(var(--brand-orange))] transition-colors">
+              <Home className="w-7 h-7 text-[hsl(var(--brand-orange))] group-hover:text-white transition-colors" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-3">Home Energy Assessment</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
@@ -36,13 +36,13 @@ export default function Savings() {
             </p>
             <ul className="space-y-2 mb-6">
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" /> Free for all PSE&G customers
+                <CheckCircle2 className="w-4 h-4 text-[hsl(var(--brand-orange))] shrink-0" /> Free for all PSE&G customers
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" /> LED bulbs and smart power strips included
+                <CheckCircle2 className="w-4 h-4 text-[hsl(var(--brand-orange))] shrink-0" /> LED bulbs and smart power strips included
               </li>
             </ul>
-            <Button className="bg-green-700 hover:bg-green-800 gap-2" data-testid="button-schedule-assessment">
+            <Button className="bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white gap-2" data-testid="button-schedule-assessment">
               Schedule Assessment <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
