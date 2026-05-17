@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 type Step = "situation" | "arrangement" | "income" | "audit" | "results";
 
-type Situation = "past-due" | "high-monthly" | "exploring";
+type Situation = "past-due" | "high-monthly" | "high-usage" | "exploring";
 type Arrangement = "yes" | "no";
 type IncomeTier = "benefits" | "low" | "moderate" | "higher";
 type Audit = "yes" | "no";
@@ -218,11 +218,27 @@ const PROGRAMS: Record<string, Program> = {
 // ─── Result routing logic ─────────────────────────────────────────────────────
 
 function getRecommendations(answers: Answers): Program[] {
-  const { situation, arrangement, income, audit } = answers;
+  const { situation, arrangement, income } = answers;
   const results: Program[] = [];
   const isPastDue = situation === "past-due";
+  const isHighUsage = situation === "high-usage";
   const isLowIncome = income === "benefits" || income === "low";
   const isModerate = income === "moderate";
+
+  // ── High-usage path: efficiency programs only ────────────────────────────
+  if (isHighUsage) {
+    if (isLowIncome) {
+      results.push(PROGRAMS.comfortPartners);
+    } else if (isModerate) {
+      results.push(PROGRAMS.weatherization);
+      results.push(PROGRAMS.freeCheckup);
+    } else {
+      results.push(PROGRAMS.freeCheckup);
+      results.push(PROGRAMS.weatherization);
+    }
+    const seen = new Set<string>();
+    return results.filter((p) => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+  }
 
   // ── Payment options ──────────────────────────────────────────────────────
   if (isPastDue) {
@@ -236,17 +252,15 @@ function getRecommendations(answers: Answers): Program[] {
 
   // ── Financial assistance by income ───────────────────────────────────────
   if (isLowIncome) {
-    results.push(PROGRAMS.usf);      // monthly discount + Fresh Start debt forgiveness
-    results.push(PROGRAMS.liheap);   // federal heating/cooling grant
-    if (isPastDue) {
-      results.push(PROGRAMS.shares); // PAGE/SHARES require a past-due balance
-    }
-    results.push(PROGRAMS.lifeline); // $225 annual credit for seniors/disabled (shown to all low-income; user can self-qualify)
+    results.push(PROGRAMS.usf);
+    results.push(PROGRAMS.liheap);
+    if (isPastDue) results.push(PROGRAMS.shares);
+    results.push(PROGRAMS.lifeline);
   }
 
   // ── Efficiency programs by income ────────────────────────────────────────
   if (isLowIncome) {
-    results.push(PROGRAMS.comfortPartners); // free whole-home upgrades
+    results.push(PROGRAMS.comfortPartners);
   } else if (isModerate) {
     results.push(PROGRAMS.weatherization);
     results.push(PROGRAMS.freeCheckup);
@@ -532,21 +546,24 @@ export default function BillHelp() {
     audit: null,
   });
 
-  const totalSteps = answers.situation === "past-due" ? 4 : 3;
+  const isPastDue = answers.situation === "past-due";
+  const isHighUsage = answers.situation === "high-usage";
+  const totalSteps = isPastDue ? 4 : isHighUsage ? 2 : 3;
   const currentStepNum =
     step === "situation" ? 1
     : step === "arrangement" ? 2
-    : step === "income" ? (answers.situation === "past-due" ? 3 : 2)
-    : step === "audit" ? (answers.situation === "past-due" ? 4 : 3)
+    : step === "income" ? (isPastDue ? 3 : 2)
+    : step === "audit" ? (isPastDue ? 4 : 3)
     : totalSteps;
 
   function goBack() {
     if (step === "results") {
+      if (isHighUsage) { setStep("income"); return; }
       setStep(answers.income === "benefits" || answers.income === "low" ? "audit" : "income");
       return;
     }
     if (step === "audit") { setStep("income"); return; }
-    if (step === "income") { setStep(answers.situation === "past-due" ? "arrangement" : "situation"); return; }
+    if (step === "income") { setStep(isPastDue ? "arrangement" : "situation"); return; }
     if (step === "arrangement") { setStep("situation"); return; }
   }
 
@@ -560,6 +577,7 @@ export default function BillHelp() {
     setAnswers((a) => ({ ...a, situation: val }));
     if (val === "past-due") setStep("arrangement");
     else setStep("income");
+    // high-usage also goes to income — results will filter to EE programs only
   }
 
   // ── Step: Arrangement ────────────────────────────────────────────────────
@@ -572,6 +590,8 @@ export default function BillHelp() {
   function handleIncome(val: IncomeTier) {
     setAnswers((a) => ({ ...a, income: val }));
     const isLow = val === "benefits" || val === "low";
+    // high-usage skips the audit question — go straight to EE results
+    if (isHighUsage) { setStep("results"); return; }
     if (isLow) setStep("audit");
     else setStep("results");
   }
@@ -649,6 +669,13 @@ export default function BillHelp() {
                       description="You're paying on time but the amount feels unmanageable — you want to lower what you owe each month."
                     />
                     <OptionButton
+                      selected={answers.situation === "high-usage"}
+                      onClick={() => handleSituation("high-usage")}
+                      icon={Zap}
+                      label="My usage is higher than ever — I need to take control"
+                      description="Your consumption has gone up and you want to understand how to use less energy and permanently lower your bill."
+                    />
+                    <OptionButton
                       selected={answers.situation === "exploring"}
                       onClick={() => handleSituation("exploring")}
                       icon={Users}
@@ -704,10 +731,12 @@ export default function BillHelp() {
                   transition={{ duration: 0.25 }}
                 >
                   <StepHeader
-                    step={answers.situation === "past-due" ? 3 : 2}
-                    total={answers.situation === "past-due" ? 4 : 3}
+                    step={isPastDue ? 3 : 2}
+                    total={isPastDue ? 4 : isHighUsage ? 2 : 3}
                     question="Which best describes your household?"
-                    sub="This is completely confidential and helps us match you with programs you're most likely to qualify for."
+                    sub={isHighUsage
+                      ? "This helps us match you with the right energy efficiency program — some are free, some are reduced-cost."
+                      : "This is completely confidential and helps us match you with programs you're most likely to qualify for."}
                   />
                   <div className="space-y-3 mt-6">
                     <OptionButton
@@ -785,14 +814,20 @@ export default function BillHelp() {
                   transition={{ duration: 0.3 }}
                 >
                   {/* Result header */}
-                  <div className="bg-green-50 border border-green-200 p-5 mb-8 flex items-start gap-4">
-                    <div className="w-10 h-10 bg-green-600 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-5 h-5 text-white" />
+                  <div className={`p-5 mb-8 flex items-start gap-4 ${isHighUsage ? "bg-emerald-50 border border-emerald-200" : "bg-green-50 border border-green-200"}`}>
+                    <div className={`w-10 h-10 flex items-center justify-center shrink-0 ${isHighUsage ? "bg-emerald-600" : "bg-green-600"}`}>
+                      {isHighUsage ? <Zap className="w-5 h-5 text-white" /> : <CheckCircle2 className="w-5 h-5 text-white" />}
                     </div>
                     <div>
-                      <p className="font-bold text-green-900 text-sm">We found {recommendations.length} program{recommendations.length !== 1 ? "s" : ""} that may apply to you.</p>
-                      <p className="text-green-800 text-xs mt-1 leading-relaxed">
-                        These are personalized to your answers. Review each one — applying for multiple programs is encouraged and common.
+                      <p className={`font-bold text-sm ${isHighUsage ? "text-emerald-900" : "text-green-900"}`}>
+                        {isHighUsage
+                          ? `Here are ${recommendations.length} program${recommendations.length !== 1 ? "s" : ""} that can help you use less energy and lower your bill for good.`
+                          : `We found ${recommendations.length} program${recommendations.length !== 1 ? "s" : ""} that may apply to you.`}
+                      </p>
+                      <p className={`text-xs mt-1 leading-relaxed ${isHighUsage ? "text-emerald-800" : "text-green-800"}`}>
+                        {isHighUsage
+                          ? "These upgrades reduce the energy your home consumes — the most lasting way to lower your bill."
+                          : "These are personalized to your answers. Review each one — applying for multiple programs is encouraged and common."}
                       </p>
                     </div>
                   </div>
